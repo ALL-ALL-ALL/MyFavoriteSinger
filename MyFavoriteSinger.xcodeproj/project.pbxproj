@@ -12,6 +12,7 @@
 		3B9D8B342C3A2EF90035BAE9 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9D8B332C3A2EF90035BAE9 /* Item.swift */; };
 		3B9D8B362C3A2EFA0035BAE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B9D8B352C3A2EFA0035BAE9 /* Assets.xcassets */; };
 		3B9D8B392C3A2EFA0035BAE9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B9D8B382C3A2EFA0035BAE9 /* Preview Assets.xcassets */; };
+		3B9D8B402C3A31F50035BAE9 /* FormulaireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9D8B3F2C3A31F50035BAE9 /* FormulaireView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		3B9D8B332C3A2EF90035BAE9 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		3B9D8B352C3A2EFA0035BAE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B9D8B382C3A2EFA0035BAE9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3B9D8B3F2C3A31F50035BAE9 /* FormulaireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaireView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				3B9D8B2F2C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift */,
 				3B9D8B312C3A2EF90035BAE9 /* ContentView.swift */,
+				3B9D8B3F2C3A31F50035BAE9 /* FormulaireView.swift */,
 				3B9D8B332C3A2EF90035BAE9 /* Item.swift */,
 				3B9D8B352C3A2EFA0035BAE9 /* Assets.xcassets */,
 				3B9D8B372C3A2EFA0035BAE9 /* Preview Content */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B9D8B402C3A31F50035BAE9 /* FormulaireView.swift in Sources */,
 				3B9D8B322C3A2EF90035BAE9 /* ContentView.swift in Sources */,
 				3B9D8B342C3A2EF90035BAE9 /* Item.swift in Sources */,
 				3B9D8B302C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift in Sources */,
