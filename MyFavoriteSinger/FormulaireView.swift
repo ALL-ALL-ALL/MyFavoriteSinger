@@ -6,19 +6,25 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct FormulaireView: View {
-    @State private var NameArtist = ""
-    @State private var NameSong = ""
+    @State  var NameArtist : String
+    @State  var NameSong :String
     
     @Environment(\.modelContext) private var modelContext // pour que la sauvgarde fonctionne
+    @Environment(\.dismiss) private var dismiss // pour fermer la modal
+
 
     
     // obliger de mettre la fonction pour sauvegarder 
     private func addItem() {
         withAnimation {
-            let newItem = Item(NameArtist: "", NameSong: "")
+            let newItem = Item(NameArtist: NameArtist, NameSong: NameSong)
             modelContext.insert(newItem)
+            try? modelContext.save() // Sauvegarder les modifications
+            dismiss() // Fermer la modal
+
         }
     }
 
@@ -61,5 +67,5 @@ struct FormulaireView: View {
     } // fin body
 } // fin struct
 #Preview {
-    FormulaireView()
+    FormulaireView(NameArtist: "DISIZ", NameSong: "la bête")
 }

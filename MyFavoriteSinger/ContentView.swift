@@ -10,6 +10,7 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    
     @Query private var items: [Item]
     
     
@@ -40,61 +41,86 @@ struct ContentView: View {
     
 
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                    } label: {
-                        Image(systemName: "mic")
-                        Text("Item at \(item.NameArtist)")
-//                        Text("Item at \(item.NameSong)")
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+        NavigationView {
+            
+            ZStack {
                 
-                
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-                
-                ToolbarItem {
-                    Button("Afficher Modal") {
-                                   isShowingModal.toggle()
-                               }
-                               .sheet(isPresented: $isShowingModal) {
-                                   FormulaireView()
-                               }
-                           }
-                
+//                Color.black.ignoresSafeArea()
 
+                VStack {
+                    
+                            if items.isEmpty {
+                                VStack {
+                                    Image(systemName: "mic")
+                                        .foregroundColor(.yellow)
+                                        .font(.system(size: 150))
+                                        .padding(.top,-140)
+                                } // fin vstack
+                                
+
+                                VStack{
+                                    Text("Aucun artiste dans votre liste")
+//                                        .foregroundStyle(.white)
+                                        .font(.title2)
+                                        .bold()
+                                        .italic()
+                                } // fin vstack
+                                
+                            } else {
+                                List {
+                                    ForEach(items) { item in
+                                        NavigationLink(destination: detaillsView(NameArtist: item.NameArtist, NameSong: item.NameSong)) {
+                                            
+                                            Image(systemName: "mic")
+                                                .font(.system(size: 40))
+
+                                            VStack(alignment: .leading) {
+                                                Text(item.NameArtist)
+                                                    .font(.system(size: 20))
+                                            }
+                                        }
+                                    }
+                                    .onDelete(perform: deleteItems)
+                                } // fin de list
+                            } // fin de sinon
+                        } // fin vstack (si sinon)
                 
                 
+                        .navigationTitle("Mes Artistes")
+                        
                 
+                        
+                        
+                        .toolbar {
+                            ToolbarItemGroup(placement: .navigationBarTrailing) {
+                                Button(action: {
+                                    isShowingModal.toggle()
+                                }) {
+                                    Image(systemName: "plus.circle")
+                                        .foregroundColor(.yellow)
+                                        .font(.system(size: 30))
+                                }
+                                .sheet(isPresented: $isShowingModal) {
+                                    FormulaireView(NameArtist: "", NameSong: "")
+                                        .environment(\.modelContext, modelContext)
+                                } // fin sheet
+                            } // fin toolbargroupe
+                            
+                    } // fin toolbar
                 
-            }
-        } detail: {
-            Text("Select an item")
-        }
+            } // fin zstack
+            
+
+                } // fin navigatiionview
+        
+        
+
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-    } // fin body
-} // fin struct
+            } // fin body
+        } // fin struct
+
 
 #Preview {
     ContentView()

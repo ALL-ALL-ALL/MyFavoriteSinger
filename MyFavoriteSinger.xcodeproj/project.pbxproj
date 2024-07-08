@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B6C96892C3B5512004A11EF /* detaillsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C96882C3B5512004A11EF /* detaillsView.swift */; };
 		3B9D8B302C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9D8B2F2C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift */; };
 		3B9D8B322C3A2EF90035BAE9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9D8B312C3A2EF90035BAE9 /* ContentView.swift */; };
 		3B9D8B342C3A2EF90035BAE9 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9D8B332C3A2EF90035BAE9 /* Item.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B6C96882C3B5512004A11EF /* detaillsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detaillsView.swift; sourceTree = "<group>"; };
 		3B9D8B2C2C3A2EF90035BAE9 /* MyFavoriteSinger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFavoriteSinger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B9D8B2F2C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavoriteSingerApp.swift; sourceTree = "<group>"; };
 		3B9D8B312C3A2EF90035BAE9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			children = (
 				3B9D8B2F2C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift */,
 				3B9D8B312C3A2EF90035BAE9 /* ContentView.swift */,
+				3B6C96882C3B5512004A11EF /* detaillsView.swift */,
 				3B9D8B3F2C3A31F50035BAE9 /* FormulaireView.swift */,
 				3B9D8B332C3A2EF90035BAE9 /* Item.swift */,
 				3B9D8B352C3A2EFA0035BAE9 /* Assets.xcassets */,
@@ -147,6 +150,7 @@
 				3B9D8B322C3A2EF90035BAE9 /* ContentView.swift in Sources */,
 				3B9D8B342C3A2EF90035BAE9 /* Item.swift in Sources */,
 				3B9D8B302C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift in Sources */,
+				3B6C96892C3B5512004A11EF /* detaillsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
