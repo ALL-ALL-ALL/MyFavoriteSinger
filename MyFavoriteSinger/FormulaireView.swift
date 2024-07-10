@@ -12,24 +12,29 @@ struct FormulaireView: View {
     @State  var NameArtist : String
     @State  var NameSong :String
     
-    var itemToEdit: Item? // optionelle 
+    var itemToEdit: Item? // Cette variable va contenir l'item à éditer
     
     @Environment(\.modelContext) private var modelContext // pour que la sauvgarde fonctionne
     @Environment(\.dismiss) private var dismiss // pour fermer la modal
     
     
     
-    // pour modifier item deja existant
     private func saveItem() {
-           withAnimation {
-               if let item = itemToEdit {
-                   item.NameArtist = NameArtist
-                   item.NameSong = NameSong
-               }
-               try? modelContext.save()
-               dismiss()
-           }
-       }
+            withAnimation {
+                if let item = itemToEdit {
+                    item.NameArtist = NameArtist
+                    item.NameSong = NameSong
+                } else {
+                    // Gérer la création d'un nouvel item si nécessaire
+                }
+                do {
+                    try modelContext.save()
+                } catch {
+                    print("Error saving item: \(error.localizedDescription)")
+                }
+                dismiss()
+            }
+        }
 
     
    
@@ -61,6 +66,10 @@ struct FormulaireView: View {
                        Button(action: addItem, label: {
                            Text("sauvegarder")
                        })
+                       
+                       Button(action: saveItem, label: {
+                           Text("ajouter")
+                       })
 
                       
                        } // fin section
@@ -72,6 +81,12 @@ struct FormulaireView: View {
             
             
         } // fin navigationview
+        .onAppear {
+                        if let item = itemToEdit {
+                            NameArtist = item.NameArtist
+                            NameSong = item.NameSong
+                        }
+                    }
         
         
         

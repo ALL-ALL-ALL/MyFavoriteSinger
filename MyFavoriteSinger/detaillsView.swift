@@ -11,7 +11,7 @@ import SwiftData
 struct detaillsView: View {
     var NameArtist: String
     var NameSong: String
-    
+
     var item: Item 
     
     
@@ -77,6 +77,9 @@ struct detaillsView: View {
                 }
                 .sheet(isPresented: $isShowingModal) {
                     FormulaireView(NameArtist: item.NameArtist, NameSong: item.NameSong, itemToEdit: item)
+
+
+
                 }
 
                 
