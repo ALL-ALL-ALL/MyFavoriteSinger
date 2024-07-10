@@ -32,7 +32,7 @@ struct ContentView: View {
     }
     
     
-    @State private var isShowingModal = false // modal formulaire ()e
+    @State private var isShowingModal = false // modal formulaire ()
 
 
     var body: some View {
@@ -47,7 +47,7 @@ struct ContentView: View {
                             if items.isEmpty {
                                 VStack {
                                     Image(systemName: "mic")
-                                        .foregroundColor(.yellow)
+                                        .foregroundColor(.red)
                                         .font(.system(size: 150))
                                         .padding(.top,-140)
                                 } // fin vstack
@@ -67,6 +67,7 @@ struct ContentView: View {
                                         NavigationLink(destination: detaillsView(NameArtist: item.NameArtist, NameSong: item.NameSong, item: item)) {
                                             
                                             Image(systemName: "mic")
+                                                .foregroundColor(.red)
                                                 .font(.system(size: 40))
 
                                             VStack(alignment: .leading) {

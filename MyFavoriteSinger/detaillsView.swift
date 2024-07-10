@@ -17,8 +17,18 @@ struct detaillsView: View {
     
     @State private var isShowingModal = false // modal
 
+    @State private var showingAlter = false // message alerte (suprimer annuler)
     
+    @Environment(\.modelContext) private var modelContext
+
+    @Query private var items: [Item]
+
     
+    private func deleteItem() {
+           withAnimation {
+               modelContext.delete(item)
+           }
+       }
 
     
     
@@ -34,6 +44,7 @@ struct detaillsView: View {
 
 
                 Text("votre chanson préféré est: ")
+                    .foregroundStyle(.red)
                     .font(.title2)
                     .bold()
                 
@@ -46,26 +57,39 @@ struct detaillsView: View {
                         .italic()
                         .font(.system(size: 50))
 
-
-
-                    
                 } // fin hstack
             } // vstack
-            
-            
-            
-            
         } // Fin navigationstack
 
         .toolbar {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button(action: {
-                    // action a mettre
+                    showingAlter = true
                 }) {
+                    
                     Image(systemName: "minus.circle.fill")
                         .foregroundColor(.yellow)
                         .font(.system(size: 30))
-                }
+                    
+                } // fin button -
+                
+                .alert("important message", isPresented: $showingAlter) {
+                  
+                    Button("Supprimer", role: .destructive) {
+                        
+                       deleteItem()
+                    }
+                    
+                    Button("Annuler", role: .cancel) { }
+
+                }message: {
+                    Text("êtes-vous sur de vouloir suprimer \(item.NameArtist) ? cette action est irreversible.")
+                } // fin de message
+                
+                
+                
+                
+                
                 
                 
                 Button(action: {
@@ -77,23 +101,12 @@ struct detaillsView: View {
                 }
                 .sheet(isPresented: $isShowingModal) {
                     FormulaireView(NameArtist: item.NameArtist, NameSong: item.NameSong, itemToEdit: item)
-
-
-
-                }
-
-                
-                
-                
-               
-                } // fin toolbargroup
-            } // fin toolbargroupe
+                    
+                } // fin de sheet
+            } // fin toolbargroup
+        } // fin toolbargroupe
         
             
-        
-        
-        
-        
     } // fin body
 }  // fin struct
 
