@@ -64,7 +64,7 @@ struct ContentView: View {
                             } else {
                                 List {
                                     ForEach(items) { item in
-                                        NavigationLink(destination: detaillsView(NameArtist: item.NameArtist, NameSong: item.NameSong)) {
+                                        NavigationLink(destination: detaillsView(NameArtist: item.NameArtist, NameSong: item.NameSong, item: item)) {
                                             
                                             Image(systemName: "mic")
                                                 .font(.system(size: 40))

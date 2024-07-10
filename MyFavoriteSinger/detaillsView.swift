@@ -12,9 +12,12 @@ struct detaillsView: View {
     var NameArtist: String
     var NameSong: String
     
+    var item: Item 
+    
     
     @State private var isShowingModal = false // modal
 
+    
     
 
     
@@ -73,7 +76,7 @@ struct detaillsView: View {
                         .font(.system(size: 30))
                 }
                 .sheet(isPresented: $isShowingModal) {
-                    FormulaireView(NameArtist: "", NameSong: "")
+                    FormulaireView(NameArtist: item.NameArtist, NameSong: item.NameSong, itemToEdit: item)
                 }
 
                 
@@ -92,5 +95,6 @@ struct detaillsView: View {
 }  // fin struct
 
 #Preview {
-    detaillsView(NameArtist: "", NameSong: "")
+    detaillsView(NameArtist: "", NameSong: "", item: Item(NameArtist: "", NameSong: ""))
+//    (items : Item(NameArtist: "Sample Artist", NameSong: "Sample Song"))
 }

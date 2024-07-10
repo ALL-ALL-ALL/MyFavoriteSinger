@@ -12,26 +12,25 @@ struct FormulaireView: View {
     @State  var NameArtist : String
     @State  var NameSong :String
     
+    var itemToEdit: Item? // optionelle 
+    
     @Environment(\.modelContext) private var modelContext // pour que la sauvgarde fonctionne
     @Environment(\.dismiss) private var dismiss // pour fermer la modal
     
     
-    var itemToEdit: Item?
     
     // pour modifier item deja existant
     private func saveItem() {
-            withAnimation {
-                if let item = itemToEdit {
-                    item.NameArtist = NameArtist
-                    item.NameSong = NameSong
-                } else {
-                    let newItem = Item(NameArtist: NameArtist, NameSong: NameSong)
-                    modelContext.insert(newItem)
-                }
-                try? modelContext.save()
-                dismiss()
-            }
-        } // Fin func
+           withAnimation {
+               if let item = itemToEdit {
+                   item.NameArtist = NameArtist
+                   item.NameSong = NameSong
+               }
+               try? modelContext.save()
+               dismiss()
+           }
+       }
+
     
    
 
@@ -87,5 +86,5 @@ struct FormulaireView: View {
     } // fin body
 } // fin struct
 #Preview {
-    FormulaireView(NameArtist: "DISIZ", NameSong: "la bête")
+    FormulaireView(NameArtist: "", NameSong: "")
 }
