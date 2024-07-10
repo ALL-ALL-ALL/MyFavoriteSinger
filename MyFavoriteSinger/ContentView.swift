@@ -32,7 +32,7 @@ struct ContentView: View {
     }
     
     
-    @State private var isShowingModal = false // modal formulaire ()
+    @State private var isShowingModal = false // modal formulaire ()e
 
 
     var body: some View {

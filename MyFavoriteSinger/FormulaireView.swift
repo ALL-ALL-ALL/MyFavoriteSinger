@@ -19,39 +19,32 @@ struct FormulaireView: View {
     
     
     
-    private func saveItem() {
-            withAnimation {
-                if let item = itemToEdit {
-                    item.NameArtist = NameArtist
-                    item.NameSong = NameSong
-                } else {
-                    // Gérer la création d'un nouvel item si nécessaire
-                }
-                do {
-                    try modelContext.save()
-                } catch {
-                    print("Error saving item: \(error.localizedDescription)")
-                }
-                dismiss()
-            }
-        }
+    // Fonction pour sauvegarder l'item
+       private func saveItem() {
+           withAnimation {
+               if let item = itemToEdit {
+                   // Modifier l'item existant
+                   item.NameArtist = NameArtist
+                   item.NameSong = NameSong
+               } else {
+                   // Ajouter un nouvel item
+                   let newItem = Item(NameArtist: NameArtist, NameSong: NameSong)
+                   modelContext.insert(newItem)
+               }
+               
+               // Sauvegarder les modifications
+               do {
+                   try modelContext.save()
+                   dismiss()
+               } catch {
+                   print("Error saving item: \(error.localizedDescription)")
+               }
+           }
+       }
+
 
     
    
-
-
-    
-    // obliger de mettre la fonction pour sauvegarder 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(NameArtist: NameArtist, NameSong: NameSong)
-            modelContext.insert(newItem)
-            try? modelContext.save() // Sauvegarder les modifications
-            dismiss() // Fermer la modal
-
-        }
-    }
-
     var body: some View {
         
         NavigationView{
@@ -63,13 +56,11 @@ struct FormulaireView: View {
                    Section {
                        TextField("Name of artiste", text: $NameArtist)
                        TextField("Name of song ", text: $NameSong)
-                       Button(action: addItem, label: {
+                       Button(action: saveItem, label: {
                            Text("sauvegarder")
                        })
                        
-                       Button(action: saveItem, label: {
-                           Text("ajouter")
-                       })
+                      
 
                       
                        } // fin section
