@@ -34,11 +34,6 @@ struct ContentView: View {
     
     @State private var isShowingModal = false // modal
 
-    
-    
-    
-    
-    
 
     var body: some View {
         NavigationView {

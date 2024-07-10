@@ -14,6 +14,26 @@ struct FormulaireView: View {
     
     @Environment(\.modelContext) private var modelContext // pour que la sauvgarde fonctionne
     @Environment(\.dismiss) private var dismiss // pour fermer la modal
+    
+    
+    var itemToEdit: Item?
+    
+    // pour modifier item deja existant
+    private func saveItem() {
+            withAnimation {
+                if let item = itemToEdit {
+                    item.NameArtist = NameArtist
+                    item.NameSong = NameSong
+                } else {
+                    let newItem = Item(NameArtist: NameArtist, NameSong: NameSong)
+                    modelContext.insert(newItem)
+                }
+                try? modelContext.save()
+                dismiss()
+            }
+        } // Fin func
+    
+   
 
 
     
