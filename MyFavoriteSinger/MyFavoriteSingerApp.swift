@@ -25,7 +25,7 @@ struct MyFavoriteSingerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            tabview()
+            ContentView()
         }
         .modelContainer(sharedModelContainer)
     }
