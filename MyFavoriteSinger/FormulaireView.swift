@@ -1,96 +1,69 @@
-//
-//  FormulaireView.swift
-//  MyFavoriteSinger
-//
-//  Created by  Ixart on 07/07/2024.
-//
-
 import SwiftUI
 import SwiftData
 
 struct FormulaireView: View {
-    @State  var NameArtist : String
-    @State  var NameSong :String
-    
-    var itemToEdit: Item? // Cette variable va contenir l'item à éditer
-    
-    @Environment(\.modelContext) private var modelContext // pour que la sauvgarde fonctionne
-    @Environment(\.dismiss) private var dismiss // pour fermer la modal
+    @State var NameArtist: String
+    @State var NameSong: String
     
     
+    var itemToEdit: Item?
     
-    // Fonction pour sauvegarder l'item
-       private func saveItem() {
-           withAnimation {
-               if let item = itemToEdit {
-                   // Modifier l'item existant
-                   item.NameArtist = NameArtist
-                   item.NameSong = NameSong
-               } else {
-                   // Ajouter un nouvel item
-                   let newItem = Item(NameArtist: NameArtist, NameSong: NameSong)
-                   modelContext.insert(newItem)
-               }
-               
-               // Sauvegarder les modifications
-               do {
-                   try modelContext.save()
-                   dismiss()
-               } catch {
-                   print("Error saving item: \(error.localizedDescription)")
-               }
-           }
-       }
-
-
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     
-   
+    private func saveItem() {
+        guard !NameArtist.isEmpty, !NameSong.isEmpty else {
+            print("Les champs ne peuvent pas être vides")
+            return
+        }
+        
+        withAnimation {
+            if let item = itemToEdit {
+                item.NameArtist = NameArtist
+                item.NameSong = NameSong
+            } else {
+                let newItem = Item(NameArtist: NameArtist, NameSong: NameSong)
+                modelContext.insert(newItem)
+            }
+            
+            do {
+                try modelContext.save()
+                dismiss()
+            } catch {
+                print("Error saving item: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    
     var body: some View {
-        
-        NavigationView{
-            
-            
-            
-            
+        NavigationStack {
             Form {
-                   Section {
-                       TextField("Name of artiste", text: $NameArtist)
-                       TextField("Name of song ", text: $NameSong)
-                       Button(action: saveItem, label: {
-                           Text("sauvegarder")
-                       })
-                       
-                      
-
-                      
-                       } // fin section
-                   } // fin form
-            
-            
-            
-            
-            
-            
-        } // fin navigationview
-        .onAppear {
-                        if let item = itemToEdit {
-                            NameArtist = item.NameArtist
-                            NameSong = item.NameSong
-                        }
+                Section(header: Text("Détails de l'artiste")) {
+                    TextField("Nom de l'artiste", text: $NameArtist)
+                    TextField("Nom de la chanson", text: $NameSong)
+                }
+                
+                Section(header: Text("Ajouter une chanson via URL")) {
+                    
+                    
+                    Button(action: saveItem, label: {
+                        Text("Sauvegarder")
+                            .foregroundColor(.blue)
+                    })
+                }
+                .onAppear {
+                    if let item = itemToEdit {
+                        NameArtist = item.NameArtist
+                        NameSong = item.NameSong
                     }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    } // fin body
-} // fin struct
+                }
+                .navigationTitle("Ajouter une chanson")
+            }
+        }
+    }
+}
 #Preview {
     FormulaireView(NameArtist: "", NameSong: "")
 }
+

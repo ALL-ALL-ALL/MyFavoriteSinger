@@ -6,119 +6,86 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    
-    @Query private var items: [Item]
-    
-    
-    
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(NameArtist: "", NameSong: "")
-            modelContext.insert(newItem)
-        }
-    }
-    
-    
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
-    }
-    
-    
-    @State private var isShowingModal = false // modal formulaire ()
-
-
+//    init() {
+//           // Configurer l'apparence de la barre de navigation
+//           let appearance = UINavigationBarAppearance()
+//           appearance.configureWithOpaqueBackground()
+//           appearance.backgroundColor = UIColor.black // Couleur de fond de la barre
+//           appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du titre en blanc
+//           appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du grand titre en blanc
+//
+//           UINavigationBar.appearance().standardAppearance = appearance
+//           UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//       }// pour mettre le bar titlle en blanc
+//    
+   
     var body: some View {
-        NavigationView {
-            
-            ZStack {
-                
-//                Color.black.ignoresSafeArea()
 
-                VStack {
+        NavigationStack{
+
+            ZStack{
+//                Color(.black)
+
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(Color.red)
+                    .frame(width: 350, height: 400)
+                    .padding(.bottom,80)
+                
+                
+                    VStack{
+                        Text("Obtenez 3 mois pour le")
+                            .foregroundStyle(.white)
+                            .font(.system(size: 30))
+                        Text(" prix d'un")
+                            .foregroundStyle(.white)
+                            .font(.system(size: 30))
+                            .padding(.bottom,380)
+                        
                     
-                            if items.isEmpty {
-                                VStack {
-                                    Image(systemName: "mic")
-                                        .foregroundColor(.red)
-                                        .font(.system(size: 150))
-                                        .padding(.top,-140)
-                                } // fin vstack
-                                
+                
+                    } // fin vstack
+                
+                HStack{
+                    
+                    Image(systemName: "applelogo")
+                        .foregroundStyle(.white)
+                        .font(.system(size: 100))
+                        .padding(.bottom,90)
 
-                                VStack{
-                                    Text("Aucun artiste dans votre liste")
-//                                        .foregroundStyle(.white)
-                                        .font(.title2)
-                                        .bold()
-                                        .italic()
-                                } // fin vstack
-                                
-                            } else {
-                                List {
-                                    ForEach(items) { item in
-                                        NavigationLink(destination: detaillsView(NameArtist: item.NameArtist, NameSong: item.NameSong, item: item)) {
-                                            
-                                            Image(systemName: "mic")
-                                                .foregroundColor(.red)
-                                                .font(.system(size: 40))
+                    Text("Music")
+                        .foregroundStyle(.white)
+                        .font(.system(size: 70))
+                        .padding(.bottom,90)
 
-                                            VStack(alignment: .leading) {
-                                                Text(item.NameArtist)
-                                                    .font(.system(size: 20))
-                                            }
-                                        }
-                                    }
-                                    .onDelete(perform: deleteItems)
-                                } // fin de list
-                            } // fin de sinon
-                        } // fin vstack (si sinon)
+                    
+                } // fin hstack
                 
-                
-                        .navigationTitle("Mes Artistes")
-                        
-                
-                        
-                        
-                        .toolbar {
-                            ToolbarItemGroup(placement: .navigationBarTrailing) {
-                                Button(action: {
-                                    isShowingModal.toggle()
-                                }) {
-                                    Image(systemName: "plus.circle")
-                                        .foregroundColor(.yellow)
-                                        .font(.system(size: 30))
-                                }
-                                .sheet(isPresented: $isShowingModal) {
-                                    FormulaireView(NameArtist: "", NameSong: "")
-                                        .environment(\.modelContext, modelContext)
-                                } // fin sheet
-                            } // fin toolbargroupe
-                            
-                    } // fin toolbar
-                
+                Text("Essayer maintenant" )
+                    .foregroundStyle(.white)
+                    .padding(.top,210)
+
+                Text("3 mois pour 16,99e,puis 16,99e/mois.")
+                    .foregroundStyle(.white)
+                    .padding(.top,260)
+
+
             } // fin zstack
             
+                .navigationTitle("ACCUEIL")
+                .ignoresSafeArea()
+        } // fin NavigationView
+        
+        
+        
+        
+        
 
-                } // fin navigatiionview
         
-        
-
-        
-        
-        
-            } // fin body
-        } // fin struct
-
+    } // fin body
+} // fin struct
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
