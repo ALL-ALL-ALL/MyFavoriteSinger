@@ -6,26 +6,21 @@ struct Brand: Identifiable, Codable {
    let id: String
    let title: String
    let webRadios: [WebRadio]?
-
 }
 
 struct WebRadio: Identifiable, Codable {
-    let id: String
-    let title: String
-    let description: String?
-    let liveStream: String?
-    let playerUrl: String?
-    let image: String?
-   
-
+   let id: String
+   let title: String
+   let description: String?
+   let liveStream: String?
+   let playerUrl: String?
+   let image: String?
 }
 
 struct radioView: View {
-    @State private var brands: [Brand] = []
-    @State private var isLoading = true
-    @State private var errorMessage: String?
-
-
+   @State private var brands: [Brand] = []
+   @State private var isLoading = true
+   @State private var errorMessage: String?
    
    var body: some View {
        NavigationStack {
@@ -44,45 +39,30 @@ struct radioView: View {
                        .padding()
                    }
                } else {
-                   ScrollView{
+                   ScrollView {
                        ForEach(brands) { brand in
                            if let webRadios = brand.webRadios, !webRadios.isEmpty {
                                Section(header: Text(brand.title)) {
-                                   ForEach(webRadios) {
-                                       webRadio in
+                                   ForEach(webRadios) { webRadio in
                                        WebRadioRow(webRadio: webRadio)
                                        Divider()
-                                              .background(Color.gray)
-                                              .padding(.horizontal)
-                                       
+                                           .background(Color.gray)
+                                           .padding(.horizontal)
                                    }
-                                   
                                }
-                               
                            }
-                           
                        }
-                       
-                   } // fin scroll view
+                   }
                    .background(Color.white)
                    .cornerRadius(10)
                    .padding(.horizontal)
                    .padding(.vertical, 5)
-
                }
            }
            .navigationTitle("Webradios")
            .onAppear(perform: loadBrands)
-
        }
-
    }
-
-    
-    
-    
-
-    
    
    func loadBrands() {
        print("🚀 Début du chargement des webradios")
@@ -127,11 +107,9 @@ struct radioView: View {
                        let errorMessages = errors.map { $0.message }.joined(separator: ", ")
                        self.errorMessage = errorMessages
                    } else if let brandsData = response.data {
-                       // Filtrer uniquement les marques qui ont des webradios
                        self.brands = brandsData.brands.filter { $0.webRadios?.isEmpty == false }
                        print("✅ Marques avec webradios chargées : \(self.brands.count)")
                        
-                       // Afficher les IDs pour le débogage
                        for brand in self.brands {
                            print("🎯 Brand: \(brand.title)")
                            if let webRadios = brand.webRadios {
@@ -152,64 +130,119 @@ struct radioView: View {
    }
 }
 
+struct ModalView: View {
+   let webRadio: WebRadio
+   @Environment(\.dismiss) var dismiss
+   
+   func getImageName(for webRadioId: String) -> String {
+       let imageMapping: [String: String] = [
+           "FRANCEINTER_LA_MUSIQUE_INTER": "1",
+           "FRANCEMUSIQUE_CLASSIQUE_EASY": "2",
+           "FRANCEMUSIQUE_CLASSIQUE_PLUS": "3",
+           "FRANCEMUSIQUE_CONCERT_RF": "4",
+           "FRANCEMUSIQUE_OCORA_MONDE": "5",
+           "FRANCEMUSIQUE_LA_JAZZ": "6",
+           "FRANCEMUSIQUE_LA_CONTEMPORAINE": "7",
+           "FRANCEMUSIQUE_LA_BO": "8",
+           "FRANCEMUSIQUE_LA_BAROQUE": "9",
+           "FRANCEMUSIQUE_OPERA": "10",
+           "FRANCEMUSIQUE_PIANO_ZEN": "11",
+           "MOUV_100MIX": "12",
+           "MOUV_CLASSICS": "13",
+           "MOUV_DANCEHALL": "14",
+           "MOUV_RNB": "15",
+           "MOUV_RAPUS": "16",
+           "MOUV_RAPFR": "17",
+           "FIP_ROCK": "18",
+           "FIP_JAZZ": "19",
+           "FIP_GROOVE": "20",
+           "FIP_WORLD": "21",
+           "FIP_NOUVEAUTES": "22",
+           "FIP_REGGAE": "23",
+           "FIP_ELECTRO": "24",
+           "FIP_METAL": "25",
+           "FIP_POP": "26",
+           "FIP_HIP_HOP": "27",
+           "FRANCEBLEU_CHANSON_FRANCAISE": "28"
+       ]
+       return imageMapping[webRadioId] ?? "1"
+   }
+   
+   var body: some View {
+       NavigationView {
+           VStack {
+               Image(getImageName(for: webRadio.id))
+                   .resizable()
+                   .scaledToFit()
+                   .frame(width: 200, height: 200)
+                   .cornerRadius(12)
+                   .padding()
+               
+               Text(webRadio.title)
+                   .font(.title2)
+                   .bold()
+                   .padding(.top)
+               
+               if let description = webRadio.description {
+                   Text(description)
+                       .foregroundColor(.gray)
+                       .padding()
+                       .multilineTextAlignment(.center)
+               }
+               
+               Spacer()
+           }
+           .navigationBarItems(trailing: Button("Fermer") {
+               dismiss()
+           })
+       }
+   }
+}
 
-
-
-
-
-
-// Vue pour afficher une webradio
 struct WebRadioRow: View {
    let webRadio: WebRadio
-    @State private var player: AVPlayer?
-    @State private var isPlaying = false
-    @State private var showModal = false
-    
-    
+   @State private var player: AVPlayer?
+   @State private var isPlaying = false
+   @State private var showModal = false
    
-
-   
-   // Fonction pour obtenir le nom de l'image correspondante
-    func getImageName(for webRadioId: String) -> String {
-        print("ID reçu pour image : \(webRadioId)")
-        
-        let imageMapping: [String: String] = [
-            "FRANCEINTER_LA_MUSIQUE_INTER": "1",
-            "FRANCEMUSIQUE_CLASSIQUE_EASY": "2",
-            "FRANCEMUSIQUE_CLASSIQUE_PLUS": "3",
-            "FRANCEMUSIQUE_CONCERT_RF": "4",
-            "FRANCEMUSIQUE_OCORA_MONDE": "5",
-            "FRANCEMUSIQUE_LA_JAZZ": "6",
-            "FRANCEMUSIQUE_LA_CONTEMPORAINE": "7",
-            "FRANCEMUSIQUE_LA_BO": "8",
-            "FRANCEMUSIQUE_LA_BAROQUE": "9",
-            "FRANCEMUSIQUE_OPERA": "10",
-            "FRANCEMUSIQUE_PIANO_ZEN": "11",
-            "MOUV_100MIX": "12",
-            "MOUV_CLASSICS": "13",
-            "MOUV_DANCEHALL": "14",
-            "MOUV_RNB": "15",
-            "MOUV_RAPUS": "16",
-            "MOUV_RAPFR": "17",
-            "FIP_ROCK": "18",
-            "FIP_JAZZ": "19",
-            "FIP_GROOVE": "20",
-            "FIP_WORLD": "21",
-            "FIP_NOUVEAUTES": "22",
-            "FIP_REGGAE": "23",
-            "FIP_ELECTRO": "24",
-            "FIP_METAL": "25",
-            "FIP_POP": "26",
-            "FIP_HIP_HOP": "27",
-            "FRANCEBLEU_CHANSON_FRANCAISE": "28"
-        ]
-        
-        return imageMapping[webRadioId] ?? "1" // Si pas trouvé, retourne l'image "1"
-    }
+   func getImageName(for webRadioId: String) -> String {
+       print("ID reçu pour image : \(webRadioId)")
+       
+       let imageMapping: [String: String] = [
+           "FRANCEINTER_LA_MUSIQUE_INTER": "1",
+           "FRANCEMUSIQUE_CLASSIQUE_EASY": "2",
+           "FRANCEMUSIQUE_CLASSIQUE_PLUS": "3",
+           "FRANCEMUSIQUE_CONCERT_RF": "4",
+           "FRANCEMUSIQUE_OCORA_MONDE": "5",
+           "FRANCEMUSIQUE_LA_JAZZ": "6",
+           "FRANCEMUSIQUE_LA_CONTEMPORAINE": "7",
+           "FRANCEMUSIQUE_LA_BO": "8",
+           "FRANCEMUSIQUE_LA_BAROQUE": "9",
+           "FRANCEMUSIQUE_OPERA": "10",
+           "FRANCEMUSIQUE_PIANO_ZEN": "11",
+           "MOUV_100MIX": "12",
+           "MOUV_CLASSICS": "13",
+           "MOUV_DANCEHALL": "14",
+           "MOUV_RNB": "15",
+           "MOUV_RAPUS": "16",
+           "MOUV_RAPFR": "17",
+           "FIP_ROCK": "18",
+           "FIP_JAZZ": "19",
+           "FIP_GROOVE": "20",
+           "FIP_WORLD": "21",
+           "FIP_NOUVEAUTES": "22",
+           "FIP_REGGAE": "23",
+           "FIP_ELECTRO": "24",
+           "FIP_METAL": "25",
+           "FIP_POP": "26",
+           "FIP_HIP_HOP": "27",
+           "FRANCEBLEU_CHANSON_FRANCAISE": "28"
+       ]
+       return imageMapping[webRadioId] ?? "1"
+   }
    
    var body: some View {
        HStack {
-           
            Button {
                showModal = true
            } label: {
@@ -221,23 +254,14 @@ struct WebRadioRow: View {
                    .padding()
            }
            .sheet(isPresented: $showModal) {
-               WebRadioRow(webRadio: webRadio)
-                       }
-           
-
-          
-
+               ModalView(webRadio: webRadio)
+           }
            
            VStack(alignment: .leading, spacing: 5) {
                Text(webRadio.title)
                    .font(.headline)
-                   .padding(.vertical,70)
-               
-               
-               
-
-
-           } // fin vstack
+                   .padding(.vertical, 70)
+           }
            
            Spacer()
            
@@ -260,9 +284,6 @@ struct WebRadioRow: View {
    }
 }
 
-    
-    
-// Structures pour le décodage
 struct GraphQLResponse: Codable {
    let data: BrandsData?
    let errors: [GraphQLError]?
