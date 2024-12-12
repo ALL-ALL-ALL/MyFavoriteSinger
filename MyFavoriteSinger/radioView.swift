@@ -6,6 +6,7 @@ struct Brand: Identifiable, Codable {
    let id: String
    let title: String
    let webRadios: [WebRadio]?
+
 }
 
 struct WebRadio: Identifiable, Codable {
@@ -42,7 +43,8 @@ struct radioView: View {
                    List(brands) { brand in
                        if let webRadios = brand.webRadios, !webRadios.isEmpty {
                            Section(header: Text(brand.title)) {
-                               ForEach(webRadios) { webRadio in
+                               ForEach(webRadios) {
+                                   webRadio in
                                    WebRadioRow(webRadio: webRadio)
                                }
                            }
@@ -54,6 +56,12 @@ struct radioView: View {
            .onAppear(perform: loadBrands)
        }
    }
+    
+    
+    
+    
+
+    
    
    func loadBrands() {
        print("🚀 Début du chargement des webradios")
@@ -123,6 +131,12 @@ struct radioView: View {
    }
 }
 
+
+
+
+
+
+
 // Vue pour afficher une webradio
 struct WebRadioRow: View {
    let webRadio: WebRadio
@@ -131,63 +145,40 @@ struct WebRadioRow: View {
    
    // Fonction pour obtenir le nom de l'image correspondante
     func getImageName(for webRadioId: String) -> String {
-        // Affichons l'ID pour le débogage
         print("ID reçu pour image : \(webRadioId)")
         
         let imageMapping: [String: String] = [
-            "La musique d'inter": "1",
-            "Classique Easy": "2",
-            "Classique Plus": "3",
-            "Concerts Radio france ": "4",
-            "Ocora Musique du Monde ": "5",
-            "La Jazz": "6",
-            "La Contemporaine": "7",
-            "Musique De Films": "8",
-            "La Baroque": "9",
-            "Opera": "10",
-            "Pianno Zen": "11",
-            "Mouv 100% mix": "12",
-            "Mouv'classique": "13",
-            "Mouv'DanceHall": "14",
-            "Mouv'RnB & soul": "15",
-            "Mouv'Rap Us": "16",
-            "Mouv'Rap français": "17",
-            "FIP Rock": "18",
-            "FIP Jazz": "19",
-            "FIP Groove": "20",
-            "FIP monde": "21",
-            "FIP Nouveautés": "22",
-            "FIP Reggae": "23",
-            "FIP Electro": "24",
-            "FIP Metal": "25",
-            "FIP Pop": "26",
-            "FIP Hip-Hop ": "27",
-            "100% chanson française": "28",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-            
-           
-
-
-            // Ajoutez les autres jusqu'à 28
-            "DEFAULT": "28" // Dernière image comme fallback
+            "FRANCEINTER_LA_MUSIQUE_INTER": "1",
+            "FRANCEMUSIQUE_CLASSIQUE_EASY": "2",
+            "FRANCEMUSIQUE_CLASSIQUE_PLUS": "3",
+            "FRANCEMUSIQUE_CONCERT_RF": "4",
+            "FRANCEMUSIQUE_OCORA_MONDE": "5",
+            "FRANCEMUSIQUE_LA_JAZZ": "6",
+            "FRANCEMUSIQUE_LA_CONTEMPORAINE": "7",
+            "FRANCEMUSIQUE_LA_BO": "8",
+            "FRANCEMUSIQUE_LA_BAROQUE": "9",
+            "FRANCEMUSIQUE_OPERA": "10",
+            "FRANCEMUSIQUE_PIANO_ZEN": "11",
+            "MOUV_100MIX": "12",
+            "MOUV_CLASSICS": "13",
+            "MOUV_DANCEHALL": "14",
+            "MOUV_RNB": "15",
+            "MOUV_RAPUS": "16",
+            "MOUV_RAPFR": "17",
+            "FIP_ROCK": "18",
+            "FIP_JAZZ": "19",
+            "FIP_GROOVE": "20",
+            "FIP_WORLD": "21",
+            "FIP_NOUVEAUTES": "22",
+            "FIP_REGGAE": "23",
+            "FIP_ELECTRO": "24",
+            "FIP_METAL": "25",
+            "FIP_POP": "26",
+            "FIP_HIP_HOP": "27",
+            "FRANCEBLEU_CHANSON_FRANCAISE": "28"
         ]
         
-        // Retournons l'image correspondante ou la première par défaut
-        return imageMapping[webRadioId] ?? "1"
+        return imageMapping[webRadioId] ?? "1" // Si pas trouvé, retourne l'image "1"
     }
    
    var body: some View {
@@ -195,16 +186,17 @@ struct WebRadioRow: View {
            Image(getImageName(for: webRadio.id))
                .resizable()
                .scaledToFit()
-               .frame(width: 60, height: 60)
+               .frame(width: 90, height: 90)
                .cornerRadius(8)
                .padding()
            
-           VStack(alignment: .leading, spacing: 4) {
+           VStack(alignment: .leading, spacing: 5) {
                Text(webRadio.title)
                    .font(.headline)
                Text(webRadio.description ?? "")
                    .font(.subheadline)
                    .foregroundColor(.gray)
+
            }
            
            Spacer()
@@ -225,7 +217,6 @@ struct WebRadioRow: View {
                }
            }
        }
-       .padding(.vertical, 5)
    }
 }
 
