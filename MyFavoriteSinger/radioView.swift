@@ -1,10 +1,3 @@
-//
-//  radioView.swift
-//  MyFavoriteSinger
-//
-//  Created by  Ixart on 10/12/2024.
-//
-
 import SwiftUI
 import AVKit
 
@@ -21,6 +14,7 @@ struct WebRadio: Identifiable, Codable {
    let description: String?
    let liveStream: String?
    let playerUrl: String?
+   let image: String?
 }
 
 struct radioView: View {
@@ -107,6 +101,16 @@ struct radioView: View {
                        // Filtrer uniquement les marques qui ont des webradios
                        self.brands = brandsData.brands.filter { $0.webRadios?.isEmpty == false }
                        print("✅ Marques avec webradios chargées : \(self.brands.count)")
+                       
+                       // Afficher les IDs pour le débogage
+                       for brand in self.brands {
+                           print("🎯 Brand: \(brand.title)")
+                           if let webRadios = brand.webRadios {
+                               for radio in webRadios {
+                                   print("📻 Radio ID: \(radio.id)")
+                               }
+                           }
+                       }
                    }
                } catch {
                    print("❌ Erreur de décodage : \(error)")
@@ -125,17 +129,82 @@ struct WebRadioRow: View {
    @State private var player: AVPlayer?
    @State private var isPlaying = false
    
+   // Fonction pour obtenir le nom de l'image correspondante
+    func getImageName(for webRadioId: String) -> String {
+        // Affichons l'ID pour le débogage
+        print("ID reçu pour image : \(webRadioId)")
+        
+        let imageMapping: [String: String] = [
+            "La musique d'inter": "1",
+            "Classique Easy": "2",
+            "Classique Plus": "3",
+            "Concerts Radio france ": "4",
+            "Ocora Musique du Monde ": "5",
+            "La Jazz": "6",
+            "La Contemporaine": "7",
+            "Musique De Films": "8",
+            "La Baroque": "9",
+            "Opera": "10",
+            "Pianno Zen": "11",
+            "Mouv 100% mix": "12",
+            "Mouv'classique": "13",
+            "Mouv'DanceHall": "14",
+            "Mouv'RnB & soul": "15",
+            "Mouv'Rap Us": "16",
+            "Mouv'Rap français": "17",
+            "FIP Rock": "18",
+            "FIP Jazz": "19",
+            "FIP Groove": "20",
+            "FIP monde": "21",
+            "FIP Nouveautés": "22",
+            "FIP Reggae": "23",
+            "FIP Electro": "24",
+            "FIP Metal": "25",
+            "FIP Pop": "26",
+            "FIP Hip-Hop ": "27",
+            "100% chanson française": "28",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            
+           
+
+
+            // Ajoutez les autres jusqu'à 28
+            "DEFAULT": "28" // Dernière image comme fallback
+        ]
+        
+        // Retournons l'image correspondante ou la première par défaut
+        return imageMapping[webRadioId] ?? "1"
+    }
+   
    var body: some View {
        HStack {
-           VStack(alignment: .leading) {
+           Image(getImageName(for: webRadio.id))
+               .resizable()
+               .scaledToFit()
+               .frame(width: 60, height: 60)
+               .cornerRadius(8)
+               .padding()
+           
+           VStack(alignment: .leading, spacing: 4) {
                Text(webRadio.title)
                    .font(.headline)
-               
-               if let description = webRadio.description {
-                   Text(description)
-                       .font(.subheadline)
-                       .foregroundColor(.gray)
-               }
+               Text(webRadio.description ?? "")
+                   .font(.subheadline)
+                   .foregroundColor(.gray)
            }
            
            Spacer()
