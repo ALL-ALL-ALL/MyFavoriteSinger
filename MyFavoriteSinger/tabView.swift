@@ -16,6 +16,7 @@ struct tabView: View {
             ContentView()
             .tabItem {
                 Label("Accueil", systemImage: "house")
+                
             }
 
             radioView()
@@ -32,6 +33,7 @@ struct tabView: View {
 
             
         } // fin tabview
+        
         .accentColor(Color.red)
 
         

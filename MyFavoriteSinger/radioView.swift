@@ -18,50 +18,76 @@ struct WebRadio: Identifiable, Codable {
 }
 
 struct radioView: View {
+    init() {
+           // Configurer l'apparence de la barre de navigation
+           let appearance = UINavigationBarAppearance()
+           appearance.configureWithOpaqueBackground()
+           appearance.backgroundColor = UIColor.black // Couleur de fond de la barre
+           appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du titre en blanc
+           appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du grand titre en blanc
+
+           UINavigationBar.appearance().standardAppearance = appearance
+           UINavigationBar.appearance().scrollEdgeAppearance = appearance
+       }// pour mettre le bar titlle en blanc
+    
+    
+    
    @State private var brands: [Brand] = []
    @State private var isLoading = true
    @State private var errorMessage: String?
    
    var body: some View {
+       
        NavigationStack {
-           VStack {
-               if isLoading {
-                   ProgressView("Chargement des webradios...")
-               } else if let errorMessage = errorMessage {
-                   VStack {
-                       Text("Erreur : \(errorMessage)")
-                           .foregroundColor(.red)
+           ZStack{
+               Color(.black)
+
+               VStack {
+
+                   if isLoading {
+                       ProgressView("Chargement des webradios...")
+                   } else if let errorMessage = errorMessage {
+                       VStack {
+                           Text("Erreur : \(errorMessage)")
+                               .foregroundColor(.red)
+                               .padding()
+                           Button("Réessayer") {
+                               isLoading = true
+                               loadBrands()
+                           }
                            .padding()
-                       Button("Réessayer") {
-                           isLoading = true
-                           loadBrands()
                        }
-                       .padding()
-                   }
-               } else {
-                   ScrollView {
-                       ForEach(brands) { brand in
-                           if let webRadios = brand.webRadios, !webRadios.isEmpty {
-                               Section(header: Text(brand.title)) {
-                                   ForEach(webRadios) { webRadio in
-                                       WebRadioRow(webRadio: webRadio)
-                                       Divider()
-                                           .background(Color.gray)
-                                           .padding(.horizontal)
+                   } else {
+                       ScrollView {
+                           
+                           ForEach(brands) { brand in
+                               if let webRadios = brand.webRadios, !webRadios.isEmpty {
+                                   Section(header: Text(brand.title)) {
+                                       ForEach(webRadios) { webRadio in
+                                           WebRadioRow(webRadio: webRadio)
+                                           Divider()
+                                               .background(Color.black)
+                                               .padding(.horizontal)
+
+                                       }
                                    }
                                }
                            }
                        }
+                       .background(Color.black)
+                       .cornerRadius(10)
+                       .padding(.horizontal)
+                       .padding(.vertical, 5)
                    }
-                   .background(Color.white)
-                   .cornerRadius(10)
-                   .padding(.horizontal)
-                   .padding(.vertical, 5)
                }
+               .navigationTitle("Webradios")
+               .onAppear(perform: loadBrands)
            }
-           .navigationTitle("Webradios")
-           .onAppear(perform: loadBrands)
-       }
+               
+               
+               
+        } // fin zstack
+           
    }
    
    func loadBrands() {
@@ -261,6 +287,8 @@ struct WebRadioRow: View {
                Text(webRadio.title)
                    .font(.headline)
                    .padding(.vertical, 70)
+                   .foregroundStyle(.white)
+
            }
            
            Spacer()

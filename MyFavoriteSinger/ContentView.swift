@@ -8,25 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
-//    init() {
-//           // Configurer l'apparence de la barre de navigation
-//           let appearance = UINavigationBarAppearance()
-//           appearance.configureWithOpaqueBackground()
-//           appearance.backgroundColor = UIColor.black // Couleur de fond de la barre
-//           appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du titre en blanc
-//           appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du grand titre en blanc
-//
-//           UINavigationBar.appearance().standardAppearance = appearance
-//           UINavigationBar.appearance().scrollEdgeAppearance = appearance
-//       }// pour mettre le bar titlle en blanc
-//    
+    init() {
+           // Configurer l'apparence de la barre de navigation
+           let appearance = UINavigationBarAppearance()
+           appearance.configureWithOpaqueBackground()
+           appearance.backgroundColor = UIColor.black // Couleur de fond de la barre
+           appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du titre en blanc
+           appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du grand titre en blanc
+
+           UINavigationBar.appearance().standardAppearance = appearance
+           UINavigationBar.appearance().scrollEdgeAppearance = appearance
+       }// pour mettre le bar titlle en blanc
+    
    
     var body: some View {
 
         NavigationStack{
 
             ZStack{
-//                Color(.black)
+                Color(.black)
 
                 RoundedRectangle(cornerRadius: 25)
                     .fill(Color.red)
