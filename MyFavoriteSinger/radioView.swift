@@ -10,18 +10,22 @@ struct Brand: Identifiable, Codable {
 }
 
 struct WebRadio: Identifiable, Codable {
-   let id: String
-   let title: String
-   let description: String?
-   let liveStream: String?
-   let playerUrl: String?
-   let image: String?
+    let id: String
+    let title: String
+    let description: String?
+    let liveStream: String?
+    let playerUrl: String?
+    let image: String?
+   
+
 }
 
 struct radioView: View {
-   @State private var brands: [Brand] = []
-   @State private var isLoading = true
-   @State private var errorMessage: String?
+    @State private var brands: [Brand] = []
+    @State private var isLoading = true
+    @State private var errorMessage: String?
+
+
    
    var body: some View {
        NavigationStack {
@@ -40,23 +44,40 @@ struct radioView: View {
                        .padding()
                    }
                } else {
-                   List(brands) { brand in
-                       if let webRadios = brand.webRadios, !webRadios.isEmpty {
-                           Section(header: Text(brand.title)) {
-                               ForEach(webRadios) {
-                                   webRadio in
-                                   WebRadioRow(webRadio: webRadio)
+                   ScrollView{
+                       ForEach(brands) { brand in
+                           if let webRadios = brand.webRadios, !webRadios.isEmpty {
+                               Section(header: Text(brand.title)) {
+                                   ForEach(webRadios) {
+                                       webRadio in
+                                       WebRadioRow(webRadio: webRadio)
+                                       Divider()
+                                              .background(Color.gray)
+                                              .padding(.horizontal)
+                                       
+                                   }
+                                   
                                }
+                               
                            }
+                           
                        }
-                   }
+                       
+                   } // fin scroll view
+                   .background(Color.white)
+                   .cornerRadius(10)
+                   .padding(.horizontal)
+                   .padding(.vertical, 5)
+
                }
            }
            .navigationTitle("Webradios")
            .onAppear(perform: loadBrands)
+
        }
+
    }
-    
+
     
     
     
@@ -140,8 +161,13 @@ struct radioView: View {
 // Vue pour afficher une webradio
 struct WebRadioRow: View {
    let webRadio: WebRadio
-   @State private var player: AVPlayer?
-   @State private var isPlaying = false
+    @State private var player: AVPlayer?
+    @State private var isPlaying = false
+    @State private var showModal = false
+    
+    
+   
+
    
    // Fonction pour obtenir le nom de l'image correspondante
     func getImageName(for webRadioId: String) -> String {
@@ -183,21 +209,35 @@ struct WebRadioRow: View {
    
    var body: some View {
        HStack {
-           Image(getImageName(for: webRadio.id))
-               .resizable()
-               .scaledToFit()
-               .frame(width: 90, height: 90)
-               .cornerRadius(8)
-               .padding()
+           
+           Button {
+               showModal = true
+           } label: {
+               Image(getImageName(for: webRadio.id))
+                   .resizable()
+                   .scaledToFit()
+                   .frame(width: 90, height: 90)
+                   .cornerRadius(8)
+                   .padding()
+           }
+           .sheet(isPresented: $showModal) {
+               WebRadioRow(webRadio: webRadio)
+                       }
+           
+
+          
+
            
            VStack(alignment: .leading, spacing: 5) {
                Text(webRadio.title)
                    .font(.headline)
-               Text(webRadio.description ?? "")
-                   .font(.subheadline)
-                   .foregroundColor(.gray)
+                   .padding(.vertical,70)
+               
+               
+               
 
-           }
+
+           } // fin vstack
            
            Spacer()
            
@@ -220,6 +260,8 @@ struct WebRadioRow: View {
    }
 }
 
+    
+    
 // Structures pour le décodage
 struct GraphQLResponse: Codable {
    let data: BrandsData?
