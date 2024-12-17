@@ -78,7 +78,8 @@ struct radioView: View {
                        .padding(.horizontal,10)
                    } // fin else
                } // fin vstack
-               .navigationTitle("Webradios")
+               .navigationTitle("Web Radios")
+               .navigationBarTitleDisplayMode(.inline)  // titre  centré
                .onAppear(perform: loadBrands)
            } // fin zstack
                
