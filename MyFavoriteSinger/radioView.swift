@@ -61,7 +61,7 @@ struct radioView: View {
                            
                            ForEach(brands) { brand in
                                if let webRadios = brand.webRadios, !webRadios.isEmpty {
-                                   Section(header: Text(brand.title)) {
+                                   Section() {
                                        ForEach(webRadios) { webRadio in
                                            WebRadioRow(webRadio: webRadio)
                                            Rectangle()

@@ -74,6 +74,7 @@ struct ContentView: View {
             } // fin zstack
             
                 .navigationTitle("ACCUEIL")
+
                 .ignoresSafeArea()
         } // fin NavigationView
         
