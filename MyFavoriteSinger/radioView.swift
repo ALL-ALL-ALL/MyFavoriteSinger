@@ -158,6 +158,9 @@ struct radioView: View {
 
 
 
+
+// DEBUT MODAL
+
 struct ModalView: View {
    let webRadio: WebRadio
    @Environment(\.dismiss) var dismiss
@@ -227,95 +230,104 @@ struct ModalView: View {
    } // fin body
 } // fin struc
 
-//fin modal
+
+
+// FIN MODAL
 
 
 
 struct WebRadioRow: View {
-   let webRadio: WebRadio
-   @State private var player: AVPlayer?
-   @State private var isPlaying = false
-   @State private var showModal = false
-   
-   func getImageName(for webRadioId: String) -> String {
-       print("ID reçu pour image : \(webRadioId)")
-       
-       let imageMapping: [String: String] = [
-           "FRANCEINTER_LA_MUSIQUE_INTER": "1",
-           "FRANCEMUSIQUE_CLASSIQUE_EASY": "2",
-           "FRANCEMUSIQUE_CLASSIQUE_PLUS": "3",
-           "FRANCEMUSIQUE_CONCERT_RF": "4",
-           "FRANCEMUSIQUE_OCORA_MONDE": "5",
-           "FRANCEMUSIQUE_LA_JAZZ": "6",
-           "FRANCEMUSIQUE_LA_CONTEMPORAINE": "7",
-           "FRANCEMUSIQUE_LA_BO": "8",
-           "FRANCEMUSIQUE_LA_BAROQUE": "9",
-           "FRANCEMUSIQUE_OPERA": "10",
-           "FRANCEMUSIQUE_PIANO_ZEN": "11",
-           "MOUV_100MIX": "12",
-           "MOUV_CLASSICS": "13",
-           "MOUV_DANCEHALL": "14",
-           "MOUV_RNB": "15",
-           "MOUV_RAPUS": "16",
-           "MOUV_RAPFR": "17",
-           "FIP_ROCK": "18",
-           "FIP_JAZZ": "19",
-           "FIP_GROOVE": "20",
-           "FIP_WORLD": "21",
-           "FIP_NOUVEAUTES": "22",
-           "FIP_REGGAE": "23",
-           "FIP_ELECTRO": "24",
-           "FIP_METAL": "25",
-           "FIP_POP": "26",
-           "FIP_HIP_HOP": "27",
-           "FRANCEBLEU_CHANSON_FRANCAISE": "28"
-       ]
-       return imageMapping[webRadioId] ?? "1"
-   } // fin function
-   
-   var body: some View {
-       HStack {
-           Button {
-               showModal = true
-           } label: {
-               Image(getImageName(for: webRadio.id))
-                   .resizable()
-                   .scaledToFit()
-                   .frame(width: 90, height: 90)
-                   .cornerRadius(8)
-                   .padding(.leading,10)
-           }
-           .sheet(isPresented: $showModal) {
-               ModalView(webRadio: webRadio)
-           }
-           
-           VStack(alignment: .leading) {
-               Text(webRadio.title)
-                   .font(.headline)
-                   .foregroundColor(.black)
-           }
-           Spacer()
+    let webRadio: WebRadio
+    @State private var player: AVPlayer?
+    @State private var isPlaying = false
+    @State private var showModal = false
 
-           if let streamURL = webRadio.liveStream {
-               Button(action: {
-                   if isPlaying {
-                       player?.pause()
-                   } else {
-                       player = AVPlayer(url: URL(string: streamURL)!)
-                       player?.play()
-                   }
-                   isPlaying.toggle()
-               }) {
-                   Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                       .font(.title)
-                       .foregroundColor(.blue)
-                       .padding(.trailing,20)
+    
+    func getImageName(for webRadioId: String) -> String {
+        print("ID reçu pour image : \(webRadioId)")
+        
+        let imageMapping: [String: String] = [
+            "FRANCEINTER_LA_MUSIQUE_INTER": "1",
+            "FRANCEMUSIQUE_CLASSIQUE_EASY": "2",
+            "FRANCEMUSIQUE_CLASSIQUE_PLUS": "3",
+            "FRANCEMUSIQUE_CONCERT_RF": "4",
+            "FRANCEMUSIQUE_OCORA_MONDE": "5",
+            "FRANCEMUSIQUE_LA_JAZZ": "6",
+            "FRANCEMUSIQUE_LA_CONTEMPORAINE": "7",
+            "FRANCEMUSIQUE_LA_BO": "8",
+            "FRANCEMUSIQUE_LA_BAROQUE": "9",
+            "FRANCEMUSIQUE_OPERA": "10",
+            "FRANCEMUSIQUE_PIANO_ZEN": "11",
+            "MOUV_100MIX": "12",
+            "MOUV_CLASSICS": "13",
+            "MOUV_DANCEHALL": "14",
+            "MOUV_RNB": "15",
+            "MOUV_RAPUS": "16",
+            "MOUV_RAPFR": "17",
+            "FIP_ROCK": "18",
+            "FIP_JAZZ": "19",
+            "FIP_GROOVE": "20",
+            "FIP_WORLD": "21",
+            "FIP_NOUVEAUTES": "22",
+            "FIP_REGGAE": "23",
+            "FIP_ELECTRO": "24",
+            "FIP_METAL": "25",
+            "FIP_POP": "26",
+            "FIP_HIP_HOP": "27",
+            "FRANCEBLEU_CHANSON_FRANCAISE": "28"
+        ]
+        return imageMapping[webRadioId] ?? "1"
+    } // fin function
+    
+    var body: some View {
+        HStack {
+            Button {
+                showModal = true
+            } label: {
+                Image(getImageName(for: webRadio.id))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 90, height: 90)
+                    .cornerRadius(8)
+                    .padding(.leading,10)
+            }
+            .sheet(isPresented: $showModal) {
+                ModalView(webRadio: webRadio)
+            }
+            
+            VStack(alignment: .leading) {
+                Text(webRadio.title)
+                    .font(.headline)
+                    .foregroundColor(.black)
+            }
+            Spacer()
+            
+            if let streamURL = webRadio.liveStream {
+                Button(action: {
+                    if isPlaying {
+                        player?.pause()
+                    } else {
+                        player = AVPlayer(url: URL(string: streamURL)!)
+                        player?.play()
+                    }
+                    isPlaying.toggle()
+                }) {
+                    Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                        .font(.title)
+                        .foregroundColor(.blue)
+                        .padding(.trailing,20)
+                    
+                }
+               
+                }
+            
+            } // fin hstack
+        
+        
+        
+        } // fin body
+    } // fin struct
 
-               }
-           }
-       }
-   }
-}
 
 struct GraphQLResponse: Codable {
    let data: BrandsData?
