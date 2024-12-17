@@ -18,17 +18,17 @@ struct WebRadio: Identifiable, Codable {
 }
 
 struct radioView: View {
-    init() {
-           // Configurer l'apparence de la barre de navigation
-           let appearance = UINavigationBarAppearance()
-           appearance.configureWithOpaqueBackground()
-           appearance.backgroundColor = UIColor.black // Couleur de fond de la barre
-           appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du titre en blanc
-           appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du grand titre en blanc
-
-           UINavigationBar.appearance().standardAppearance = appearance
-           UINavigationBar.appearance().scrollEdgeAppearance = appearance
-       }// pour mettre le bar titlle en blanc
+//    init() {
+//           // Configurer l'apparence de la barre de navigation
+//           let appearance = UINavigationBarAppearance()
+//           appearance.configureWithOpaqueBackground()
+//           appearance.backgroundColor = UIColor.black // Couleur de fond de la barre
+//           appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du titre en blanc
+//           appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du grand titre en blanc
+//
+//           UINavigationBar.appearance().standardAppearance = appearance
+//           UINavigationBar.appearance().scrollEdgeAppearance = appearance
+//       }// pour mettre le bar titlle en blanc
     
     
     
@@ -40,7 +40,6 @@ struct radioView: View {
        
        NavigationStack {
            ZStack{
-               Color(.black)
 
                VStack {
 
@@ -65,30 +64,29 @@ struct radioView: View {
                                    Section(header: Text(brand.title)) {
                                        ForEach(webRadios) { webRadio in
                                            WebRadioRow(webRadio: webRadio)
-                                           Divider()
-                                               .background(Color.black)
-                                               .padding(.horizontal)
+                                           Rectangle()
+                                               .frame(width: 290, height: 1)
+                                               .foregroundColor(.gray)
+                                               .padding(.leading,100)
+                                               .padding(.top,-2)
 
-                                       }
-                                   }
+                                       } //fin for each
+                                   } // fin section
                                }
-                           }
-                       }
-                       .background(Color.black)
-                       .cornerRadius(10)
-                       .padding(.horizontal)
-                       .padding(.vertical, 5)
-                   }
-               }
+                           } // fin for each
+                       } // fin scroll view
+                       .padding(.horizontal,10)
+                   } // fin else
+               } // fin vstack
                .navigationTitle("Webradios")
                .onAppear(perform: loadBrands)
-           }
+           } // fin zstack
                
                
                
         } // fin zstack
            
-   }
+   } // fin body
    
    func loadBrands() {
        print("🚀 Début du chargement des webradios")
@@ -153,8 +151,11 @@ struct radioView: View {
                self.isLoading = false
            }
        }.resume()
-   }
-}
+   } // fin fun load brand
+} // fin struct
+
+
+
 
 struct ModalView: View {
    let webRadio: WebRadio
@@ -216,14 +217,18 @@ struct ModalView: View {
                        .multilineTextAlignment(.center)
                }
                
-               Spacer()
+               Spacer() // Espace à gauche
            }
            .navigationBarItems(trailing: Button("Fermer") {
                dismiss()
            })
-       }
-   }
-}
+       } // fin navigation view
+   } // fin body
+} // fin struc
+
+//fin modal
+
+
 
 struct WebRadioRow: View {
    let webRadio: WebRadio
@@ -265,7 +270,7 @@ struct WebRadioRow: View {
            "FRANCEBLEU_CHANSON_FRANCAISE": "28"
        ]
        return imageMapping[webRadioId] ?? "1"
-   }
+   } // fin function
    
    var body: some View {
        HStack {
@@ -277,22 +282,19 @@ struct WebRadioRow: View {
                    .scaledToFit()
                    .frame(width: 90, height: 90)
                    .cornerRadius(8)
-                   .padding()
+                   .padding(.leading,10)
            }
            .sheet(isPresented: $showModal) {
                ModalView(webRadio: webRadio)
            }
            
-           VStack(alignment: .leading, spacing: 5) {
+           VStack(alignment: .leading) {
                Text(webRadio.title)
                    .font(.headline)
-                   .padding(.vertical, 70)
-                   .foregroundStyle(.white)
-
+                   .foregroundColor(.black)
            }
-           
            Spacer()
-           
+
            if let streamURL = webRadio.liveStream {
                Button(action: {
                    if isPlaying {
@@ -306,6 +308,8 @@ struct WebRadioRow: View {
                    Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
                        .font(.title)
                        .foregroundColor(.blue)
+                       .padding(.trailing,20)
+
                }
            }
        }
