@@ -26,7 +26,7 @@ struct ContentView: View {
         NavigationStack{
 
             ZStack{
-//                Color(.black)
+//                Color(.black)z
 
                 RoundedRectangle(cornerRadius: 25)
                     .fill(Color.red)
