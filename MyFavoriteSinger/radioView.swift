@@ -17,7 +17,14 @@ struct WebRadio: Identifiable, Codable {
    let image: String?
 }
 
+class AudioState: ObservableObject {
+    @Published var currentlyPlayingID: String?
+}
+
 struct radioView: View {
+    
+    
+    
 //    init() {
 //           // Configurer l'apparence de la barre de navigation
 //           let appearance = UINavigationBarAppearance()
@@ -30,12 +37,12 @@ struct radioView: View {
 //           UINavigationBar.appearance().scrollEdgeAppearance = appearance
 //       }// pour mettre le bar titlle en blanc
     
+    @State private var brands: [Brand] = []
+    @State private var isLoading = true
+    @State private var errorMessage: String?
+
     
     
-   @State private var brands: [Brand] = []
-   @State private var isLoading = true
-   @State private var errorMessage: String?
-   
    var body: some View {
        
        NavigationStack {
@@ -69,6 +76,7 @@ struct radioView: View {
                                                .foregroundColor(.gray)
                                                .padding(.leading,100)
                                                .padding(.top,-2)
+
 
                                        } //fin for each
                                    } // fin section
@@ -241,6 +249,14 @@ struct WebRadioRow: View {
     @State private var player: AVPlayer?
     @State private var isPlaying = false
     @State private var showModal = false
+    @AppStorage("activeRadioID") var activeRadioID: String = "" // @appstorage memoire de la radio qui joue et activeRadioID qui contien id de la radio ou rien
+
+    static var player: AVPlayer?
+
+
+
+    
+
 
     
     func getImageName(for webRadioId: String) -> String {
@@ -305,23 +321,38 @@ struct WebRadioRow: View {
             if let streamURL = webRadio.liveStream {
                 Button(action: {
                     if isPlaying {
-                        player?.pause()
-                    } else {
-                        player = AVPlayer(url: URL(string: streamURL)!)
-                        player?.play()
-                    }
+                        Self.player?.pause()
+                 
+                        activeRadioID = ""
+
+                           }else {
+                               
+                               
+                               Self.player?.pause()
+                               Self.player = AVPlayer(url: URL(string: streamURL)!)
+                               Self.player?.play()
+                               activeRadioID = webRadio.id
+
+                           }
+                    
                     isPlaying.toggle()
                 }) {
-                    Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                    
+                    Image(systemName: activeRadioID == webRadio.id ? "pause.circle.fill" : "play.circle.fill")
                         .font(.title)
                         .foregroundColor(.blue)
                         .padding(.trailing,20)
                     
                 }
+                
+
                
                 }
             
+
+            
             } // fin hstack
+
         
         
         
