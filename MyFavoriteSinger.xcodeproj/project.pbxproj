@@ -14,6 +14,7 @@
 		3B9D8B362C3A2EFA0035BAE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B9D8B352C3A2EFA0035BAE9 /* Assets.xcassets */; };
 		3B9D8B392C3A2EFA0035BAE9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B9D8B382C3A2EFA0035BAE9 /* Preview Assets.xcassets */; };
 		3B9D8B402C3A31F50035BAE9 /* FormulaireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9D8B3F2C3A31F50035BAE9 /* FormulaireView.swift */; };
+		3B9E7E7B2D1B916500E9E21F /* iTunesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9E7E7A2D1B916500E9E21F /* iTunesModels.swift */; };
 		3BF560BB2D0896F60071A0B9 /* tabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF560BA2D0896F60071A0B9 /* tabView.swift */; };
 		3BF560BF2D089EC80071A0B9 /* radioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF560BE2D089EC80071A0B9 /* radioView.swift */; };
 		3BF560C12D089F920071A0B9 /* bibliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF560C02D089F920071A0B9 /* bibliView.swift */; };
@@ -28,6 +29,7 @@
 		3B9D8B352C3A2EFA0035BAE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B9D8B382C3A2EFA0035BAE9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3B9D8B3F2C3A31F50035BAE9 /* FormulaireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormulaireView.swift; sourceTree = "<group>"; };
+		3B9E7E7A2D1B916500E9E21F /* iTunesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iTunesModels.swift; sourceTree = "<group>"; };
 		3BF560BA2D0896F60071A0B9 /* tabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabView.swift; sourceTree = "<group>"; };
 		3BF560BE2D089EC80071A0B9 /* radioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = radioView.swift; sourceTree = "<group>"; };
 		3BF560C02D089F920071A0B9 /* bibliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bibliView.swift; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 		3B9D8B232C3A2EF90035BAE9 = {
 			isa = PBXGroup;
 			children = (
+				3B9E7E7A2D1B916500E9E21F /* iTunesModels.swift */,
 				3B9D8B2E2C3A2EF90035BAE9 /* MyFavoriteSinger */,
 				3B9D8B2D2C3A2EF90035BAE9 /* Products */,
 			);
@@ -158,6 +161,7 @@
 				3BF560BB2D0896F60071A0B9 /* tabView.swift in Sources */,
 				3B9D8B402C3A31F50035BAE9 /* FormulaireView.swift in Sources */,
 				3B9D8B322C3A2EF90035BAE9 /* ContentView.swift in Sources */,
+				3B9E7E7B2D1B916500E9E21F /* iTunesModels.swift in Sources */,
 				3BF560BF2D089EC80071A0B9 /* radioView.swift in Sources */,
 				3B9D8B342C3A2EF90035BAE9 /* Item.swift in Sources */,
 				3B9D8B302C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift in Sources */,

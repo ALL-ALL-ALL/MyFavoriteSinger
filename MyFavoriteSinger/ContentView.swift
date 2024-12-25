@@ -8,85 +8,85 @@
 import SwiftUI
 
 struct ContentView: View {
-//    init() {
-//           // Configurer l'apparence de la barre de navigation
-//           let appearance = UINavigationBarAppearance()
-//           appearance.configureWithOpaqueBackground()
-//           appearance.backgroundColor = UIColor.black // Couleur de fond de la barre
-//           appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du titre en blanc
-//           appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du grand titre en blanc
-//
-//           UINavigationBar.appearance().standardAppearance = appearance
-//           UINavigationBar.appearance().scrollEdgeAppearance = appearance
-//       }// pour mettre le bar titlle en blanc
-//    
-   
+    @StateObject private var viewModel = TopChartsViewModel()
+    
     var body: some View {
-
-        NavigationStack{
-
-            ZStack{
-//                Color(.black)z
-
-                RoundedRectangle(cornerRadius: 25)
-                    .fill(Color.red)
-                    .frame(width: 350, height: 400)
-                    .padding(.bottom,80)
-                
-                
-                    VStack{
-                        Text("Obtenez 3 mois pour le")
-                            .foregroundStyle(.white)
-                            .font(.system(size: 30))
-                        Text(" prix d'un")
-                            .foregroundStyle(.white)
-                            .font(.system(size: 30))
-                            .padding(.bottom,380)
-                        
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 20) {
+                    // Votre banner Apple Music existant
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(Color.red)
+                        .frame(width: 420 , height: 220)
+                        .overlay(
+                            VStack {
+                                Text("Obtenez 3 mois pour le")
+                                    .foregroundStyle(.white)
+                                    .font(.system(size: 30))
+                                Text("prix d'un")
+                                    .foregroundStyle(.white)
+                                    .font(.system(size: 30))
+                            }
+                        )
                     
-                
-                    } // fin vstack
-                
-                HStack{
                     
-                    Image(systemName: "applelogo")
-                        .foregroundStyle(.white)
-                        .font(.system(size: 100))
-                        .padding(.bottom,90)
-
-                    Text("Music")
-                        .foregroundStyle(.white)
-                        .font(.system(size: 70))
-                        .padding(.bottom,90)
-
+                    Text("DÉCOUVERTES")
+                        .font(.title)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
                     
-                } // fin hstack
-                
-                Text("Essayer maintenant" )
-                    .foregroundStyle(.white)
-                    .padding(.top,210)
+                    ScrollView(.horizontal){
+                        HStack(spacing: 15) {
+                            ForEach(viewModel.tracks) { track in
+                                GeometryReader { geometry in
+                                    VStack(alignment: .leading) {
+                                        AsyncImage(url: URL(string: track.artworkUrl100)) { image in
+                                            image
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                        } placeholder: {
+                                            Color.gray
+                                        }
+                                        .frame(width: 200, height: 200)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                        
+                                        Text(track.trackName)
+                                            .font(.headline)
+                                            .lineLimit(1)
+                                        Text(track.artistName)
+                                            .foregroundColor(.gray)
+                                    } // fin vstack
+                                    
+                                    .rotation3DEffect(
+                                        Angle(degrees: Double((geometry.frame(in: .global).minX - 100) / 5)),
+                                        axis: (x: 0, y: -1, z: 0),
+                                        anchor: .center,
+                                        perspective: 0.5
+                                        )
+                                    
+                                } // fin geometry reader
+                                .frame(width: 200, height: 260)
+                            } // fin foreach
+                        } // hstack
+                        .padding(.horizontal)
+                    } // fin scroll view horizontal
+                } // fin Vstack
+            } // fin scroll view
+            .navigationTitle("ACCUEIL")
+            .padding(.top,30)
 
-                Text("3 mois pour 16,99e,puis 16,99e/mois.")
-                    .foregroundStyle(.white)
-                    .padding(.top,260)
 
-
-            } // fin zstack
+            .onAppear {
+                viewModel.fetchTopTracks()
+            }
             
-                .navigationTitle("ACCUEIL")
-
-                .ignoresSafeArea()
-        } // fin NavigationView
-        
-        
-        
-        
-        
-
-        
+            
+            
+        } // fin navigation stack
+    
     } // fin body
 } // fin struct
-
 #Preview {
     ContentView()
 }
