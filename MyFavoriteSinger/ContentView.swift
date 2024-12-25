@@ -14,7 +14,7 @@ struct ContentView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
-                    // Votre banner Apple Music existant
+                    
                     RoundedRectangle(cornerRadius: 25)
                         .fill(Color.red)
                         .frame(width: 420 , height: 220)
