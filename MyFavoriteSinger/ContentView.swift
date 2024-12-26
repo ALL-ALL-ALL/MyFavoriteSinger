@@ -10,24 +10,74 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var viewModel = TopChartsViewModel()
     
-    var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 20) {
+    var body: some View{
+        
+        NavigationStack{
+                
+            ScrollView{
+                
+                VStack{
+                    ZStack{
+                        LinearGradient(colors: [.purple, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
+                               .frame(width: 420, height: 220)
+                           
+                           HStack {
+                               
+                               VStack(alignment: .leading, spacing: 10) {
+                                   Text("FOCUS ARTISTE")
+                                       .font(.headline)
+                                       .foregroundStyle(.white.opacity(0.8))
+                                   
+                                   Text("james blunt")  // Exemple d'artiste
+                                       .font(.title.bold())
+                                       .foregroundStyle(.white)
+                                   
+                                   Text("Nouveau single")
+                                       .foregroundStyle(.white.opacity(0.8))
+                                   Text("Back To Bedlam")  // Nom du titre
+                                       .font(.title3.bold())
+                                       .foregroundStyle(.white)
+                                   
+                                   Button(action: {
+                                       // Action pour écouter
+                                   }) {
+                                       HStack {
+                                           Image(systemName: "play.fill")
+                                           Text("Écouter")
+                                       }
+                                       .padding(.horizontal, 20)
+                                       .padding(.vertical, 8)
+                                       .background(.white)
+                                       .foregroundColor(.blue)
+                                       .cornerRadius(20)
+                                   }
+                               }
+                               .padding()
+                               
+                               Spacer()
+                               
+                               // Image de l'artiste (à droite)
+                               Circle()
+                                   .fill(.white.opacity(0.2))
+                                   .frame(width: 100, height: 100)
+                                   .overlay(
+                                       Image(systemName: "person.fill")
+                                           .font(.system(size: 50))
+                                           .foregroundColor(.white)
+                                   )
+                                   .padding()
+                           }
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    } // fin zstack
                     
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(Color.red)
-                        .frame(width: 420 , height: 220)
-                        .overlay(
-                            VStack {
-                                Text("Obtenez 3 mois pour le")
-                                    .foregroundStyle(.white)
-                                    .font(.system(size: 30))
-                                Text("prix d'un")
-                                    .foregroundStyle(.white)
-                                    .font(.system(size: 30))
-                            }
-                        )
+                    
+                   
                     
                     
                     Text("DÉCOUVERTES")

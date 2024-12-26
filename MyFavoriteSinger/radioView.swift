@@ -1,7 +1,7 @@
 import SwiftUI
 import AVKit
 
-// Structures
+
 struct Brand: Identifiable, Codable {
    let id: String
    let title: String
@@ -228,10 +228,33 @@ struct ModalView: View {
                        .foregroundColor(.gray)
                        .padding()
                        .multilineTextAlignment(.center)
+                       .padding()
+
                }
                
-               Spacer() // Espace à gauche
-           }
+               Rectangle()
+                   .frame(width: 300, height: 10)
+                   .padding()
+
+               Button {
+                      
+                  } label: {
+                      Image(systemName: "stop.fill")
+                          .resizable()
+                          .scaledToFit()
+                  }
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+           } // fin vstack
            .navigationBarItems(trailing: Button("Fermer") {
                dismiss()
            })
