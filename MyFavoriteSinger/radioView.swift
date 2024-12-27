@@ -171,8 +171,18 @@ struct radioView: View {
 // DEBUT MODAL
 
 struct ModalView: View {
-   let webRadio: WebRadio
-   @Environment(\.dismiss) var dismiss
+    
+    let webRadio: WebRadio
+    let player: AVPlayer?
+    
+    @Environment(\.dismiss) var dismiss
+    @State private var volume : Double = 0
+    @State private var stop = false
+
+
+    
+    
+
    
    func getImageName(for webRadioId: String) -> String {
        let imageMapping: [String: String] = [
@@ -231,19 +241,92 @@ struct ModalView: View {
                        .padding()
 
                }
-               
-               Rectangle()
-                   .frame(width: 300, height: 10)
-                   .padding()
+               VStack{
+                   HStack{
+                       ZStack{
+                           Rectangle()
+                               .fill(
+                                   LinearGradient(
+                                       gradient: Gradient(colors: [.blue.opacity(0.6), .purple.opacity(0.1)]),
+                                       startPoint: .leading,
+                                       endPoint: .trailing
+                                   )
+                               )
+                               
+                           
+                               .frame(width: 120, height: 10)
+                               .padding()
+                               .foregroundColor(.gray.opacity(0.3))
+                               .cornerRadius(10)
+                               .padding(.trailing,190)
+                           
+                           Text("Direct")
+                               .bold()
+                               .font(.title2)
+                           
+                           Rectangle()
+                               .fill(
+                                   LinearGradient(
+                                    gradient: Gradient(colors: [.purple.opacity(0.1), .blue.opacity(0.6)]),
+                                       startPoint: .leading,
+                                       endPoint: .trailing
+                                   )
+                               )
+                               
+                           
+                               .frame(width: 120, height: 10)
+                               .padding()
+                               .foregroundColor(.gray.opacity(0.3))
+                               .cornerRadius(10)
+                               .padding(.leading,190)
 
+                           
+                           
+                           
+                       } //fin zstack
+                       
+                       
+
+                       
+                   } // fin hstack
+               } // fin vstack
+              
                Button {
-                      
+                   if let player = player{
+                       player.pause()
+                       
+                   }
                   } label: {
                       Image(systemName: "stop.fill")
                           .resizable()
                           .scaledToFit()
+                          .frame(width: 35, height: 65)
+
                   }
-               
+            
+               VStack(spacing: 10){
+                   HStack(spacing: 15){
+                       Image(systemName: "speaker.wave.1")
+                           .resizable()
+                           .scaledToFit()
+                           .frame(width: 25, height: 45)
+                       
+                       Slider(value: $volume, in: 0...100)
+                           .frame(width: 200)
+
+                       Image(systemName: "speaker.wave.3")
+                           .resizable()
+                           .scaledToFit()
+                           .frame(width: 35, height: 55)
+
+
+                       
+                       
+                       
+                   } // fin hsatck
+               } // fin vstack
+               .padding()
+
                
                
                
@@ -332,7 +415,8 @@ struct WebRadioRow: View {
                     .padding(.leading,10)
             }
             .sheet(isPresented: $showModal) {
-                ModalView(webRadio: webRadio)
+                ModalView(webRadio: webRadio, player: Self.player)
+            
             }
             
             VStack(alignment: .leading) {
