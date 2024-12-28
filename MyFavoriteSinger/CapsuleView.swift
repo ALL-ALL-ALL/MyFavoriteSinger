@@ -78,8 +78,8 @@ struct CapsuleView: View {
             } label: {
                 Rectangle()
                     .fill(.gray.opacity(1.2))
-                    .cornerRadius(10)
-                    .frame(width: 410, height: 80)
+                    .cornerRadius(20)
+                    .frame(width: 380, height: 80)
                 
             }
             .sheet(isPresented: $showModal) {
@@ -114,6 +114,7 @@ struct CapsuleView: View {
                 }
                 
             } // fin hstack
+            .padding()
             
             
             
