@@ -85,7 +85,8 @@ struct ContentView: View {
                                .font(.title)
                                .bold()
                                .frame(maxWidth: .infinity, alignment: .leading)
-                               .padding()
+                               .padding(.horizontal,25)
+
                            
                            ScrollView(.horizontal){
                                HStack(spacing: 15) {

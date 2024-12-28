@@ -68,19 +68,29 @@ struct CapsuleView: View {
     var body: some View {
         
         ZStack{
-            Rectangle()
-                .fill(.gray.opacity(1.2))
-                .cornerRadius(10)
-                .frame(width: 410, height: 70)
+            
+            
+            Button {
+                //
+            } label: {
+                Rectangle()
+                    .fill(.gray.opacity(1.2))
+                    .cornerRadius(10)
+                    .frame(width: 410, height: 80)
+                
+            }
+
+    
             
             HStack(spacing: 20){
+                Spacer()
+                
                 Button {
                     isPlaying.toggle()
                 } label: {
                     Image(systemName: isPlaying ? "stop.fill" : "play.fill")
                         .foregroundColor(.white)
                         .font(.system(size: 30))
-                        .padding(.leading,270)
                     
                 }
                 
@@ -97,6 +107,7 @@ struct CapsuleView: View {
                 }
                 
             } // fin hstack
+            .padding()
             
             
             
@@ -105,13 +116,13 @@ struct CapsuleView: View {
                 Image(getImageName(for: webRadio.id))
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 55, height: 60)
+                    .frame(width: 65, height: 65)
                     .cornerRadius(12)
                     .padding(.trailing,300)
             } // fin hstack
             
             HStack{
-                Text("James Blunt")
+                Text("France Inter")
                     .font(.title2)
                     .foregroundColor(.white)
                     .padding(.trailing,90)
