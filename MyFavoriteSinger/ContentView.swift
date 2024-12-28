@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel = TopChartsViewModel()
-    let webRadio: WebRadio
 
     
     var body: some View{
@@ -130,15 +129,11 @@ struct ContentView: View {
                        } // fin Vstack
                        
                    } // fin scroll view
-            VStack{
-                
-                
-                CapsuleView(webRadio: webRadio)
-            }// fin vstack
-            .padding(.bottom,-20) // ne pas bouger
+           
 
                    .navigationTitle("ACCUEIL")
-                   .padding(.top,30)
+                   .padding(.bottom,40)
+
 
 
                    .onAppear {
@@ -154,7 +149,7 @@ struct ContentView: View {
 
 
 #Preview {
-    ContentView(webRadio: WebRadio(id: "", title: "", description: "", liveStream: "", playerUrl: "", image: ""))
+    ContentView()
 }
 
 

@@ -9,6 +9,8 @@ import SwiftUI
 import AVKit
 
 struct CapsuleView: View {
+    @State private var isPlaying = false
+
     struct GraphQLResponse: Codable {
        let data: BrandsData?
        let errors: [GraphQLError]?
@@ -65,73 +67,133 @@ struct CapsuleView: View {
 
     var body: some View {
         
-        
-        VStack {
+        ZStack{
+            Rectangle()
+                .fill(.gray.opacity(1.2))
+                .cornerRadius(10)
+                .frame(width: 410, height: 70)
             
-            HStack {
-                ZStack{
-                    Rectangle()
-                        .fill(.gray.opacity(0.2))
-                        .cornerRadius(10)
-                        .frame(width: 410, height: 70)
+            HStack(spacing: 20){
+                Button {
+                    isPlaying.toggle()
+                } label: {
+                    Image(systemName: isPlaying ? "stop.fill" : "play.fill")
+                        .foregroundColor(.white)
+                        .font(.system(size: 30))
+                        .padding(.leading,270)
                     
-                    Image(getImageName(for: webRadio.id))
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 55, height: 60)
-                        .cornerRadius(12)
-                        .padding(.trailing,330)
-                    
-                    
-                    
-                    
-                    Text("James Blunt")
-                        .font(.title2)
-                        .foregroundColor(.black)
-                        .padding(.leading,-120)
-                    
-                    Text(webRadio.title)
-                        .font(.title2)
-                        .foregroundColor(.black)
-                        .padding(.trailing,190)
-
-                    
-                    
-                    
-                    Button {
-                        //
-                    } label: {
-                        Image(systemName: "stop.fill")
-                            .font(.system(size: 30))
-                            .padding(.leading,220)
-                        
-                    }
-                    
-                    
-                    Button {
-                        //
-                    } label: {
-                        Image(systemName: "forward.fill")
-                            .font(.system(size: 30))
-                            .padding(.leading,330)
-
-                        
-                    }
-
-                                
-                    }// fin zstack
-                
-               
-                
-               
+                }
                 
                 
-                
+                Button {
+                    //
+                } label: {
+                    Image(systemName: "forward.fill")
+                        .foregroundColor(.white)
+                        .font(.system(size: 30))
                     
-                
+                    
+                    
+                }
                 
             } // fin hstack
-        } // fin vstack
+            
+            
+            
+            
+            HStack{
+                Image(getImageName(for: webRadio.id))
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 55, height: 60)
+                    .cornerRadius(12)
+                    .padding(.trailing,300)
+            } // fin hstack
+            
+            HStack{
+                Text("James Blunt")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .padding(.trailing,90)
+
+                
+            } // fin hstack
+                
+               
+
+                
+                
+                
+                
+                
+                
+                
+                
+                Text(webRadio.title)
+                    .font(.title2)
+                    .foregroundColor(.white)
+                
+                
+                
+                
+            
+            
+            
+            
+        } // fin zstack
+        
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+//                Button {
+//                    isPlaying.toggle()
+//                } label: {
+//                    Image(systemName: isPlaying ? "stop.fill" : "play.fill")
+//                        .font(.system(size: 30))
+//                        .padding(.leading,220)
+//                        .foregroundColor(.black)
+//                    
+//                }
+//                
+//                
+//                Button {
+//                    //
+//                } label: {
+//                    Image(systemName: "forward.fill")
+//                        .font(.system(size: 30))
+//                        .padding(.leading,330)
+//                        .foregroundColor(.black)
+//                    
+//                    
+//                    
+//                }
+                
+                
+                
+                
+            
+                
+
+                                
+                
+               
+                
+               
+                
+                
+                
+                    
+                
+                
        
         
         
