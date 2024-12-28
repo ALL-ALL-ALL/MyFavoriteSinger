@@ -73,24 +73,22 @@ struct CapsuleView: View {
                     Rectangle()
                         .fill(.gray.opacity(0.2))
                         .cornerRadius(10)
-                        .frame(width: 340, height: 50)
-                        .padding()
+                        .frame(width: 410, height: 70)
                     
                     Image(getImageName(for: webRadio.id))
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 35, height: 60)
+                        .frame(width: 55, height: 60)
                         .cornerRadius(12)
-                        .padding(.trailing,260)
+                        .padding(.trailing,330)
                     
                     
                     
                     
                     Text("James Blunt")
-                        .bold()
                         .font(.title2)
                         .foregroundColor(.black)
-                        .padding(.leading,-80)
+                        .padding(.leading,-120)
                     
                     Text(webRadio.title)
                         .font(.title2)
@@ -105,7 +103,7 @@ struct CapsuleView: View {
                     } label: {
                         Image(systemName: "stop.fill")
                             .font(.system(size: 30))
-                            .padding(.leading,180)
+                            .padding(.leading,220)
                         
                     }
                     
@@ -115,7 +113,7 @@ struct CapsuleView: View {
                     } label: {
                         Image(systemName: "forward.fill")
                             .font(.system(size: 30))
-                            .padding(.leading,270)
+                            .padding(.leading,330)
 
                         
                     }

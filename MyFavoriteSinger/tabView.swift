@@ -8,12 +8,16 @@
 import SwiftUI
 
 struct tabView: View {
+    let webRadio: WebRadio
+
     var body: some View {
+        
+        
         
         
         TabView {
             
-            ContentView()
+            ContentView(webRadio: WebRadio(id: "", title: "", description: "", liveStream: "", playerUrl: "", image: ""))
             .tabItem {
                 Label("Accueil", systemImage: "house")
                 
@@ -30,11 +34,22 @@ struct tabView: View {
                
             }
             
+            .accentColor(Color.red)
+            
+            
 
             
         } // fin tabview
         
-        .accentColor(Color.red)
+        
+        
+       
+        
+        
+        
+        
+        
+        
 
         
         
@@ -48,8 +63,9 @@ struct tabView: View {
         
         
     } // fin body
+    
 } // fin struct
 
 #Preview {
-    tabView()
+    tabView(webRadio: WebRadio(id: "", title: "", description: "", liveStream: "", playerUrl: "", image: ""))
 }
