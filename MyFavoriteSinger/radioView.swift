@@ -355,7 +355,6 @@ struct WebRadioRow: View {
     let webRadio: WebRadio
     @State private var player: AVPlayer?
     @State private var isPlaying = false
-    @State private var showModal = false
     @AppStorage("activeRadioID") var activeRadioID: String = "" // @appstorage memoire de la radio qui joue et activeRadioID qui contien id de la radio ou rien
 
     static var player: AVPlayer?
@@ -404,20 +403,15 @@ struct WebRadioRow: View {
     
     var body: some View {
         HStack {
-            Button {
-                showModal = true
-            } label: {
+            
                 Image(getImageName(for: webRadio.id))
                     .resizable()
                     .scaledToFit()
                     .frame(width: 90, height: 90)
                     .cornerRadius(8)
                     .padding(.leading,10)
-            }
-            .sheet(isPresented: $showModal) {
-                ModalView(webRadio: webRadio, player: Self.player)
             
-            }
+            
             
             VStack(alignment: .leading) {
                 Text(webRadio.title)

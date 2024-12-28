@@ -9,7 +9,10 @@ import SwiftUI
 import AVKit
 
 struct CapsuleView: View {
+    @State private var showModal = false
     @State private var isPlaying = false
+    static var player: AVPlayer?
+
 
     struct GraphQLResponse: Codable {
        let data: BrandsData?
@@ -71,13 +74,17 @@ struct CapsuleView: View {
             
             
             Button {
-                //
+                showModal = true
             } label: {
                 Rectangle()
                     .fill(.gray.opacity(1.2))
                     .cornerRadius(10)
                     .frame(width: 410, height: 80)
                 
+            }
+            .sheet(isPresented: $showModal) {
+                ModalView(webRadio: webRadio, player: Self.player)
+            
             }
 
     
@@ -107,7 +114,7 @@ struct CapsuleView: View {
                 }
                 
             } // fin hstack
-            .padding()
+            
             
             
             
