@@ -228,20 +228,20 @@ struct ModalView: View {
                    .cornerRadius(12)
                    .padding()
                
+              
+               
                Text(webRadio.title)
                    .font(.title2)
                    .bold()
                    .padding(.top)
                
-               if let description = webRadio.description {
-                   Text(description)
-                       .foregroundColor(.gray)
-                       .padding()
-                       .multilineTextAlignment(.center)
-                       .padding()
-
-               }
-               VStack{
+              
+               
+               
+               
+               
+            
+               
                    HStack{
                        ZStack{
                            Rectangle()
@@ -252,8 +252,6 @@ struct ModalView: View {
                                        endPoint: .trailing
                                    )
                                )
-                               
-                           
                                .frame(width: 120, height: 10)
                                .padding()
                                .foregroundColor(.gray.opacity(0.3))
@@ -284,12 +282,13 @@ struct ModalView: View {
                            
                            
                        } //fin zstack
+                      
                        
                        
 
                        
                    } // fin hstack
-               } // fin vstack
+                   .padding()
               
                Button {
                    if let player = player{
@@ -324,9 +323,11 @@ struct ModalView: View {
                        
                        
                    } // fin hsatck
+                   
                } // fin vstack
                .padding()
 
+               
                
                
                
@@ -341,6 +342,7 @@ struct ModalView: View {
            .navigationBarItems(trailing: Button("Fermer") {
                dismiss()
            })
+           
        } // fin navigation view
    } // fin body
 } // fin struc

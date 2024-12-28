@@ -38,11 +38,10 @@ struct tabView: View {
                 
                 
             } // fin tabview
+            
             VStack{
-                
-                
                 CapsuleView(webRadio: webRadio)
-            }// fin vstack
+            } // fin vstack
             .padding(.top,600) // ne pas bouger
             
 

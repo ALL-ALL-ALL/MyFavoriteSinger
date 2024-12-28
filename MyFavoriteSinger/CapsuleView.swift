@@ -9,9 +9,14 @@ import SwiftUI
 import AVKit
 
 struct CapsuleView: View {
+    @AppStorage("activeRadioID") var activeRadioID: String = ""
+    
     @State private var showModal = false
     @State private var isPlaying = false
     static var player: AVPlayer?
+    let webRadio: WebRadio
+
+
 
 
     struct GraphQLResponse: Codable {
@@ -63,10 +68,6 @@ struct CapsuleView: View {
         return imageMapping[webRadioId] ?? "1"
     } // fin function
     
-    
-    
-    
-    let webRadio: WebRadio
 
     var body: some View {
         
@@ -92,14 +93,17 @@ struct CapsuleView: View {
             HStack(spacing: 20){
                 Spacer()
                 
+                
                 Button {
                     isPlaying.toggle()
+                    
                 } label: {
                     Image(systemName: isPlaying ? "stop.fill" : "play.fill")
                         .foregroundColor(.white)
                         .font(.system(size: 30))
                     
                 }
+
                 
                 
                 Button {
@@ -109,9 +113,8 @@ struct CapsuleView: View {
                         .foregroundColor(.white)
                         .font(.system(size: 30))
                     
-                    
-                    
                 }
+                
                 
             } // fin hstack
             .padding()
@@ -129,89 +132,28 @@ struct CapsuleView: View {
                     .padding(.trailing,300)
             } // fin hstack
             
-            HStack{
-                Text("France Inter")
-                    .font(.title2)
-                    .foregroundColor(.white)
-                    .padding(.trailing,90)
-
-                
-            } // fin hstack
+            
+//            HStack{
+//                Text("France Inter")
+//                    .font(.title2)
+//                    .foregroundColor(.white)
+//                    .padding(.trailing,90)
+//
+//
+//            } // fin hstack
                 
                
-
-                
-                
-                
-                
-                
-                
-                
-                
                 Text(webRadio.title)
                     .font(.title2)
                     .foregroundColor(.white)
                 
-                
-                
-                
-            
-            
-            
             
         } // fin zstack
         
                 
                 
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-//                Button {
-//                    isPlaying.toggle()
-//                } label: {
-//                    Image(systemName: isPlaying ? "stop.fill" : "play.fill")
-//                        .font(.system(size: 30))
-//                        .padding(.leading,220)
-//                        .foregroundColor(.black)
-//                    
-//                }
-//                
-//                
-//                Button {
-//                    //
-//                } label: {
-//                    Image(systemName: "forward.fill")
-//                        .font(.system(size: 30))
-//                        .padding(.leading,330)
-//                        .foregroundColor(.black)
-//                    
-//                    
-//                    
-//                }
-                
-                
-                
-                
-            
-                
 
-                                
-                
-               
-                
-               
-                
-                
-                
-                    
-                
                 
        
         
@@ -224,3 +166,31 @@ struct CapsuleView: View {
 #Preview {
     CapsuleView(webRadio:WebRadio(id: "", title: "", description: "", liveStream: "", playerUrl: "", image: ""))
 }
+
+
+
+
+
+//
+//Button {
+//    
+//    if isPlaying {
+//        Self.player?.pause()
+//        activeRadioID = ""
+//    } else {
+//        if let streamURL = webRadio.liveStream {
+//            Self.player?.pause()
+//            Self.player = AVPlayer(url: URL(string: streamURL)!)
+//            Self.player?.play()
+//            activeRadioID = webRadio.id
+//        }
+//    }
+//    isPlaying.toggle()
+//} label: {
+//    Image(systemName: isPlaying ? "stop.fill" : "play.fill")
+//    
+//           .foregroundColor(.white)
+//           .font(.system(size: 30))
+//    
+//    
+//    }
