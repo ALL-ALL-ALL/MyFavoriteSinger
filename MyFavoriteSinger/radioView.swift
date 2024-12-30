@@ -1,6 +1,19 @@
 import SwiftUI
 import AVKit
 
+struct GraphQLResponse: Codable {
+   let data: BrandsData?
+   let errors: [GraphQLError]?
+}
+
+struct GraphQLError: Codable {
+   let message: String
+}
+
+struct BrandsData: Codable {
+   let brands: [Brand]
+}
+
 
 struct Brand: Identifiable, Codable {
    let id: String
@@ -19,6 +32,28 @@ struct WebRadio: Identifiable, Codable {
 
 class AudioState: ObservableObject {
     @Published var currentlyPlayingID: String?
+}
+
+class AudioManager: ObservableObject {
+    static let shared = AudioManager()
+    @Published var currentRadio: WebRadio?
+    @Published var isPlaying = false
+    static var player: AVPlayer?
+    
+    func playRadio(_ radio: WebRadio) {
+        if let streamURL = radio.liveStream {
+            Self.player?.pause()
+            Self.player = AVPlayer(url: URL(string: streamURL)!)
+            Self.player?.play()
+            currentRadio = radio
+            isPlaying = true
+        }
+    }
+    
+    func stopRadio() {
+        Self.player?.pause()
+        isPlaying = false
+    }
 }
 
 struct radioView: View {
@@ -40,6 +75,8 @@ struct radioView: View {
     @State private var brands: [Brand] = []
     @State private var isLoading = true
     @State private var errorMessage: String?
+    @StateObject private var audioManager = AudioManager.shared
+
 
     
     
@@ -61,21 +98,19 @@ struct radioView: View {
                                isLoading = true
                                loadBrands()
                            }
-                           .padding()
                        }
                    } else {
                        ScrollView {
-                           
                            ForEach(brands) { brand in
                                if let webRadios = brand.webRadios, !webRadios.isEmpty {
                                    Section() {
                                        ForEach(webRadios) { webRadio in
                                            WebRadioRow(webRadio: webRadio)
                                            Rectangle()
-                                               .frame(width: 290, height: 1)
+                                               .frame(width: 190, height: 1)
                                                .foregroundColor(.gray)
                                                .padding(.leading,100)
-                                               .padding(.top,-2)
+                                               .padding(.top,-8)
 
 
                                        } //fin for each
@@ -87,8 +122,8 @@ struct radioView: View {
                    } // fin else
                } // fin vstack
                .navigationTitle("Web Radios")
-               .padding(.top,30)
-//               .navigationBarTitleDisplayMode(.inline)  // titre  centré
+//               .padding(.bottom,40)
+               .navigationBarTitleDisplayMode(.inline)  // titre  centré
                .onAppear(perform: loadBrands)
            } // fin zstack
                
@@ -165,7 +200,123 @@ struct radioView: View {
 } // fin struct
 
 
+struct WebRadioRow: View {
+    let webRadio: WebRadio
+    @State private var player: AVPlayer?
+    @State private var isPlaying = false
+    @StateObject private var audioManager = AudioManager.shared
 
+    @AppStorage("activeRadioID") var activeRadioID: String = "" // @appstorage memoire de la radio qui joue et activeRadioID qui contien id de la radio ou rien
+
+    static var player: AVPlayer?
+    
+    func getImageName(for webRadioId: String) -> String {
+        print("ID reçu pour image : \(webRadioId)")
+        
+        let imageMapping: [String: String] = [
+            "FRANCEINTER_LA_MUSIQUE_INTER": "1",
+            "FRANCEMUSIQUE_CLASSIQUE_EASY": "2",
+            "FRANCEMUSIQUE_CLASSIQUE_PLUS": "3",
+            "FRANCEMUSIQUE_CONCERT_RF": "4",
+            "FRANCEMUSIQUE_OCORA_MONDE": "5",
+            "FRANCEMUSIQUE_LA_JAZZ": "6",
+            "FRANCEMUSIQUE_LA_CONTEMPORAINE": "7",
+            "FRANCEMUSIQUE_LA_BO": "8",
+            "FRANCEMUSIQUE_LA_BAROQUE": "9",
+            "FRANCEMUSIQUE_OPERA": "10",
+            "FRANCEMUSIQUE_PIANO_ZEN": "11",
+            "MOUV_100MIX": "12",
+            "MOUV_CLASSICS": "13",
+            "MOUV_DANCEHALL": "14",
+            "MOUV_RNB": "15",
+            "MOUV_RAPUS": "16",
+            "MOUV_RAPFR": "17",
+            "FIP_ROCK": "18",
+            "FIP_JAZZ": "19",
+            "FIP_GROOVE": "20",
+            "FIP_WORLD": "21",
+            "FIP_NOUVEAUTES": "22",
+            "FIP_REGGAE": "23",
+            "FIP_ELECTRO": "24",
+            "FIP_METAL": "25",
+            "FIP_POP": "26",
+            "FIP_HIP_HOP": "27",
+            "FRANCEBLEU_CHANSON_FRANCAISE": "28"
+        ]
+        return imageMapping[webRadioId] ?? "1"
+    } // fin function
+    
+    var body: some View {
+        HStack(spacing: 30) {
+            Button(action: {
+
+                if let streamURL = webRadio.liveStream {
+                       audioManager.playRadio(webRadio)
+                   }
+                   }) {
+                       HStack {
+                           Image(getImageName(for: webRadio.id))
+                               .resizable()
+                               .scaledToFit()
+                               .frame(width: 90, height: 90)
+                               .cornerRadius(8)
+                               .padding(.leading, 10)
+                           
+                           VStack(alignment: .leading) {
+                               Text(webRadio.title)
+                                   .font(.headline)
+                                   .foregroundColor(.black)
+                           }
+                           
+                           Spacer()
+                           
+                           
+                           }
+                       }
+                   }
+            
+            
+            
+            
+//            if let streamURL = webRadio.liveStream {
+//                Button(action: {
+//                    if isPlaying {
+//                        Self.player?.pause()
+//                 
+//                        activeRadioID = ""
+//
+//                           }else {
+//                               
+//                               
+//                               Self.player?.pause()
+//                               Self.player = AVPlayer(url: URL(string: streamURL)!)
+//                               Self.player?.play()
+//                               activeRadioID = webRadio.id
+//
+//                           }
+//                    
+//                    isPlaying.toggle()
+//                }) {
+//                    
+//                    Image(systemName: activeRadioID == webRadio.id ? "pause.circle.fill" : "play.circle.fill")
+//                        .font(.title)
+//                        .foregroundColor(.blue)
+//                        .padding(.trailing,20)
+//                    
+//                }
+//                
+//
+//               
+//                }
+            
+
+            
+            } // fin hstack
+
+        
+        
+        
+        } // fin body
 
 
 // DEBUT MODAL
@@ -353,129 +504,12 @@ struct ModalView: View {
 
 
 
-struct WebRadioRow: View {
-    let webRadio: WebRadio
-    @State private var player: AVPlayer?
-    @State private var isPlaying = false
-    @AppStorage("activeRadioID") var activeRadioID: String = "" // @appstorage memoire de la radio qui joue et activeRadioID qui contien id de la radio ou rien
-
-    static var player: AVPlayer?
 
 
 
-    
 
 
-    
-    func getImageName(for webRadioId: String) -> String {
-        print("ID reçu pour image : \(webRadioId)")
-        
-        let imageMapping: [String: String] = [
-            "FRANCEINTER_LA_MUSIQUE_INTER": "1",
-            "FRANCEMUSIQUE_CLASSIQUE_EASY": "2",
-            "FRANCEMUSIQUE_CLASSIQUE_PLUS": "3",
-            "FRANCEMUSIQUE_CONCERT_RF": "4",
-            "FRANCEMUSIQUE_OCORA_MONDE": "5",
-            "FRANCEMUSIQUE_LA_JAZZ": "6",
-            "FRANCEMUSIQUE_LA_CONTEMPORAINE": "7",
-            "FRANCEMUSIQUE_LA_BO": "8",
-            "FRANCEMUSIQUE_LA_BAROQUE": "9",
-            "FRANCEMUSIQUE_OPERA": "10",
-            "FRANCEMUSIQUE_PIANO_ZEN": "11",
-            "MOUV_100MIX": "12",
-            "MOUV_CLASSICS": "13",
-            "MOUV_DANCEHALL": "14",
-            "MOUV_RNB": "15",
-            "MOUV_RAPUS": "16",
-            "MOUV_RAPFR": "17",
-            "FIP_ROCK": "18",
-            "FIP_JAZZ": "19",
-            "FIP_GROOVE": "20",
-            "FIP_WORLD": "21",
-            "FIP_NOUVEAUTES": "22",
-            "FIP_REGGAE": "23",
-            "FIP_ELECTRO": "24",
-            "FIP_METAL": "25",
-            "FIP_POP": "26",
-            "FIP_HIP_HOP": "27",
-            "FRANCEBLEU_CHANSON_FRANCAISE": "28"
-        ]
-        return imageMapping[webRadioId] ?? "1"
-    } // fin function
-    
-    var body: some View {
-        HStack {
-            
-                Image(getImageName(for: webRadio.id))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 90, height: 90)
-                    .cornerRadius(8)
-                    .padding(.leading,10)
-            
-            
-            
-            VStack(alignment: .leading) {
-                Text(webRadio.title)
-                    .font(.headline)
-                    .foregroundColor(.black)
-            }
-            Spacer()
-            
-            if let streamURL = webRadio.liveStream {
-                Button(action: {
-                    if isPlaying {
-                        Self.player?.pause()
-                 
-                        activeRadioID = ""
 
-                           }else {
-                               
-                               
-                               Self.player?.pause()
-                               Self.player = AVPlayer(url: URL(string: streamURL)!)
-                               Self.player?.play()
-                               activeRadioID = webRadio.id
-
-                           }
-                    
-                    isPlaying.toggle()
-                }) {
-                    
-                    Image(systemName: activeRadioID == webRadio.id ? "pause.circle.fill" : "play.circle.fill")
-                        .font(.title)
-                        .foregroundColor(.blue)
-                        .padding(.trailing,20)
-                    
-                }
-                
-
-               
-                }
-            
-
-            
-            } // fin hstack
-
-        
-        
-        
-        } // fin body
-    } // fin struct
-
-
-struct GraphQLResponse: Codable {
-   let data: BrandsData?
-   let errors: [GraphQLError]?
-}
-
-struct GraphQLError: Codable {
-   let message: String
-}
-
-struct BrandsData: Codable {
-   let brands: [Brand]
-}
 
 #Preview {
    radioView()

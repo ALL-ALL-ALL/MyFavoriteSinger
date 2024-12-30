@@ -9,10 +9,13 @@ import SwiftUI
 import AVKit
 
 struct CapsuleView: View {
-    @AppStorage("activeRadioID") var activeRadioID: String = ""
     
-    @State private var showModal = false
     @State private var isPlaying = false
+    @StateObject private var audioManager = AudioManager.shared
+    @State private var showModal = false
+    @State private var playingRadio: WebRadio?
+    @AppStorage("activeRadioID") var activeRadioID: String = "" // @appstorage memoire de la radio qui joue et activeRadioID qui contien id de la radio ou rien
+
     static var player: AVPlayer?
     let webRadio: WebRadio
 
@@ -83,6 +86,7 @@ struct CapsuleView: View {
                     .frame(width: 380, height: 80)
                 
             }
+            
             .sheet(isPresented: $showModal) {
                 ModalView(webRadio: webRadio, player: Self.player)
             
@@ -130,23 +134,27 @@ struct CapsuleView: View {
                     .frame(width: 65, height: 65)
                     .cornerRadius(12)
                     .padding(.trailing,300)
-            } // fin hstack
-            
-            
-//            HStack{
-//                Text("France Inter")
-//                    .font(.title2)
-//                    .foregroundColor(.white)
-//                    .padding(.trailing,90)
-//
-//
-//            } // fin hstack
                 
-               
+            } // fin hstack
+        
+            
                 Text(webRadio.title)
                     .font(.title2)
                     .foregroundColor(.white)
                 
+            
+            
+            
+            //            HStack{
+            //                Text("France Inter")
+            //                    .font(.title2)
+            //                    .foregroundColor(.white)
+            //                    .padding(.trailing,90)
+            //
+            //
+            //            } // fin hstack
+            
+            
             
         } // fin zstack
         
