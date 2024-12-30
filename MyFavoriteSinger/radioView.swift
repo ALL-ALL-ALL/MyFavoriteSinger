@@ -58,33 +58,14 @@ class AudioManager: ObservableObject {
 
 struct radioView: View {
     
-    
-    
-//    init() {
-//           // Configurer l'apparence de la barre de navigation
-//           let appearance = UINavigationBarAppearance()
-//           appearance.configureWithOpaqueBackground()
-//           appearance.backgroundColor = UIColor.black // Couleur de fond de la barre
-//           appearance.titleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du titre en blanc
-//           appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white] // Couleur du grand titre en blanc
-//
-//           UINavigationBar.appearance().standardAppearance = appearance
-//           UINavigationBar.appearance().scrollEdgeAppearance = appearance
-//       }// pour mettre le bar titlle en blanc
-    
     @State private var brands: [Brand] = []
     @State private var isLoading = true
     @State private var errorMessage: String?
     @StateObject private var audioManager = AudioManager.shared
-
-
-    
     
    var body: some View {
-       
        NavigationStack {
            ZStack{
-
                VStack {
 
                    if isLoading {
@@ -107,10 +88,10 @@ struct radioView: View {
                                        ForEach(webRadios) { webRadio in
                                            WebRadioRow(webRadio: webRadio)
                                            Rectangle()
-                                               .frame(width: 190, height: 1)
+                                               .frame(width: 250, height: 1)
                                                .foregroundColor(.gray)
-                                               .padding(.leading,100)
-                                               .padding(.top,-8)
+                                               .padding(.leading,140)
+                                               .padding(.top,-6)
 
 
                                        } //fin for each
@@ -122,17 +103,14 @@ struct radioView: View {
                    } // fin else
                } // fin vstack
                .navigationTitle("Web Radios")
-//               .padding(.bottom,40)
+               .padding(.bottom,80) // pour pouvoir voir la dernier radio 
                .navigationBarTitleDisplayMode(.inline)  // titre  centré
                .onAppear(perform: loadBrands)
            } // fin zstack
-               
-               
-               
         } // fin zstack
-           
    } // fin body
    
+    
    func loadBrands() {
        print("🚀 Début du chargement des webradios")
        
@@ -200,6 +178,11 @@ struct radioView: View {
 } // fin struct
 
 
+
+
+
+
+
 struct WebRadioRow: View {
     let webRadio: WebRadio
     @State private var player: AVPlayer?
@@ -247,10 +230,10 @@ struct WebRadioRow: View {
     } // fin function
     
     var body: some View {
-        HStack(spacing: 30) {
+        HStack {
             Button(action: {
 
-                if let streamURL = webRadio.liveStream {
+                if webRadio.liveStream != nil {
                        audioManager.playRadio(webRadio)
                    }
                    }) {
@@ -258,22 +241,25 @@ struct WebRadioRow: View {
                            Image(getImageName(for: webRadio.id))
                                .resizable()
                                .scaledToFit()
-                               .frame(width: 90, height: 90)
+                               .frame(width: 120, height: 120)
                                .cornerRadius(8)
                                .padding(.leading, 10)
                            
                            VStack(alignment: .leading) {
                                Text(webRadio.title)
-                                   .font(.headline)
+                                   .font(.title2)
                                    .foregroundColor(.black)
-                           }
+                                   .font(.system(size: 20))
+                                   .padding(.leading,15)
+
+                           } // fin vstack
                            
                            Spacer()
                            
                            
-                           }
+                           } // fin hstack
                        }
-                   }
+                   } // fin hstack
             
             
             
@@ -317,6 +303,14 @@ struct WebRadioRow: View {
         
         
         } // fin body
+
+
+
+
+
+
+
+
 
 
 // DEBUT MODAL
@@ -366,7 +360,7 @@ struct ModalView: View {
            "FIP_HIP_HOP": "27",
            "FRANCEBLEU_CHANSON_FRANCAISE": "28"
        ]
-       return imageMapping[webRadioId] ?? "1"
+       return imageMapping[webRadioId] ?? ""
    }
    
    var body: some View {
@@ -377,21 +371,33 @@ struct ModalView: View {
                    .scaledToFit()
                    .frame(width: 200, height: 200)
                    .cornerRadius(12)
-                   .padding()
                
-              
+               
                
                Text(webRadio.title)
                    .font(.title2)
-                   .bold()
-                   .padding(.top)
+                   .foregroundColor(.white)
+                   .multilineTextAlignment(.center)
+
+               
+               
+               if let description = webRadio.description {
+                   Text(description)
+                       .font(.title2)
+                       .multilineTextAlignment(.center)
+                       .padding(.horizontal,10)
+
+                   
+                }
+               
+              
                
               
                
                
                
-               
-            
+              
+              
                
                    HStack{
                        ZStack{
@@ -442,17 +448,13 @@ struct ModalView: View {
                    .padding()
               
                Button {
-                   if let player = player{
-                       player.pause()
-                       
-                   }
-                  } label: {
-                      Image(systemName: "stop.fill")
-                          .resizable()
-                          .scaledToFit()
-                          .frame(width: 35, height: 65)
-
-                  }
+                   AudioManager.shared.stopRadio()
+               } label: {
+                   Image(systemName: "stop.fill")
+                       .resizable()
+                       .scaledToFit()
+                       .frame(width: 35, height: 65)
+               }
             
                VStack(spacing: 10){
                    HStack(spacing: 15){
@@ -490,9 +492,9 @@ struct ModalView: View {
                
                
            } // fin vstack
-           .navigationBarItems(trailing: Button("Fermer") {
-               dismiss()
-           })
+//           .navigationBarItems(trailing: Button("Fermer") {
+//               dismiss()
+//           })
            
        } // fin navigation view
    } // fin body

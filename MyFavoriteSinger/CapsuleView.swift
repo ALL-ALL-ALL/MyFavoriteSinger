@@ -68,7 +68,7 @@ struct CapsuleView: View {
             "FIP_HIP_HOP": "27",
             "FRANCEBLEU_CHANSON_FRANCAISE": "28"
         ]
-        return imageMapping[webRadioId] ?? "1"
+        return imageMapping[webRadioId] ?? ""
     } // fin function
     
 
@@ -94,30 +94,30 @@ struct CapsuleView: View {
 
     
             
+            
+            
+            
+            
             HStack(spacing: 20){
                 Spacer()
                 
                 
                 Button {
                     isPlaying.toggle()
+                    if audioManager.isPlaying {
+                        audioManager.stopRadio()
+                    } else if webRadio.liveStream != nil {
+                       audioManager.playRadio(webRadio)
+                   }
                     
                 } label: {
                     Image(systemName: isPlaying ? "stop.fill" : "play.fill")
                         .foregroundColor(.white)
                         .font(.system(size: 30))
+                        .padding(.trailing,30)
                     
                 }
 
-                
-                
-                Button {
-                    //
-                } label: {
-                    Image(systemName: "forward.fill")
-                        .foregroundColor(.white)
-                        .font(.system(size: 30))
-                    
-                }
                 
                 
             } // fin hstack
@@ -139,20 +139,19 @@ struct CapsuleView: View {
         
             
                 Text(webRadio.title)
+            
                     .font(.title2)
+                    .bold()
                     .foregroundColor(.white)
+                    .frame(width: 200, height: 60, alignment: .leading)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.5)  
+                    .padding(.trailing,20)
+
+
                 
             
-            
-            
-            //            HStack{
-            //                Text("France Inter")
-            //                    .font(.title2)
-            //                    .foregroundColor(.white)
-            //                    .padding(.trailing,90)
-            //
-            //
-            //            } // fin hstack
+        
             
             
             

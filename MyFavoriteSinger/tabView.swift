@@ -47,7 +47,7 @@ struct tabView: View {
                        VStack {
                            CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
                        } // fin vstack
-                       .padding(.top, 600) // ne pas bouger
+                       .padding(.top, 599) // ne pas bouger
                    
         
     

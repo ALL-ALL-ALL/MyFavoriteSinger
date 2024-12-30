@@ -24,7 +24,7 @@ struct ContentView: View {
                                   
                                   HStack {
                                       
-                                      VStack(alignment: .leading, spacing: 10) {
+                                      VStack(alignment: .leading, spacing: 10){
                                           Text("FOCUS ARTISTE")
                                               .font(.headline)
                                               .foregroundStyle(.white.opacity(0.8))
@@ -52,12 +52,12 @@ struct ContentView: View {
                                               .foregroundColor(.blue)
                                               .cornerRadius(20)
                                           }
-                                      }
+                                          
+                                      } // fin vstack
                                       .padding()
-                                      
                                       Spacer()
-                                      
                                       // Image de l'artiste (à droite)
+                                      
                                       Circle()
                                           .fill(.white.opacity(0.2))
                                           .frame(width: 100, height: 100)
@@ -67,15 +67,9 @@ struct ContentView: View {
                                                   .foregroundColor(.white)
                                           )
                                           .padding()
-                                  }
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                           } // fin zstack
+
+                                      } // fin hstack
+                               } // fin zstack
                            
                            
                           
@@ -89,7 +83,7 @@ struct ContentView: View {
 
                            
                            ScrollView(.horizontal){
-                               HStack(spacing: 15) {
+                               HStack(spacing:-15) {
                                    ForEach(viewModel.tracks) { track in
                                        GeometryReader { geometry in
                                            VStack(alignment: .leading) {
@@ -100,7 +94,7 @@ struct ContentView: View {
                                                } placeholder: {
                                                    Color.gray
                                                }
-                                               .frame(width: 200, height: 200)
+                                               .frame(width: 180, height: 200)
                                                .clipShape(RoundedRectangle(cornerRadius: 10))
                                                
                                                Text(track.trackName)
@@ -114,39 +108,26 @@ struct ContentView: View {
                                                Angle(degrees: Double((geometry.frame(in: .global).minX - 100) / 5)),
                                                axis: (x: 0, y: -1, z: 0),
                                                anchor: .center,
-                                               perspective: 0.5
+                                               perspective: 0.2
                                                )
                                            
                                        } // fin geometry reader
                                        .frame(width: 200, height: 260)
                                    } // fin foreach
                                } // hstack
-                               
                                .padding(.horizontal)
-                               
                            } // fin scroll view horizontal
-                           
-                           
                        } // fin Vstack
-                       
                    } // fin scroll view
-           
-
                    .navigationTitle("ACCUEIL")
-                   .padding(.bottom,40)
-
-
-
+//                   .padding(.bottom,40)
                    .onAppear {
                        viewModel.fetchTopTracks()
                    }
-                   
-                   
-                   
                } // fin navigation stack
-           
            } // fin body
        } // fin struct
+
 
 
 #Preview {
@@ -154,4 +135,9 @@ struct ContentView: View {
 }
 
 
-
+//.rotation3DEffect(
+//    Angle(degrees: Double((geometry.frame(in: .global).minX - 100) / 5)),
+//    axis: (x: 0, y: -1, z: 0),
+//    anchor: .center,
+//    perspective: 0.5
+//    )
