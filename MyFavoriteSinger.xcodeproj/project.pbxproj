@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B1ACB542D25F6E3000DDB88 /* SpotifyArtistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1ACB532D25F6E3000DDB88 /* SpotifyArtistModel.swift */; };
 		3B6C96892C3B5512004A11EF /* detaillsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C96882C3B5512004A11EF /* detaillsView.swift */; };
 		3B9D8B302C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9D8B2F2C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift */; };
 		3B9D8B322C3A2EF90035BAE9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9D8B312C3A2EF90035BAE9 /* ContentView.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B1ACB532D25F6E3000DDB88 /* SpotifyArtistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyArtistModel.swift; sourceTree = "<group>"; };
 		3B432E112D1CCFA400DDFF42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3B6C96882C3B5512004A11EF /* detaillsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detaillsView.swift; sourceTree = "<group>"; };
 		3B9D8B2C2C3A2EF90035BAE9 /* MyFavoriteSinger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFavoriteSinger.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +74,7 @@
 				3B432E112D1CCFA400DDFF42 /* Info.plist */,
 				3B9D8B2F2C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift */,
 				3B9D8B312C3A2EF90035BAE9 /* ContentView.swift */,
+				3B1ACB532D25F6E3000DDB88 /* SpotifyArtistModel.swift */,
 				3BF560BA2D0896F60071A0B9 /* tabView.swift */,
 				3BF560C02D089F920071A0B9 /* bibliView.swift */,
 				3BF560BE2D089EC80071A0B9 /* radioView.swift */,
@@ -172,6 +175,7 @@
 				3BF27F2B2D1E2575004875B9 /* CapsuleView.swift in Sources */,
 				3B9D8B302C3A2EF90035BAE9 /* MyFavoriteSingerApp.swift in Sources */,
 				3B6C96892C3B5512004A11EF /* detaillsView.swift in Sources */,
+				3B1ACB542D25F6E3000DDB88 /* SpotifyArtistModel.swift in Sources */,
 				3BF560C12D089F920071A0B9 /* bibliView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -78,7 +78,9 @@ struct CapsuleView: View {
             
             
             Button {
-                showModal = true
+                if audioManager.isPlaying{
+                    showModal = true
+                }
             } label: {
                 Rectangle()
                     .fill(.gray.opacity(1.2))
@@ -89,8 +91,10 @@ struct CapsuleView: View {
             
             .sheet(isPresented: $showModal) {
                 ModalView(webRadio: webRadio, player: Self.player)
-            
             }
+            
+            
+            
 
     
             

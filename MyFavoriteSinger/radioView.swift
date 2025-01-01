@@ -54,7 +54,7 @@ class AudioManager: ObservableObject {
         Self.player?.pause()
         isPlaying = false
     }
-}
+} // fin class audio manager
 
 struct radioView: View {
     
@@ -319,6 +319,7 @@ struct ModalView: View {
     
     let webRadio: WebRadio
     let player: AVPlayer?
+
     
     @Environment(\.dismiss) var dismiss
     @State private var volume : Double = 0
@@ -365,6 +366,7 @@ struct ModalView: View {
    
    var body: some View {
        NavigationView {
+           
            VStack {
                Image(getImageName(for: webRadio.id))
                    .resizable()
@@ -389,16 +391,7 @@ struct ModalView: View {
 
                    
                 }
-               
-              
-               
-              
-               
-               
-               
-              
-              
-               
+
                    HStack{
                        ZStack{
                            Rectangle()
@@ -455,7 +448,8 @@ struct ModalView: View {
                        .scaledToFit()
                        .frame(width: 35, height: 65)
                }
-            
+               
+               
                VStack(spacing: 10){
                    HStack(spacing: 15){
                        Image(systemName: "speaker.wave.1")
