@@ -6,9 +6,27 @@
 //
 
 import SwiftUI
+import AVKit 
 
 struct ContentView: View {
     @StateObject private var viewModel = TopChartsViewModel()
+    @StateObject private var spotifyViewModel = SpotifyViewModel()
+    @State private var audioPlayer: AVPlayer?
+    
+    func playPreview(for artistId: String) {
+        SpotifyService.getSpotifyToken { token in
+            guard let token = token else { return }
+            SpotifyService.fetchTopTrack(artistId: artistId, token: token) { previewUrl in
+                guard let previewUrl = previewUrl, let url = URL(string: previewUrl) else { return }
+                DispatchQueue.main.async {
+                    self.audioPlayer = AVPlayer(url: url)
+                    self.audioPlayer?.play()
+                }
+            }
+        }
+    }
+
+
 
     
     var body: some View{
@@ -21,58 +39,56 @@ struct ContentView: View {
                            ZStack{
                                LinearGradient(colors: [.purple, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
                                       .frame(width: 420, height: 220)
-                                  
-                                  HStack {
-                                      
-                                      VStack(alignment: .leading, spacing: 10){
-                                          Text("FOCUS ARTISTE")
-                                              .font(.headline)
-                                              .foregroundStyle(.white.opacity(0.8))
-                                          
-                                          Text("james blunt")  // Exemple d'artiste
-                                              .font(.title.bold())
-                                              .foregroundStyle(.white)
-                                          
-                                          Text("Nouveau single")
-                                              .foregroundStyle(.white.opacity(0.8))
-                                          Text("Back To Bedlam")  // Nom du titre
-                                              .font(.title3.bold())
-                                              .foregroundStyle(.white)
-                                          
-                                          Button(action: {
-                                              // Action pour écouter
-                                          }) {
-                                              HStack {
-                                                  Image(systemName: "play.fill")
-                                                  Text("Écouter")
-                                              }
-                                              .padding(.horizontal, 20)
-                                              .padding(.vertical, 8)
-                                              .background(.white)
-                                              .foregroundColor(.blue)
-                                              .cornerRadius(20)
-                                          }
-                                          
-                                      } // fin vstack
-                                      .padding()
-                                      Spacer()
-                                      // Image de l'artiste (à droite)
-                                      
-                                      Circle()
-                                          .fill(.white.opacity(0.2))
-                                          .frame(width: 100, height: 100)
-                                          .overlay(
-                                              Image(systemName: "person.fill")
-                                                  .font(.system(size: 50))
-                                                  .foregroundColor(.white)
-                                          )
-                                          .padding()
+                               HStack {
+                                   if let firstArtist = spotifyViewModel.artists.first {
+                                       VStack(alignment: .leading, spacing: 10){
+                                           Text("FOCUS ARTISTE")
+                                               .font(.headline)
+                                               .foregroundStyle(.white.opacity(0.8))
+                                           
+                                           Text(firstArtist.name)
+                                               .font(.title.bold())
+                                               .foregroundStyle(.white)
+                                           
+                                           Text("Genre")
+                                               .foregroundStyle(.white.opacity(0.8))
+                                           Text(firstArtist.genres.first ?? "")
+                                               .font(.title3.bold())
+                                               .foregroundStyle(.white)
+                                           
+                                           Button(action: {
+                                               // Action pour écouter
+                                           }) {
+                                               HStack {
+                                                   Image(systemName: "play.fill")
+                                                   Text("Écouter")
+                                               }
+                                               .padding(.horizontal, 20)
+                                               .padding(.vertical, 8)
+                                               .background(.white)
+                                               .foregroundColor(.blue)
+                                               .cornerRadius(20)
+                                           }
+                                           
+                                       } // fin vstack
+                                       .padding()
+                                       Spacer()
+                                   
+                                       AsyncImage(url: URL(string:firstArtist.images.first?.url ?? "")) { image in
+                                            image.resizable().aspectRatio(contentMode: .fill)
+                                           } placeholder: {
+                                               Color.gray
+                                               }
+                                       .frame(width: 100, height: 100)
+                                       .clipShape(Circle())
+                                       .padding()
 
-                                      } // fin hstack
-                               } // fin zstack
+                                   } // fin if let
+                                } // fin hstack
+                                   
+                            } // fin zstack
                            
                            
-                          
                            
                            
                            Text("DÉCOUVERTES")
@@ -123,6 +139,8 @@ struct ContentView: View {
 //                   .padding(.bottom,40)
                    .onAppear {
                        viewModel.fetchTopTracks()
+                       spotifyViewModel.fetchTopArtists()
+
                    }
                } // fin navigation stack
            } // fin body
@@ -141,3 +159,51 @@ struct ContentView: View {
 //    anchor: .center,
 //    perspective: 0.5
 //    )
+
+
+
+//Text("FOCUS ARTISTE")
+//    .font(.headline)
+//    .foregroundStyle(.white.opacity(0.8))
+//
+//Text("james blunt")  // Exemple d'artiste
+//    .font(.title.bold())
+//    .foregroundStyle(.white)
+//
+//Text("Nouveau single")
+//    .foregroundStyle(.white.opacity(0.8))
+//Text("Back To Bedlam")  // Nom du titre
+//    .font(.title3.bold())
+//    .foregroundStyle(.white)
+
+//Circle()
+//    .fill(.white.opacity(0.2))
+//    .frame(width: 100, height: 100)
+//    .overlay(
+//        Image(systemName: "person.fill")
+//            .font(.system(size: 50))
+//            .foregroundColor(.white)
+//    )
+
+
+
+
+//VStack{
+//    if let firstArtist = spotifyViewModel.artists.first {
+//        Text(firstArtist.name)
+//            .font(.title)
+//            .foregroundColor(.white)
+//        
+//        Text(firstArtist.genres.first ?? "")
+//            .font(.subheadline)
+//            .foregroundColor(.white)
+//        
+        
+//} // fin vstack
+//
+//
+//    
+//    
+//    
+//    
+//} // fin if let

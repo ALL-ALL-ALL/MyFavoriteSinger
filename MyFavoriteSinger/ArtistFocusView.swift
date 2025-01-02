@@ -6,12 +6,29 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct ArtistFocusView: View {
+//    let artist: SpotifyArtist
+//    @State private var previewUrl: String?
+//    @State private var isPlaying = false
+//    @State private var audioPlayer: AVPlayer?
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+        Text("Hello, World!")
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    } // fin body
+} // fin struct
 
 #Preview {
     ArtistFocusView()
