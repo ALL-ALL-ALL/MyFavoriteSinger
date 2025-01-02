@@ -104,7 +104,7 @@ struct SpotifyService {
     
     
     static func fetchArtists(token: String, completion: @escaping ([SpotifyArtist]) -> Void) {
-        var request = URLRequest(url: URL(string: "https://api.spotify.com/v1/artists?ids=2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6")!)
+        var request = URLRequest(url: URL(string: "https://api.spotify.com/v1/artists?ids=2CIMQHirSU0MQqyYHq0eOx,57dN52uHvrHOxijzpIgu3E,1vCWHaC5f2uS3yhpwWbIA6,06HL4z0CvFAxyc27GXpf02,3TVXtAsR1Inumwj472S9r4,6eUKZXaKkcviH0Ku9w2n3V,66CXWjxzNUsdJxJ2JdwvnR,1Xyo4u8uXC1ZmMpatF05PJ,6M2wZ9GZgrQXHCFfjv46we,0C8ZW7ezQVs4URX5aX7Kqx,3WrFJ7ztbogyGnTHbHJFl2,246dkjvS1zLTtiykXe5h60,6qqNVTkY8uBg9cP3Jd7DAH,0du5cEVh5yTK9QJze8zA0C,6KImCVD70vtIoJWnq6nGn3,1uNFoZAHBGtllmzznpCI3s,64KEffDW9EtZ1y2vBYgq8T,3WGpXCj9YhhfX11TToZcXP,5K4W6rqBFWDnAN6FQUkS6x,4q3ewBCX7sLwd24euuV69X")!)
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request) { data, response, error in

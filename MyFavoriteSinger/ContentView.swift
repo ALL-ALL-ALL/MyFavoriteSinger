@@ -12,6 +12,14 @@ struct ContentView: View {
     @StateObject private var viewModel = TopChartsViewModel()
     @StateObject private var spotifyViewModel = SpotifyViewModel()
     @State private var audioPlayer: AVPlayer?
+    @State private var currentArtistIndex = 1
+
+    
+    func changeArtist() {
+        currentArtistIndex = Int.random(in: 0..<spotifyViewModel.artists.count)
+    }
+    // en mode random
+    
     
     func playPreview(for artistId: String) {
         SpotifyService.getSpotifyToken { token in
@@ -26,6 +34,7 @@ struct ContentView: View {
         }
     }
 
+ 
 
 
     
@@ -40,22 +49,32 @@ struct ContentView: View {
                                LinearGradient(colors: [.purple, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
                                       .frame(width: 420, height: 220)
                                HStack {
-                                   if let firstArtist = spotifyViewModel.artists.first {
+                                   if currentArtistIndex < spotifyViewModel.artists.count {
+                                       let currentArtist = spotifyViewModel.artists[currentArtistIndex]
+                                       
                                        VStack(alignment: .leading, spacing: 10){
                                            Text("FOCUS ARTISTE")
                                                .font(.headline)
-                                               .foregroundStyle(.white.opacity(0.8))
+                                               .foregroundStyle(.white)
                                            
-                                           Text(firstArtist.name)
+                                           Text(currentArtist.name)
                                                .font(.title.bold())
                                                .foregroundStyle(.white)
                                            
+                                           Text("Followers:\(currentArtist.followers.total.formatted())")
+                                               .foregroundStyle(.white)
+                                               .font(.headline)
+                                           
                                            Text("Genre")
                                                .foregroundStyle(.white.opacity(0.8))
-                                           Text(firstArtist.genres.first ?? "")
+                                           
+                                           
+                                           Text(currentArtist.genres.first ?? "")
                                                .font(.title3.bold())
                                                .foregroundStyle(.white)
-                                           
+                                               .padding(.top,-5)
+                                       
+                                       
                                            Button(action: {
                                                // Action pour écouter
                                            }) {
@@ -73,15 +92,21 @@ struct ContentView: View {
                                        } // fin vstack
                                        .padding()
                                        Spacer()
-                                   
-                                       AsyncImage(url: URL(string:firstArtist.images.first?.url ?? "")) { image in
-                                            image.resizable().aspectRatio(contentMode: .fill)
-                                           } placeholder: {
-                                               Color.gray
-                                               }
-                                       .frame(width: 100, height: 100)
+                                       
+                                       AsyncImage(url: URL(string:currentArtist.images.first?.url ?? "")) { image in
+                                           image.resizable().aspectRatio(contentMode: .fill)
+                                       } placeholder: {
+                                           Color.gray
+                                       }
+                                       .frame(width: 105, height: 105)
                                        .clipShape(Circle())
-                                       .padding()
+                                       .padding(.trailing,80)
+                                       
+                                   }
+                                           
+                                           
+                                           
+                                           
 
                                    } // fin if let
                                 } // fin hstack
@@ -133,18 +158,22 @@ struct ContentView: View {
                                } // hstack
                                .padding(.horizontal)
                            } // fin scroll view horizontal
-                       } // fin Vstack
-                   } // fin scroll view
+                       } // fin scrollview
+                   } // fin navigation stack
                    .navigationTitle("ACCUEIL")
 //                   .padding(.bottom,40)
                    .onAppear {
                        viewModel.fetchTopTracks()
                        spotifyViewModel.fetchTopArtists()
+                       
+                       Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { _ in
+                           changeArtist()
+                       }
+
 
                    }
                } // fin navigation stack
            } // fin body
-       } // fin struct
 
 
 
