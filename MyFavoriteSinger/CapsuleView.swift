@@ -15,24 +15,24 @@ struct CapsuleView: View {
     @State private var showModal = false
     @State private var playingRadio: WebRadio?
     @AppStorage("activeRadioID") var activeRadioID: String = "" // @appstorage memoire de la radio qui joue et activeRadioID qui contien id de la radio ou rien
-
+    
     static var player: AVPlayer?
     let webRadio: WebRadio
-
-
-
-
+    
+    
+    
+    
     struct GraphQLResponse: Codable {
-       let data: BrandsData?
-       let errors: [GraphQLError]?
+        let data: BrandsData?
+        let errors: [GraphQLError]?
     }
-
+    
     struct GraphQLError: Codable {
-       let message: String
+        let message: String
     }
-
+    
     struct BrandsData: Codable {
-       let brands: [Brand]
+        let brands: [Brand]
     }
     
     func getImageName(for webRadioId: String) -> String {
@@ -71,7 +71,7 @@ struct CapsuleView: View {
         return imageMapping[webRadioId] ?? ""
     } // fin function
     
-
+    
     var body: some View {
         
         ZStack{
@@ -95,8 +95,8 @@ struct CapsuleView: View {
             
             
             
-
-    
+            
+            
             
             
             
@@ -111,8 +111,8 @@ struct CapsuleView: View {
                     if audioManager.isPlaying {
                         audioManager.stopRadio()
                     } else if webRadio.liveStream != nil {
-                       audioManager.playRadio(webRadio)
-                   }
+                        audioManager.playRadio(webRadio)
+                    }
                     
                 } label: {
                     Image(systemName: isPlaying ? "stop.fill" : "play.fill")
@@ -121,7 +121,7 @@ struct CapsuleView: View {
                         .padding(.trailing,30)
                     
                 }
-
+                
                 
                 
             } // fin hstack
@@ -140,33 +140,33 @@ struct CapsuleView: View {
                     .padding(.trailing,300)
                 
             } // fin hstack
-        
             
-                Text(webRadio.title)
             
-                    .font(.title2)
-                    .bold()
-                    .foregroundColor(.white)
-                    .frame(width: 200, height: 60, alignment: .leading)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.5)  
-                    .padding(.trailing,20)
-
-
-                
+            Text(webRadio.title)
             
-        
+                .font(.title2)
+                .bold()
+                .foregroundColor(.white)
+                .frame(width: 200, height: 60, alignment: .leading)
+                .lineLimit(2)
+                .minimumScaleFactor(0.5)  
+                .padding(.trailing,20)
+            
+            
+            
+            
+            
             
             
             
         } // fin zstack
         
-                
-                
-                
-
-                
-       
+        
+        
+        
+        
+        
+        
         
         
         

@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct tabView: View {
-    
-
     @StateObject private var audioManager = AudioManager.shared
-
+    
     let webRadio: WebRadio
     
-    
-
     var body: some View {
         ZStack{
             TabView {
@@ -44,32 +40,12 @@ struct tabView: View {
                 
             } // fin tabview
             
-                       VStack {
-                           CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
-                       } // fin vstack
-                       .padding(.top, 599) // ne pas bouger
-                               
+            VStack {
+                CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
+            } // fin vstack
+            .padding(.top, 599) // ne pas bouger
+            
         } // fin zstack
-        
-        
-    
-        
-        
-        
-        
-       
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
         
         
         
