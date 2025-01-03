@@ -149,21 +149,6 @@ struct SpotifyService {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class SpotifyViewModel: ObservableObject {
     @Published var artists: [SpotifyArtist] = []
     
@@ -178,8 +163,3 @@ class SpotifyViewModel: ObservableObject {
         }
     }
 }
-
-
-
-
-

@@ -42,9 +42,14 @@ struct FormulaireView: View {
                 Section(header: Text("Détails de l'artiste")) {
                     TextField("Nom de l'artiste", text: $NameArtist)
                     TextField("Nom de la chanson", text: $NameSong)
+                    
                 }
                 
-                Section(header: Text("Ajouter une chanson via URL")) {
+                Section(header: Text("Ajout url")) {
+                    TextField("url", text: $NameArtist)
+                    
+                }
+                
                     
                     
                     Button(action: saveItem, label: {
@@ -59,10 +64,10 @@ struct FormulaireView: View {
                     }
                 }
                 .navigationTitle("Ajouter une chanson")
-            }
-        }
-    }
-}
+            } //fin navigation stack
+        } // fin body
+    } // fin strucut
+
 #Preview {
     FormulaireView(NameArtist: "", NameSong: "")
 }

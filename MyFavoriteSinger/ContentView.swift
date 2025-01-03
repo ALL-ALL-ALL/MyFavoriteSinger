@@ -94,19 +94,6 @@ struct ContentView: View {
                                         .padding(.top,-5)
                                     
                                     
-                                    Button(action: {
-                                        // Action pour écouter
-                                    }) {
-                                        HStack {
-                                            Image(systemName: "play.fill")
-                                            Text("Écouter")
-                                        }
-                                        .padding(.horizontal, 20)
-                                        .padding(.vertical, 8)
-                                        .background(.white)
-                                        .foregroundColor(.blue)
-                                        .cornerRadius(20)
-                                    }
                                     
                                 } // fin vstack
                                 .padding()
@@ -178,9 +165,8 @@ struct ContentView: View {
                     .padding(.horizontal)
                 } // fin scroll view horizontal
             } // fin scrollview
+            .navigationTitle("ACCUEIL")
         } // fin navigation stack
-        .navigationTitle("ACCUEIL")
-        //                   .padding(.bottom,40)
         .onAppear {
             viewModel.fetchTopTracks()
             spotifyViewModel.fetchTopArtists()
@@ -190,7 +176,7 @@ struct ContentView: View {
             }
             
             
-        }// fin onappear 
+        }// fin onappear
     } // fin navigation stack
 } // fin body
 
@@ -199,4 +185,3 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
-
