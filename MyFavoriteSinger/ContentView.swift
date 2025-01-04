@@ -9,6 +9,7 @@ import SwiftUI
 import AVKit
 
 struct ContentView: View {
+
     
     @StateObject private var viewModel = TopChartsViewModel()
     @StateObject private var spotifyViewModel = SpotifyViewModel()
@@ -65,8 +66,10 @@ struct ContentView: View {
                 
                 VStack{
                     ZStack{
+                        
                         LinearGradient(colors: [.purple, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
                             .frame(width: 420, height: 220)
+                        
                         HStack{
                             if currentArtistIndex < spotifyViewModel.artists.count {
                                 let currentArtist = spotifyViewModel.artists[currentArtistIndex]

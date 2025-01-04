@@ -16,6 +16,7 @@ struct tabView: View {
         ZStack{
             TabView {
                 
+                
                 ContentView()
                     .tabItem {
                         Label("Accueil", systemImage: "house")
@@ -25,6 +26,7 @@ struct tabView: View {
                 radioView()
                     .tabItem {
                         Label("radio", systemImage: "dot.radiowaves.left.and.right")
+
                     }
                 
                 bibliView()
@@ -32,20 +34,20 @@ struct tabView: View {
                         Label("Bibliothèque", systemImage: "music.note.list")
                         
                     }
-                
-                //            .accentColor(Color.red)
-                
-                
-                
+                              
                 
             } // fin tabview
+            .accentColor(Color.red)
+            
             
             VStack {
                 CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
             } // fin vstack
             .padding(.top, 599) // ne pas bouger
+
             
         } // fin zstack
+        
         
         
         

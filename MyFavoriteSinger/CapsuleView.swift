@@ -83,7 +83,9 @@ struct CapsuleView: View {
                 }
             } label: {
                 Rectangle()
-                    .fill(.gray.opacity(1.2))
+                    .fill(.linearGradient(colors: [Color.gray.opacity(1.6), .gray.opacity(1.7)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                
+                
                     .cornerRadius(20)
                     .frame(width: 380, height: 80)
                 

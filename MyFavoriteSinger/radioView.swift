@@ -66,8 +66,12 @@ struct radioView: View {
     var body: some View {
         NavigationStack {
             ZStack{
+                
+
+                
+                
                 VStack {
-                    
+
                     if isLoading {
                         ProgressView("Chargement des webradios...")
                     } else if let errorMessage = errorMessage {
@@ -98,17 +102,21 @@ struct radioView: View {
                                     } // fin section
                                 }
                             } // fin for each
+                            .padding(.bottom, 100) // aide a voir la dernier radio
+
                         } // fin scroll view
                         .padding(.horizontal,10)
                     } // fin else
+                    
                 } // fin vstack
+                
                 .navigationTitle("Web Radios")
-                .padding(.bottom,80) // pour pouvoir voir la dernier radio
                 .navigationBarTitleDisplayMode(.inline)  // titre  centré
                 .onAppear(perform: loadBrands)
             } // fin zstack
         } // fin navigationzstack
     } // fin body
+
     
     
     func loadBrands() {
