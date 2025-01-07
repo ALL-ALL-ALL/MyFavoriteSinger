@@ -29,7 +29,7 @@ struct tabView: View {
 
                     }
                 
-                bibliView()
+                MusicLibraryView()
                     .tabItem {
                         Label("Bibliothèque", systemImage: "music.note.list")
                         

@@ -8,8 +8,35 @@
 import SwiftUI
 
 struct MusicLibraryView: View {
+    @StateObject private var musicManager = MusicPlayerManager()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            List(musicManager.musicLibrary, id: \.persistentID) { song in
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(song.title ?? "Sans titre")
+                            .font(.headline)
+                        Text(song.artist ?? "Artiste inconnu")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        musicManager.playSong(song)
+                    }) {
+                        Image(systemName: "play.circle.fill")
+                            .font(.title2)
+                    }
+                }
+            }
+            .navigationTitle("Ma Bibliothèque")
+            .onAppear {
+                musicManager.requestAuthorization()
+            }
+        }
     }
 }
 

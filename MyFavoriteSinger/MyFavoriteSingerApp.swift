@@ -25,7 +25,7 @@ struct MyFavoriteSingerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            tabView(webRadio: WebRadio(id: "", title: "", description: "", liveStream: "", playerUrl: "", image: ""))
         }
         .modelContainer(sharedModelContainer)
     }
