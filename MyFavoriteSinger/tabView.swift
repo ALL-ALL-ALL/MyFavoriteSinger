@@ -6,6 +6,18 @@
 //
 
 import SwiftUI
+struct VisualEffectBlurView: UIViewRepresentable {
+    var blurStyle: UIBlurEffect.Style
+
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
+        return effectView
+    }
+
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        uiView.effect = UIBlurEffect(style: blurStyle)
+    }
+}
 
 struct tabView: View {
     @StateObject private var audioManager = AudioManager.shared
@@ -14,6 +26,8 @@ struct tabView: View {
     
     var body: some View {
         ZStack{
+       
+
             TabView {
                 
                 
@@ -33,17 +47,29 @@ struct tabView: View {
                     .tabItem {
                         Label("Bibliothèque", systemImage: "music.note.list")
                         
+
+                        
                     }
+                
+                
                               
                 
             } // fin tabview
+            .background(
+                       VisualEffectBlurView(blurStyle: .systemUltraThinMaterial)  // Applique le flou ici
+                           .offset(y: 700)
+                   )
             .accentColor(Color.red)
+
+
+
+
             
             
-            VStack {
-                CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
-            } // fin vstack
-            .padding(.top, 599) // ne pas bouger
+//            VStack {
+//                CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
+//            } // fin vstack
+//            .padding(.top, 599) // ne pas bouger
 
             
         } // fin zstack

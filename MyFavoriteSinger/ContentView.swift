@@ -99,7 +99,7 @@ struct ContentView: View {
                                     
                                     
                                 } // fin vstack
-                                .padding()
+                                .padding(.leading,30)
                                 Spacer()
                                 
                                 AsyncImage(url: URL(string:currentArtist.images.first?.url ?? "")) { image in
@@ -109,7 +109,7 @@ struct ContentView: View {
                                 }
                                 .frame(width: 105, height: 105)
                                 .clipShape(Circle())
-                                .padding(.trailing,80)
+                                .padding(.trailing,65)
                                 
                             }
                             
@@ -129,11 +129,11 @@ struct ContentView: View {
                     .font(.title)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal,25)
+                    .padding(.horizontal,27)
                 
                 
                 ScrollView(.horizontal){
-                    HStack(spacing:-15) {
+                    HStack(spacing:-10) {
                         ForEach(viewModel.tracks) { track in
                             GeometryReader { geometry in
                                 VStack(alignment: .leading) {
@@ -142,9 +142,9 @@ struct ContentView: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fill)
                                     } placeholder: {
-                                        Color.gray
+                                        Color.black
                                     }
-                                    .frame(width: 180, height: 200)
+                                    .frame(width: 130, height: 130)
                                     .clipShape(RoundedRectangle(cornerRadius: 10))
                                     
                                     Text(track.trackName)
@@ -165,7 +165,7 @@ struct ContentView: View {
                             .frame(width: 200, height: 260)
                         } // fin foreach
                     } // hstack
-                    .padding(.horizontal)
+                    .padding(.leading,25)
                 } // fin scroll view horizontal
             } // fin scrollview
             .navigationTitle("ACCUEIL")

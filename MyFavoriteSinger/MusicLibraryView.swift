@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MusicLibraryView: View {
     @StateObject private var musicManager = MusicPlayerManager()
+    @State private var isPlaying: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -27,11 +28,13 @@ struct MusicLibraryView: View {
                     Button(action: {
                         musicManager.playSong(song)
                     }) {
-                        Image(systemName: "play.circle.fill")
+                        Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
                             .font(.title2)
                     }
                 }
             }
+            .listStyle(PlainListStyle()) // Supprime le style par défaut de la liste
+
             .navigationTitle("Ma Bibliothèque")
             .onAppear {
                 musicManager.requestAuthorization()

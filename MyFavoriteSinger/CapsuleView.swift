@@ -87,7 +87,7 @@ struct CapsuleView: View {
                 
                 
                     .cornerRadius(20)
-                    .frame(width: 380, height: 80)
+                    .frame(width: 380, height: 60)
                 
             }
             

@@ -65,9 +65,8 @@ struct radioView: View {
     
     var body: some View {
         NavigationStack {
+            
             ZStack{
-                
-
                 
                 
                 VStack {
@@ -85,27 +84,22 @@ struct radioView: View {
                             }
                         }
                     } else {
-                        ScrollView {
+                        List {
                             ForEach(brands) { brand in
                                 if let webRadios = brand.webRadios, !webRadios.isEmpty {
                                     Section() {
                                         ForEach(webRadios) { webRadio in
                                             WebRadioRow(webRadio: webRadio)
-                                            Rectangle()
-                                                .frame(width: 250, height: 1)
-                                                .foregroundColor(.gray)
-                                                .padding(.leading,140)
-                                                .padding(.top,-6)
-                                            
-                                            
+
                                         } //fin for each
                                     } // fin section
                                 }
                             } // fin for each
-                            .padding(.bottom, 100) // aide a voir la dernier radio
+
 
                         } // fin scroll view
-                        .padding(.horizontal,10)
+                        .listStyle(PlainListStyle()) // Supprime le style par défaut de la liste
+
                     } // fin else
                     
                 } // fin vstack
@@ -249,15 +243,14 @@ struct WebRadioRow: View {
                     Image(getImageName(for: webRadio.id))
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 120, height: 120)
-                        .cornerRadius(8)
+                        .frame(width: 110, height: 110)
+                        .cornerRadius(5)
                         .padding(.leading, 10)
+                    
                     
                     VStack(alignment: .leading) {
                         Text(webRadio.title)
-                            .font(.title2)
                             .foregroundColor(.black)
-                            .font(.system(size: 20))
                             .padding(.leading,15)
                         
                     } // fin vstack
@@ -269,47 +262,7 @@ struct WebRadioRow: View {
             }
         } // fin hstack
         
-        
-        
-        
-        //            if let streamURL = webRadio.liveStream {
-        //                Button(action: {
-        //                    if isPlaying {
-        //                        Self.player?.pause()
-        //
-        //                        activeRadioID = ""
-        //
-        //                           }else {
-        //
-        //
-        //                               Self.player?.pause()
-        //                               Self.player = AVPlayer(url: URL(string: streamURL)!)
-        //                               Self.player?.play()
-        //                               activeRadioID = webRadio.id
-        //
-        //                           }
-        //
-        //                    isPlaying.toggle()
-        //                }) {
-        //
-        //                    Image(systemName: activeRadioID == webRadio.id ? "pause.circle.fill" : "play.circle.fill")
-        //                        .font(.title)
-        //                        .foregroundColor(.blue)
-        //                        .padding(.trailing,20)
-        //
-        //                }
-        //
-        //
-        //
-        //                }
-        
-        
-        
     } // fin hstack
-    
-    
-    
-    
 } // fin body
 
 
