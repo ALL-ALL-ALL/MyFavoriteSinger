@@ -6,83 +6,89 @@
 //
 
 import SwiftUI
-struct VisualEffectBlurView: UIViewRepresentable {
-    var blurStyle: UIBlurEffect.Style
 
-    func makeUIView(context: Context) -> UIVisualEffectView {
-        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: blurStyle))
-        return effectView
-    }
-
-    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
-        uiView.effect = UIBlurEffect(style: blurStyle)
-    }
-}
 
 struct tabView: View {
     @StateObject private var audioManager = AudioManager.shared
-    
+    @State private var selectedIndex = 0
     let webRadio: WebRadio
     
     var body: some View {
-        ZStack{
-       
-
-            TabView {
-                
-                
-                ContentView()
-                    .tabItem {
-                        Label("Accueil", systemImage: "house")
-                        
-                    }
-                
-                radioView()
-                    .tabItem {
-                        Label("radio", systemImage: "dot.radiowaves.left.and.right")
-
-                    }
-                
-                MusicLibraryView()
-                    .tabItem {
-                        Label("Bibliothèque", systemImage: "music.note.list")
-                        
-
-                        
-                    }
-                
-                
-                              
-                
-            } // fin tabview
-            .background(
-                       VisualEffectBlurView(blurStyle: .systemUltraThinMaterial)  // Applique le flou ici
-                           .offset(y: 700)
-                   )
-            .accentColor(Color.red)
-
-
-
-
+        ZStack {
+            // Affichage du contenu principal selon l'onglet la vue sélectionné
             
+                switch selectedIndex {
+                    
+                case 0:
+                    ContentView()
+                case 1:
+                    radioView()
+                case 2:
+                    MusicLibraryView()
+                default:
+                    tabView(webRadio: webRadio)
+                }
             
-//            VStack {
-//                CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
-//            } // fin vstack
-//            .padding(.top, 599) // ne pas bouger
+//            Rectangle()
+//                           .frame(width: 400, height: 200)
+//                           .padding(.top,800)
+             
+            
+            VStack {
+                Spacer()
+                
+                // Barre de navigation personnalisée
+                
+                HStack(spacing: 100) {
+                    // Bouton Accueil
+                    Button {
+                        selectedIndex = 0
+                    } label: {
+                        Image(systemName: "house")
+                            .font(.system(size: 30))
+                    }
 
+                    
+                    
+                    // Bouton Radio
+                    Button {
+                        selectedIndex = 1
+
+                    } label: {
+                        Image(systemName: "dot.radiowaves.left.and.right")
+                            .font(.system(size: 30))
+
+                    }
+                    
+                    
+                    // Bouton Bibliothèque
+                    Button {
+                        selectedIndex = 2
+
+                    } label: {
+                        Image(systemName: "music.note.list")
+                            .font(.system(size: 30))
+
+                    }
+                    
+                } // fin hstak
+                .background(
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.3))
+                    .frame(width: 400, height: 225)
+                    .ignoresSafeArea())
+            }// fin vstack
             
-        } // fin zstack
-        
-        
-        
-        
-        
-        
-        
-    } // fin body
-    
-} // fin struct
+            // CapsuleView pour le lecteur
+            VStack {
+                CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
+            }
+            .padding(.top, 599)
+        }
+    }
+}
+
+
 
 #Preview {
     tabView(webRadio: WebRadio(id: "", title: "", description: "", liveStream: "", playerUrl: "", image: ""))

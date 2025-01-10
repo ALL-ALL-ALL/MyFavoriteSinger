@@ -243,8 +243,8 @@ struct WebRadioRow: View {
                     Image(getImageName(for: webRadio.id))
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 110, height: 110)
-                        .cornerRadius(5)
+                        .frame(width: 110, height: 108)
+                        .cornerRadius(10)
                         .padding(.leading, 10)
                     
                     
