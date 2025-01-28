@@ -39,13 +39,14 @@ struct tabView: View {
                 
                 // Barre de navigation personnalisée
                 
-                HStack(spacing: 100) {
+                HStack(spacing: 50) {
+                    
                     // Bouton Accueil
                     Button {
                         selectedIndex = 0
                     } label: {
                         Image(systemName: "house")
-                            .font(.system(size: 30))
+                            .font(.system(size: 25))
                     }
 
                     
@@ -56,7 +57,7 @@ struct tabView: View {
 
                     } label: {
                         Image(systemName: "dot.radiowaves.left.and.right")
-                            .font(.system(size: 30))
+                            .font(.system(size: 25))
 
                     }
                     
@@ -67,7 +68,7 @@ struct tabView: View {
 
                     } label: {
                         Image(systemName: "music.note.list")
-                            .font(.system(size: 30))
+                            .font(.system(size: 25))
 
                     }
                     
@@ -84,9 +85,12 @@ struct tabView: View {
                 CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
             }
             .padding(.top, 599)
-        }
-    }
-}
+        } // fin zstack
+        
+        
+        
+    } // fin body
+} // fin struc
 
 
 
