@@ -83,7 +83,7 @@ struct CapsuleView: View {
                 }
             } label: {
                 Rectangle()
-                    .fill(.linearGradient(colors: [Color.gray.opacity(1.6), .gray.opacity(1.7)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .fill(.black)
                 
                 
                     .cornerRadius(20)
@@ -104,7 +104,7 @@ struct CapsuleView: View {
             
             
             
-            HStack(spacing: 20){
+            HStack{
                 Spacer()
                 
                 

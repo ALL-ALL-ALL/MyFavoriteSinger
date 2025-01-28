@@ -97,8 +97,9 @@ struct radioView: View {
                             } // fin for each
 
 
-                        } // fin scroll view
+                        } // fin list
                         .listStyle(PlainListStyle()) // Supprime le style par défaut de la liste
+
 
                     } // fin else
                     
@@ -251,7 +252,7 @@ struct WebRadioRow: View {
                     
                     VStack(alignment: .leading) {
                         Text(webRadio.title)
-                            .foregroundColor(.black)
+                            .foregroundColor(.primary)  // S'adapte dynamique claire/sombre
                             .padding(.leading,15)
                         
                     } // fin vstack

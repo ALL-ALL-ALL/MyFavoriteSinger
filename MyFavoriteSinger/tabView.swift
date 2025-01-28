@@ -13,79 +13,57 @@ struct tabView: View {
     @State private var selectedIndex = 0
     let webRadio: WebRadio
     
+    
     var body: some View {
-        ZStack {
-            // Affichage du contenu principal selon l'onglet la vue sélectionné
-            
-                switch selectedIndex {
+        VStack {
+            ZStack{
+                TabView {
                     
-                case 0:
                     ContentView()
-                case 1:
+                        .tabItem {
+                            
+                            Label("Accueil", systemImage: "house")
+                        }
+                        .toolbarBackground(Color.black, for: .tabBar)
+
+                    
                     radioView()
-                case 2:
+                        .tabItem {
+                            
+                            Label("Radio", systemImage: "dot.radiowaves.left.and.right")
+                        }
+                        .toolbarBackground(Color.black, for: .tabBar)
+
+                    
                     MusicLibraryView()
-                default:
-                    tabView(webRadio: webRadio)
-                }
+                        .tabItem {
+                            
+                            Label("Bibliothèque", systemImage: "music.house")
+                        }
+                        .toolbar(.visible, for: .tabBar)
+                        .toolbarBackground(Color.black, for: .tabBar)
+
+
+                    
+                } // fin tabview
+                .accentColor(Color.red)
+
+
             
-//            Rectangle()
-//                           .frame(width: 400, height: 200)
-//                           .padding(.top,800)
-             
-            
-            VStack {
-                Spacer()
                 
-                // Barre de navigation personnalisée
+                // CapsuleView pour le lecteur
                 
-                HStack(spacing: 50) {
-                    
-                    // Bouton Accueil
-                    Button {
-                        selectedIndex = 0
-                    } label: {
-                        Image(systemName: "house")
-                            .font(.system(size: 25))
-                    }
-
-                    
-                    
-                    // Bouton Radio
-                    Button {
-                        selectedIndex = 1
-
-                    } label: {
-                        Image(systemName: "dot.radiowaves.left.and.right")
-                            .font(.system(size: 25))
-
-                    }
-                    
-                    
-                    // Bouton Bibliothèque
-                    Button {
-                        selectedIndex = 2
-
-                    } label: {
-                        Image(systemName: "music.note.list")
-                            .font(.system(size: 25))
-
-                    }
-                    
-                } // fin hstak
-                .background(
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.3))
-                    .frame(width: 400, height: 225)
-                    .ignoresSafeArea())
-            }// fin vstack
+                
+                //                CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
+                //
+                //            .padding(.top, 599)
+                
+                
+                
+            } // fin de zstack
             
-            // CapsuleView pour le lecteur
-            VStack {
-                CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
-            }
-            .padding(.top, 599)
-        } // fin zstack
+            
+        } // fin Vstack
         
         
         
