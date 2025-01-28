@@ -40,9 +40,9 @@ struct tabView: View {
                             
                             Label("Bibliothèque", systemImage: "music.house")
                         }
-                        .toolbar(.visible, for: .tabBar)
-                        .toolbarBackground(Color.black, for: .tabBar)
+                        .toolbarBackground(.ultraThinMaterial, for: .tabBar)  // Effet de flou
 
+                        .toolbarBackground(Color.black, for: .tabBar)
 
                     
                 } // fin tabview
