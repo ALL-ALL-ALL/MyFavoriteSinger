@@ -28,9 +28,9 @@ struct MusicLibraryView: View {
                     Button(action: {
                         musicManager.playSong(song)
                     }) {
-                        Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                        Image(systemName: musicManager.currentSong == song && musicManager.isPlaying ? "pause.circle.fill" : "play.circle.fill")
                             .font(.title2)
-                    } // fin label
+                    }
                     
                     
                     
