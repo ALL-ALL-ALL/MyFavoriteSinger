@@ -83,15 +83,16 @@ struct CapsuleView: View {
                     }
                 } label: {
                     Rectangle()
+                        .fill(Color(UIColor.secondarySystemBackground))
                     
-                        .fill(Color(.sRGB, red: 0.1, green: 0.1, blue: 0.1, opacity: 1))
+//                        .fill(Color(.sRGB, red: 0.1, green: 0.1, blue: 0.1, opacity: 1))
 
                     
                         .cornerRadius(15)
                         .frame(width: 380, height: 50)
                     
                 }
-                .buttonStyle(.plain)  // supprimer le contour gris
+                .buttonStyle(.plain)  // supprimer le contour gris qui est visible sur le portable 
 
                 
                 .sheet(isPresented: $showModal) {
@@ -153,7 +154,7 @@ struct CapsuleView: View {
                 
                     .font(.subheadline)
                     .bold()
-                    .foregroundColor(.white)
+                    .foregroundColor(.primary)  // S'adapte dynamique claire/sombre
                     .frame(width: 200, height: 60, alignment: .leading)
                     .lineLimit(2)
                     .minimumScaleFactor(0.5)

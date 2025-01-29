@@ -9,6 +9,7 @@ import SwiftUI
 
 
 struct tabView: View {
+
     @StateObject private var audioManager = AudioManager.shared
     @State private var selectedIndex = 0
     let webRadio: WebRadio
@@ -49,14 +50,26 @@ struct tabView: View {
 
                     
                 } // fin tabview
-
+                .toolbarBackground(.black, for: .tabBar)
+                .toolbarBackground(.visible, for: .tabBar)
                 .overlay(alignment: .bottom) {
-                    Color.black.opacity(1.0)
-                    
-                    .frame(width: 420, height: 68)
-                    .allowsHitTesting(false)
-                    .padding(.bottom,45)
-                       }
+                    // Ceci va créer une "couverture" qui masque la ligne de séparation
+                    Rectangle()
+                        .fill(.black)
+                        .frame(width: UIScreen.main.bounds.width, height: 56)
+                        .offset(y: -44) // Ajustez cette valeur selon vos besoins
+                        .allowsHitTesting(false)
+                }
+
+                
+                
+                
+                
+                
+                
+
+
+                
                 
             
                 
@@ -66,7 +79,7 @@ struct tabView: View {
 
             
                 
-//         CapsuleView pour le lecteur
+                    //         CapsuleView pour le lecteur
         
         
                         CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
