@@ -21,7 +21,7 @@ struct MusicLibraryView: View {
                         Text(song.artist ?? "Artiste inconnu")
                             .font(.subheadline)
                             .foregroundColor(.gray)
-                    }
+                    } // fin vstack
                     
                     Spacer()
                     
@@ -30,18 +30,28 @@ struct MusicLibraryView: View {
                     }) {
                         Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
                             .font(.title2)
-                    }
-                }
-            }
+                    } // fin label
+                    
+                    
+                    
+                } // fin hstack
+            } // fin list
             .listStyle(PlainListStyle()) // Supprime le style par défaut de la liste
-
             .navigationTitle("Ma Bibliothèque")
             .onAppear {
                 musicManager.requestAuthorization()
             }
-        }
-    }
-}
+            .padding(.bottom,50)
+
+            
+            
+            
+            
+        } // fin navigationstack
+        
+        
+    } // fin body
+} // fin struct
 
 #Preview {
     MusicLibraryView()

@@ -108,6 +108,7 @@ struct radioView: View {
                 .navigationTitle("Web Radios")
                 .navigationBarTitleDisplayMode(.inline)  // titre  centré
                 .onAppear(perform: loadBrands)
+                .padding(.bottom,50)
             } // fin zstack
         } // fin navigationzstack
     } // fin body
@@ -409,8 +410,10 @@ struct ModalView: View {
                     Image(systemName: "stop.fill")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 35, height: 65)
+                        .frame(width: 30, height: 45)
                 }
+                .buttonStyle(.plain)  // supprimer le contour gris
+
                 
                 
                 VStack(spacing: 10){

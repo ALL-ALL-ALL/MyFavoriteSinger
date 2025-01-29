@@ -73,95 +73,105 @@ struct CapsuleView: View {
     
     
     var body: some View {
-        
-        ZStack{
-            
-            
-            Button {
-                if audioManager.isPlaying{
-                    showModal = true
-                }
-            } label: {
-                Rectangle()
-                    .fill(.black)
-                
-                
-                    .cornerRadius(20)
-                    .frame(width: 380, height: 60)
-                
-            }
-            
-            .sheet(isPresented: $showModal) {
-                ModalView(webRadio: webRadio, player: Self.player)
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            HStack{
-                Spacer()
+        VStack{
+            ZStack{
                 
                 
                 Button {
-                    isPlaying.toggle()
-                    if audioManager.isPlaying {
-                        audioManager.stopRadio()
-                    } else if webRadio.liveStream != nil {
-                        audioManager.playRadio(webRadio)
+                    if audioManager.isPlaying{
+                        showModal = true
                     }
-                    
                 } label: {
-                    Image(systemName: isPlaying ? "stop.fill" : "play.fill")
-                        .foregroundColor(.white)
-                        .font(.system(size: 30))
-                        .padding(.trailing,30)
+                    Rectangle()
                     
+                        .fill(Color(.sRGB, red: 0.1, green: 0.1, blue: 0.1, opacity: 1))
+
+                    
+                        .cornerRadius(15)
+                        .frame(width: 380, height: 50)
+                    
+                }
+                .buttonStyle(.plain)  // supprimer le contour gris
+
+                
+                .sheet(isPresented: $showModal) {
+                    ModalView(webRadio: webRadio, player: Self.player)
                 }
                 
                 
                 
-            } // fin hstack
-            .padding()
-            
-            
-            
-            
-            
-            HStack{
-                Image(getImageName(for: webRadio.id))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 65, height: 65)
-                    .cornerRadius(12)
-                    .padding(.trailing,300)
                 
-            } // fin hstack
+                
+                
+                
+                
+                
+                
+                HStack{
+                    Spacer()
+                    
+                    
+                    Button {
+                        isPlaying.toggle()
+                        if audioManager.isPlaying {
+                            audioManager.stopRadio()
+                        } else if webRadio.liveStream != nil {
+                            audioManager.playRadio(webRadio)
+                        }
+                        
+                    } label: {
+                        Image(systemName: isPlaying ? "stop.fill" : "play.fill")
+                            .foregroundColor(.white)
+                            .font(.system(size: 25))
+                            .padding(.trailing,30)
+                        
+                    }
+                    .buttonStyle(.plain)  //  supprimer le contour gris
+
+                    
+                    
+                    
+                } // fin hstack
+                .padding()
+                
+                
+                
+                
+                
+                HStack{
+                    Image(getImageName(for: webRadio.id))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 45, height: 38)
+                        .cornerRadius(12)
+                        .padding(.trailing,300)
+                    
+                } // fin hstack
+                
+                
+                Text(webRadio.title)
+                
+                    .font(.subheadline)
+                    .bold()
+                    .foregroundColor(.white)
+                    .frame(width: 200, height: 60, alignment: .leading)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.5)
+                    .padding(.trailing,20)
+                
+                
+                
+                
+                
+                
+                
+                
+            } // fin zstack
             
             
-            Text(webRadio.title)
             
-                .font(.title2)
-                .bold()
-                .foregroundColor(.white)
-                .frame(width: 200, height: 60, alignment: .leading)
-                .lineLimit(2)
-                .minimumScaleFactor(0.5)  
-                .padding(.trailing,20)
-            
-            
-            
-            
-            
-            
-            
-            
-        } // fin zstack
+        } // fin vstack
+        
         
         
         

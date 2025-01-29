@@ -17,7 +17,9 @@ struct tabView: View {
     var body: some View {
         VStack {
             ZStack{
+                
                 TabView {
+                    
                     
                     ContentView()
                         .tabItem {
@@ -40,23 +42,36 @@ struct tabView: View {
                             
                             Label("Bibliothèque", systemImage: "music.house")
                         }
-                        .toolbarBackground(.ultraThinMaterial, for: .tabBar)  // Effet de flou
-
                         .toolbarBackground(Color.black, for: .tabBar)
+
+
+                    
 
                     
                 } // fin tabview
+
+                .overlay(alignment: .bottom) {
+                    Color.black.opacity(1.0)
+                    
+                    .frame(width: 420, height: 68)
+                    .allowsHitTesting(false)
+                    .padding(.bottom,45)
+                       }
+                
+            
+                
                 .accentColor(Color.red)
+                
 
 
             
                 
-                // CapsuleView pour le lecteur
-                
-                
-                //                CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
-                //
-                //            .padding(.top, 599)
+//         CapsuleView pour le lecteur
+        
+        
+                        CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
+        
+                    .padding(.top, 605)
                 
                 
                 
