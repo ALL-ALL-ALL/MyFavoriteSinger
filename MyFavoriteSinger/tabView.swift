@@ -53,13 +53,13 @@ struct tabView: View {
                 .toolbarBackground(.black, for: .tabBar)
                 .toolbarBackground(.visible, for: .tabBar)
                 .overlay(alignment: .bottom) {
-                    // Ceci va créer une "couverture" qui masque la ligne de séparation
+                    // couverture qui masque la ligne de la tabview
                     Rectangle()
                         .fill(.black)
                         .frame(width: UIScreen.main.bounds.width, height: 56)
-                        .offset(y: -44) // Ajustez cette valeur selon vos besoins
+                        .offset(y: -44) 
                         .allowsHitTesting(false)
-                }
+                } // fin overlay 
 
                 
                 

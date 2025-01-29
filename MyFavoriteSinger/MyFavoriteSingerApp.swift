@@ -26,7 +26,7 @@ struct MyFavoriteSingerApp: App {
     var body: some Scene {
         WindowGroup {
             tabView(webRadio: WebRadio(id: "", title: "", description: "", liveStream: "", playerUrl: "", image: ""))
-                .preferredColorScheme(.dark)  // mode sombre
+                .preferredColorScheme(.dark)  // forcé le mode sombre
         }
         .modelContainer(sharedModelContainer)
 

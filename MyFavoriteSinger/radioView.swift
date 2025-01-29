@@ -38,6 +38,8 @@ class AudioManager: ObservableObject {
     static let shared = AudioManager()
     @Published var currentRadio: WebRadio?
     @Published var isPlaying = false
+    @Published var currentVolume: Float = 0.5  // Ajout du volume actuel
+
     static var player: AVPlayer?
     
     func playRadio(_ radio: WebRadio) {
@@ -49,11 +51,22 @@ class AudioManager: ObservableObject {
             isPlaying = true
         }
     }
-    
+    // func pour stop
     func stopRadio() {
         Self.player?.pause()
         isPlaying = false
     }
+    
+    // fonction pour gérer le volume
+       func updateVolume(_ value: Float) {
+           currentVolume = value
+           Self.player?.volume = value
+       }
+    
+    
+    
+    
+    
 } // fin class audio manager
 
 struct radioView: View {
@@ -286,9 +299,19 @@ struct ModalView: View {
     
     
     @Environment(\.dismiss) var dismiss
-    @State private var volume : Double = 0
+    @State private var volume : Double = 0.5
     @State private var stop = false
+    @State private var isDragging = false
+
     
+    
+    
+    //func vol
+    func updateVolume() {
+        if let player = AudioManager.player {
+            player.volume = Float(volume)
+        }
+    }
     
     
     
@@ -413,23 +436,40 @@ struct ModalView: View {
                         .frame(width: 30, height: 45)
                 }
                 .buttonStyle(.plain)  // supprimer le contour gris
-
+                
                 
                 
                 VStack(spacing: 10){
                     HStack(spacing: 15){
-                        Image(systemName: "speaker.wave.1")
+                        
+                        Image(systemName: "speaker")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 25, height: 45)
+                            .frame(width: 25, height: 25)
+
                         
-                        Slider(value: $volume, in: 0...100)
-                            .frame(width: 200)
+                        Slider(value: Binding(
+                            get: {
+                                //converti float en double
+                                Double(AudioManager.shared.currentVolume) },
+                            // nouvelle valeur de utilisateur
+                            set: { newValue in
+                                AudioManager.shared.updateVolume(Float(newValue))
+                            }
+                        ), in: 0...1)
+
+                        .frame(width: 200,height: 20)
+                        .accentColor(.gray)  // Rend la ligne bleue invisible
+
+                       
                         
                         Image(systemName: "speaker.wave.3")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 35, height: 55)
+                        
+
+
                         
                         
                         
@@ -439,35 +479,42 @@ struct ModalView: View {
                     
                 } // fin vstack
                 .padding()
+                .onAppear {
+                    
+                    
+                    if let player = AudioManager.player {
+                        volume = Double(player.volume)
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                } // fin on appear
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
+                //           .navigationBarItems(trailing: Button("Fermer") {
+                //               dismiss()
+                //           })
                 
             } // fin vstack
-            //           .navigationBarItems(trailing: Button("Fermer") {
-            //               dismiss()
-            //           })
-            
-        } // fin navigation view
-    } // fin body
-} // fin struc
-
-
-
-// FIN MODAL
-
-
-
-
-
+        }// fin navigation view
+    }// fin body
+    
+    
+    
+    // FIN MODAL
+    
+    
+    
+    
+}// fin struc
 
 
 
