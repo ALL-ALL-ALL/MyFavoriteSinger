@@ -10,13 +10,17 @@ import MediaPlayer
 import SwiftUI
 
 class MusicPlayerManager: ObservableObject {
-
+    static let shared = MusicPlayerManager()
+    
     @Published var musicLibrary: [MPMediaItem] = []
     @Published var selectedSongs: [MPMediaItem] = []
     @Published var currentSong: MPMediaItem?
     @Published var isPlaying: Bool = false
     
     let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
+    
+    // Rendre le constructeur internal (accessible)
+    internal init() {}
     
     func requestAuthorization() {
         MPMediaLibrary.requestAuthorization { status in
@@ -37,14 +41,7 @@ class MusicPlayerManager: ObservableObject {
         }
     }
     
-    
-    
-    
-        
-    
-    
     func playSong(_ song: MPMediaItem) {
-        // Si une nouvelle chanson est sélectionnée
         if currentSong != song {
             currentSong = song
             musicPlayer.stop()
@@ -52,7 +49,6 @@ class MusicPlayerManager: ObservableObject {
             musicPlayer.play()
             isPlaying = true
         } else {
-            // Si c'est la même chanson, basculer entre lecture et pause
             togglePlayPause()
         }
     }

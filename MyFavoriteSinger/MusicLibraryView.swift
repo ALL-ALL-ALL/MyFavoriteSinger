@@ -14,6 +14,7 @@ struct MusicLibraryView: View {
     var body: some View {
         NavigationStack {
             List(musicManager.musicLibrary, id: \.persistentID) { song in
+                
                 HStack {
                     VStack(alignment: .leading) {
                         Text(song.title ?? "Sans titre")
@@ -30,11 +31,10 @@ struct MusicLibraryView: View {
                     }) {
                         Image(systemName: musicManager.currentSong == song && musicManager.isPlaying ? "pause.circle.fill" : "play.circle.fill")
                             .font(.title2)
-                    }
-                    
-                    
+                    } // fin label
                     
                 } // fin hstack
+                
             } // fin list
             .listStyle(PlainListStyle()) // Supprime le style par défaut de la liste
             .navigationTitle("Ma Bibliothèque")

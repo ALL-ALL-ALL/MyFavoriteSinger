@@ -11,6 +11,7 @@ import AVKit
 struct CapsuleView: View {
     
     @State private var isPlaying = false
+    @StateObject private var musicManager = MusicPlayerManager.shared
     @StateObject private var audioManager = AudioManager.shared
     @State private var showModal = false
     @State private var playingRadio: WebRadio?
@@ -101,13 +102,6 @@ struct CapsuleView: View {
                 
                 
                 
-                
-                
-                
-                
-                
-                
-                
                 HStack{
                     Spacer()
                     
@@ -150,8 +144,8 @@ struct CapsuleView: View {
                 } // fin hstack
                 
                 
-                Text(webRadio.title)
-                
+                Text(musicManager.currentSong?.title ?? webRadio.title)
+
                     .font(.subheadline)
                     .bold()
                     .foregroundColor(.primary)  // S'adapte dynamique claire/sombre
@@ -195,26 +189,3 @@ struct CapsuleView: View {
 
 
 
-//
-//Button {
-//    
-//    if isPlaying {
-//        Self.player?.pause()
-//        activeRadioID = ""
-//    } else {
-//        if let streamURL = webRadio.liveStream {
-//            Self.player?.pause()
-//            Self.player = AVPlayer(url: URL(string: streamURL)!)
-//            Self.player?.play()
-//            activeRadioID = webRadio.id
-//        }
-//    }
-//    isPlaying.toggle()
-//} label: {
-//    Image(systemName: isPlaying ? "stop.fill" : "play.fill")
-//    
-//           .foregroundColor(.white)
-//           .font(.system(size: 30))
-//    
-//    
-//    }
