@@ -436,6 +436,7 @@ struct ModalView: View {
                         .frame(width: 30, height: 45)
                 }
                 .buttonStyle(.plain)  // supprimer le contour gris
+                .padding(.top,40)
                 
                 
                 
@@ -448,18 +449,33 @@ struct ModalView: View {
                             .frame(width: 25, height: 25)
 
                         
-                        Slider(value: Binding(
-                            get: {
-                                //converti float en double
-                                Double(AudioManager.shared.currentVolume) },
-                            // nouvelle valeur de utilisateur
-                            set: { newValue in
-                                AudioManager.shared.updateVolume(Float(newValue))
-                            }
-                        ), in: 0...1)
-
-                        .frame(width: 200,height: 20)
-                        .accentColor(.gray)  // Rend la ligne bleue invisible
+                        GeometryReader { geometry in
+                            
+                            
+                            
+                            ZStack(alignment: .leading) {
+                                
+                               // Capsule de fond (grise)
+                               Capsule()
+                                   .fill(Color.gray.opacity(0.3))
+                                   .frame(height: 5)
+                               
+                               // Capsule de volume (colorée)
+                               Capsule()
+                                    .fill(Color.white)
+                                   .frame(width: min(geometry.size.width * volume, geometry.size.width), height: 5)
+                           }
+                           .gesture(
+                               DragGesture(minimumDistance: 0)
+                                   .onChanged { value in
+                                       // Calculer le nouveau volume basé sur la position du drag
+                                       let newVolume = max(0, min(1, value.location.x / geometry.size.width))
+                                       self.volume = newVolume
+                                   }
+                           ) // fin gesture
+                       }
+                        
+                        .padding(.top,61)
 
                        
                         
@@ -504,7 +520,10 @@ struct ModalView: View {
                 //           })
                 
             } // fin vstack
+            .padding() // pour limage des radio qui ne doit pas coller en haut
         }// fin navigation view
+        
+        
     }// fin body
     
     
