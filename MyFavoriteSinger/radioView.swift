@@ -63,10 +63,6 @@ class AudioManager: ObservableObject {
            Self.player?.volume = value
        }
     
-    
-    
-    
-    
 } // fin class audio manager
 
 struct radioView: View {
@@ -452,29 +448,33 @@ struct ModalView: View {
                         GeometryReader { geometry in
                             
                             
-                            
                             ZStack(alignment: .leading) {
+                                
                                 
                                // Capsule de fond (grise)
                                Capsule()
-                                   .fill(Color.gray.opacity(0.3))
-                                   .frame(height: 5)
+                                .fill(Color.gray.opacity(0.3))
+                                .frame(height: 5)
                                
                                // Capsule de volume (colorée)
                                Capsule()
-                                    .fill(Color.white)
-                                   .frame(width: min(geometry.size.width * volume, geometry.size.width), height: 5)
+                                 .fill(Color.white)
+                                 .frame(width: min(geometry.size.width * volume, geometry.size.width), height: 5)
+                                
                            }
                            .gesture(
-                               DragGesture(minimumDistance: 0)
-                                   .onChanged { value in
-                                       // Calculer le nouveau volume basé sur la position du drag
-                                       let newVolume = max(0, min(1, value.location.x / geometry.size.width))
-                                       self.volume = newVolume
-                                   }
+                            
+                            DragGesture()
+                            
+                               .onChanged { value in
+                                   // Calculer le nouveau volume basé sur la position du drag
+                                   let newVolume = max(0, min(1, value.location.x / geometry.size.width))
+                                   self.volume = newVolume
+                                   AudioManager.shared.updateVolume(Float(newVolume)) // Utiliser la méthode de votre AudioManager
+
+                                   }// fin on Changed
                            ) // fin gesture
-                       }
-                        
+                    } // fin de geometry reader
                         .padding(.top,61)
 
                        
@@ -496,24 +496,26 @@ struct ModalView: View {
                 } // fin vstack
                 .padding()
                 .onAppear {
-                    
-                    
-                    if let player = AudioManager.player {
-                        volume = Double(player.volume)
-                    }
-                    
-                    
-                    
-                    
-                    
-                    
+                    // Récupérer le volume actuel de l'AudioManager
+                       volume = Double(AudioManager.shared.currentVolume)
+                       
+                       // S'assurer que le volume du lecteur est bien à 0.5
+                       if let player = AudioManager.player {
+                           player.volume = Float(volume)
+                       }
+                    } // fin de on appear
                     
                     
                     
                     
                     
                     
-                } // fin on appear
+                    
+                    
+                    
+                    
+                    
+                    
                 
                 //           .navigationBarItems(trailing: Button("Fermer") {
                 //               dismiss()
