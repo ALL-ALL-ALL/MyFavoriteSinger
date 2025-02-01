@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B1ACB542D25F6E3000DDB88 /* SpotifyArtistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B1ACB532D25F6E3000DDB88 /* SpotifyArtistModel.swift */; };
+		3B37C8942D4D51BB00D00FB1 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B37C8932D4D51BB00D00FB1 /* MediaPlayer.framework */; };
 		3B69F7762D2D787D00CE9983 /* MusicLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B69F7752D2D787D00CE9983 /* MusicLibraryView.swift */; };
 		3B69F7782D2D7A7B00CE9983 /* MusicPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B69F7772D2D7A7B00CE9983 /* MusicPlayerManager.swift */; };
 		3B6C96892C3B5512004A11EF /* detaillsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6C96882C3B5512004A11EF /* detaillsView.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		3B1ACB532D25F6E3000DDB88 /* SpotifyArtistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyArtistModel.swift; sourceTree = "<group>"; };
+		3B37C8932D4D51BB00D00FB1 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3B432E112D1CCFA400DDFF42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3B69F7752D2D787D00CE9983 /* MusicLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicLibraryView.swift; sourceTree = "<group>"; };
 		3B69F7772D2D7A7B00CE9983 /* MusicPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerManager.swift; sourceTree = "<group>"; };
@@ -49,17 +51,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B37C8942D4D51BB00D00FB1 /* MediaPlayer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B37C8922D4D51BA00D00FB1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B37C8932D4D51BB00D00FB1 /* MediaPlayer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3B9D8B232C3A2EF90035BAE9 = {
 			isa = PBXGroup;
 			children = (
 				3B9E7E7A2D1B916500E9E21F /* iTunesModels.swift */,
 				3B9D8B2E2C3A2EF90035BAE9 /* MyFavoriteSinger */,
+				3B37C8922D4D51BA00D00FB1 /* Frameworks */,
 				3B9D8B2D2C3A2EF90035BAE9 /* Products */,
 			);
 			sourceTree = "<group>";

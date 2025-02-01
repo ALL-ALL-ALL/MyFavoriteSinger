@@ -144,7 +144,8 @@ struct CapsuleView: View {
                 } // fin hstack
                 
                 
-                Text(musicManager.currentSong?.title ?? webRadio.title)
+                Text(musicManager.currentSong?.title ?? audioManager.currentRadio?.title ?? "Aucune sélection")
+
 
                     .font(.subheadline)
                     .bold()
