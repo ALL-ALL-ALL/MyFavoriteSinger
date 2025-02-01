@@ -144,6 +144,9 @@ struct CapsuleView: View {
                 } // fin hstack
                 
                 
+                //                Text(musicManager.currentSong?.title ?? "Aucune sélection")
+                // tester le code juste en haut sans le code d'en bas text(musicManager.currentSong?.title ?? .........
+                
                 Text(musicManager.currentSong?.title ?? audioManager.currentRadio?.title ?? "Aucune sélection")
 
 

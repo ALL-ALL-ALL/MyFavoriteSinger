@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import MediaPlayer
 
 struct MusicLibraryView: View {
-    @StateObject private var musicManager = MusicPlayerManager()
+    @StateObject private var musicManager = MusicPlayerManager.shared
     @State private var isPlaying: Bool = false
     
     var body: some View {
