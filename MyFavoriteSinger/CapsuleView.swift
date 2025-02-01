@@ -133,15 +133,17 @@ struct CapsuleView: View {
                 
                 
                 
-                HStack{
-                    Image(getImageName(for: webRadio.id))
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 45, height: 38)
-                        .cornerRadius(12)
-                        .padding(.trailing,300)
-                    
-                } // fin hstack
+                HStack {
+                    // Afficher l'image de la radio uniquement si AUCUNE musique locale n'est en cours
+                    if musicManager.currentSong == nil {
+                        Image(getImageName(for: webRadio.id))
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 45, height: 38)
+                            .cornerRadius(12)
+                            .padding(.trailing, 300)
+                    }
+                }
                 
                 
                 //                Text(musicManager.currentSong?.title ?? "Aucune sélection")
