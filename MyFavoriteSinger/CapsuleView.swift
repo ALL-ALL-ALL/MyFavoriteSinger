@@ -93,7 +93,7 @@ struct CapsuleView: View {
                         .frame(width: 380, height: 50)
                     
                 }
-                .buttonStyle(.plain)  // supprimer le contour gris qui est visible sur le portable 
+                .buttonStyle(.plain)  // supprimer le contour gris qui est visible sur le portable
 
                 
                 .sheet(isPresented: $showModal) {
@@ -184,7 +184,7 @@ struct CapsuleView: View {
         
         
     } // fin body
-} // fin strutc
+} // fin strut
 
 
 #Preview {
