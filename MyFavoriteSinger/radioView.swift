@@ -1,5 +1,6 @@
 import SwiftUI
 import AVKit
+import MediaPlayer
 
 struct GraphQLResponse: Codable {
     let data: BrandsData?
@@ -44,11 +45,13 @@ class AudioManager: ObservableObject {
     
     func playRadio(_ radio: WebRadio) {
         if let streamURL = radio.liveStream {
+            
             Self.player?.pause()
             Self.player = AVPlayer(url: URL(string: streamURL)!)
             Self.player?.play()
             currentRadio = radio
             isPlaying = true
+            MusicPlayerManager.shared.currentSong = nil
         }
     }
     // func pour stop
