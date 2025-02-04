@@ -10,9 +10,10 @@ import MediaPlayer
 
 
 struct tabView: View {
+    
+    @State private var selectedTab = 0  // la lalala
 
     @StateObject private var audioManager = AudioManager.shared
-    @State private var selectedIndex = 0
     let webRadio: WebRadio
     
     
@@ -20,7 +21,7 @@ struct tabView: View {
         VStack {
             ZStack{
                 
-                TabView {
+                TabView(selection: $selectedTab)  {
                     
                     
                     ContentView()
@@ -28,6 +29,8 @@ struct tabView: View {
                             
                             Label("Accueil", systemImage: "house")
                         }
+                        .tag(0)  // lalalaalal
+
                         .toolbarBackground(Color.black, for: .tabBar)
 
                     
@@ -36,6 +39,8 @@ struct tabView: View {
                             
                             Label("Radio", systemImage: "dot.radiowaves.left.and.right")
                         }
+                        .tag(1)  // alalal
+
                         .toolbarBackground(Color.black, for: .tabBar)
 
                     
@@ -44,6 +49,8 @@ struct tabView: View {
                             
                             Label("Bibliothèque", systemImage: "music.house")
                         }
+                        .tag(2)  // lalala
+
                         .toolbarBackground(Color.black, for: .tabBar)
 
 
@@ -83,7 +90,7 @@ struct tabView: View {
                     //         CapsuleView pour le lecteur
         
         
-                        CapsuleView(webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
+                CapsuleView(selectedTab: .constant(0), webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
         
                     .padding(.top, 605)
                 

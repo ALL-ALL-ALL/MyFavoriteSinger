@@ -9,7 +9,8 @@ import SwiftUI
 import AVKit
 
 struct CapsuleView: View {
-    
+    @Binding var selectedTab: Int  // lalala
+
     @State private var isPlaying = false
     @StateObject private var musicManager = MusicPlayerManager.shared
     @StateObject private var audioManager = AudioManager.shared
@@ -79,16 +80,19 @@ struct CapsuleView: View {
                 
                 
                 Button {
-                    if audioManager.isPlaying{
-                        showModal = true
-                    }
+                    if musicManager.currentSong != nil {
+                            // Si une chanson de la bibliothèque est en cours de lecture, ferme la modal
+                            showModal = false
+                        } else if audioManager.isPlaying && selectedTab != 2 {
+                            // Si la radio joue et qu'on n'est pas dans l'onglet bibliothèque, ouvre la modal
+                            showModal = true
+                        } else {
+                            // Dans tous les autres cas, ferme la modal
+                            showModal = false
+                        }
                 } label: {
                     Rectangle()
                         .fill(Color(UIColor.secondarySystemBackground))
-                    
-//                        .fill(Color(.sRGB, red: 0.1, green: 0.1, blue: 0.1, opacity: 1))
-
-                    
                         .cornerRadius(15)
                         .frame(width: 380, height: 50)
                     
@@ -188,7 +192,7 @@ struct CapsuleView: View {
 
 
 #Preview {
-    CapsuleView(webRadio:WebRadio(id: "", title: "", description: "", liveStream: "", playerUrl: "", image: ""))
+    CapsuleView(selectedTab: .constant(0), webRadio:WebRadio(id: "", title: "", description: "", liveStream: "", playerUrl: "", image: ""))
 }
 
 
