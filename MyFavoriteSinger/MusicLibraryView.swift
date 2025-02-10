@@ -31,7 +31,8 @@ struct MusicLibraryView: View {
                         musicManager.playSong(song)
                     }) {
                         Image(systemName: musicManager.currentSong == song && musicManager.isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                            .font(.title2)
+                            .foregroundColor(musicManager.currentSong == song && musicManager.isPlaying ? .red : .white)
+                                .font(.title2)
                     } // fin label
                     
                 } // fin hstack

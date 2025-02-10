@@ -9,7 +9,7 @@ import SwiftUI
 import AVKit
 
 struct CapsuleView: View {
-    @Binding var selectedTab: Int  // lalala
+    @Binding var selectedTab: Int
 
     @State private var isPlaying = false
     @StateObject private var musicManager = MusicPlayerManager.shared
@@ -123,9 +123,13 @@ struct CapsuleView: View {
                             .foregroundColor(.white)
                             .font(.system(size: 25))
                             .padding(.trailing,30)
+                            
+
                         
                     }
                     .buttonStyle(.plain)  //  supprimer le contour gris
+
+                    
 
                     
                     
