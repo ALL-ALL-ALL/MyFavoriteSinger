@@ -174,7 +174,7 @@ struct ContentView: View {
             viewModel.fetchTopTracks()
             spotifyViewModel.fetchTopArtists()
             
-            Timer.scheduledTimer(withTimeInterval: 1200, repeats: true) { _ in
+            Timer.scheduledTimer(withTimeInterval: 900, repeats: true) { _ in
                 changeArtist()
             }
             
