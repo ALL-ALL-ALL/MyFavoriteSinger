@@ -42,17 +42,36 @@ class MusicPlayerManager: ObservableObject {
         }
     }
     
+    
+    
     func playSong(_ song: MPMediaItem) {
         if currentSong != song {
             currentSong = song
             musicPlayer.stop()
-            musicPlayer.setQueue(with: MPMediaItemCollection(items: [song]))
+            
+            // Charger toute la bibliothèque dans la file d'attente
+            let query = MPMediaQuery.songs()
+            if let allSongs = query.items {
+                musicPlayer.setQueue(with: MPMediaItemCollection(items: allSongs))
+                
+                // Définir la chanson actuelle comme point de départ
+                if let index = allSongs.firstIndex(of: song) {
+                    musicPlayer.nowPlayingItem = allSongs[index]
+                }
+            }
+
             musicPlayer.play()
             isPlaying = true
         } else {
             togglePlayPause()
         }
     }
+
+    
+    
+    
+    
+    
     
     func pauseSong() {
         musicPlayer.pause()
