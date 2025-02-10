@@ -10,7 +10,6 @@ import AVKit
 
 struct CapsuleView: View {
     @Binding var selectedTab: Int
-
     @State private var isPlaying = false
     @StateObject private var musicManager = MusicPlayerManager.shared
     @StateObject private var audioManager = AudioManager.shared
@@ -110,24 +109,22 @@ struct CapsuleView: View {
                     Spacer()
                     
                     
-                    Button {
-                        isPlaying.toggle()
-                        if audioManager.isPlaying {
-                            audioManager.stopRadio()
-                        } else if webRadio.liveStream != nil {
-                            audioManager.playRadio(webRadio)
+                    if selectedTab != 2 && (musicManager.currentSong != nil)  == false {
+                        Button {
+                            isPlaying.toggle()
+                            if audioManager.isPlaying {
+                                audioManager.stopRadio()
+                            } else if webRadio.liveStream != nil {
+                                audioManager.playRadio(webRadio)
+                            }
+                        } label: {
+                            Image(systemName: isPlaying ? "stop.fill" : "play.fill")
+                                .foregroundColor(.white)
+                                .font(.system(size: 25))
+                                .padding(.trailing, 30)
                         }
-                        
-                    } label: {
-                        Image(systemName: isPlaying ? "stop.fill" : "play.fill")
-                            .foregroundColor(.white)
-                            .font(.system(size: 25))
-                            .padding(.trailing,30)
-                            
-
-                        
+                        .buttonStyle(.plain) // Supprime le contour gris
                     }
-                    .buttonStyle(.plain)  //  supprimer le contour gris
 
                     
 
