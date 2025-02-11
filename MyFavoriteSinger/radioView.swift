@@ -40,7 +40,7 @@ class AudioManager: ObservableObject {
     @Published var currentRadio: WebRadio?
     @Published var isPlaying = false
     @Published var currentVolume: Float = 0.5  // Ajout du volume actuel
-
+    
     static var player: AVPlayer?
     
     func playRadio(_ radio: WebRadio) {
@@ -61,10 +61,10 @@ class AudioManager: ObservableObject {
     }
     
     // fonction pour gérer le volume
-       func updateVolume(_ value: Float) {
-           currentVolume = value
-           Self.player?.volume = value
-       }
+    func updateVolume(_ value: Float) {
+        currentVolume = value
+        Self.player?.volume = value
+    }
     
 } // fin class audio manager
 
@@ -82,7 +82,7 @@ struct radioView: View {
                 
                 
                 VStack {
-
+                    
                     if isLoading {
                         ProgressView("Chargement des webradios...")
                     } else if let errorMessage = errorMessage {
@@ -102,17 +102,17 @@ struct radioView: View {
                                     Section() {
                                         ForEach(webRadios) { webRadio in
                                             WebRadioRow(webRadio: webRadio)
-
+                                            
                                         } //fin for each
                                     } // fin section
                                 }
                             } // fin for each
-
-
+                            
+                            
                         } // fin list
                         .listStyle(PlainListStyle()) // Supprime le style par défaut de la liste
-
-
+                        
+                        
                     } // fin else
                     
                 } // fin vstack
@@ -124,7 +124,7 @@ struct radioView: View {
             } // fin zstack
         } // fin navigationzstack
     } // fin body
-
+    
     
     
     func loadBrands() {
@@ -301,7 +301,7 @@ struct ModalView: View {
     @State private var volume : Double = 0.5
     @State private var stop = false
     @State private var isDragging = false
-
+    
     
     
     
@@ -446,7 +446,7 @@ struct ModalView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 25, height: 25)
-
+                        
                         
                         GeometryReader { geometry in
                             
@@ -454,41 +454,41 @@ struct ModalView: View {
                             ZStack(alignment: .leading) {
                                 
                                 
-                               // Capsule de fond (grise)
-                               Capsule()
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(height: 5)
-                               
-                               // Capsule de volume (colorée)
-                               Capsule()
-                                 .fill(Color.white)
-                                 .frame(width: min(geometry.size.width * volume, geometry.size.width), height: 5)
+                                // Capsule de fond (grise)
+                                Capsule()
+                                    .fill(Color.gray.opacity(0.3))
+                                    .frame(height: 5)
                                 
-                           }
-                           .gesture(
-                            
-                            DragGesture()
-                            
-                               .onChanged { value in
-                                   // Calculer le nouveau volume basé sur la position du drag
-                                   let newVolume = max(0, min(1, value.location.x / geometry.size.width))
-                                   self.volume = newVolume
-                                   AudioManager.shared.updateVolume(Float(newVolume)) // Utiliser la méthode de votre AudioManager
-
-                                   }// fin on Changed
-                           ) // fin gesture
-                    } // fin de geometry reader
+                                // Capsule de volume (colorée)
+                                Capsule()
+                                    .fill(Color.white)
+                                    .frame(width: min(geometry.size.width * volume, geometry.size.width), height: 5)
+                                
+                            }
+                            .gesture(
+                                
+                                DragGesture()
+                                
+                                    .onChanged { value in
+                                        // Calculer le nouveau volume basé sur la position du drag
+                                        let newVolume = max(0, min(1, value.location.x / geometry.size.width))
+                                        self.volume = newVolume
+                                        AudioManager.shared.updateVolume(Float(newVolume)) // Utiliser la méthode de votre AudioManager
+                                        
+                                    }// fin on Changed
+                            ) // fin gesture
+                        } // fin de geometry reader
                         .padding(.top,61)
-
-                       
+                        
+                        
                         
                         Image(systemName: "speaker.wave.3")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 35, height: 55)
                         
-
-
+                        
+                        
                         
                         
                         
@@ -500,25 +500,25 @@ struct ModalView: View {
                 .padding()
                 .onAppear {
                     // Récupérer le volume actuel de l'AudioManager
-                       volume = Double(AudioManager.shared.currentVolume)
-                       
-                       // S'assurer que le volume du lecteur est bien à 0.5
-                       if let player = AudioManager.player {
-                           player.volume = Float(volume)
-                       }
-                    } // fin de on appear
+                    volume = Double(AudioManager.shared.currentVolume)
                     
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
+                    // S'assurer que le volume du lecteur est bien à 0.5
+                    if let player = AudioManager.player {
+                        player.volume = Float(volume)
+                    }
+                } // fin de on appear
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 //           .navigationBarItems(trailing: Button("Fermer") {
                 //               dismiss()

@@ -80,15 +80,15 @@ struct CapsuleView: View {
                 
                 Button {
                     if musicManager.currentSong != nil {
-                            // Si une chanson de la bibliothèque est en cours de lecture, ferme la modal
-                            showModal = false
-                        } else if audioManager.isPlaying && selectedTab != 2 {
-                            // Si la radio joue et qu'on n'est pas dans l'onglet bibliothèque, ouvre la modal
-                            showModal = true
-                        } else {
-                            // Dans tous les autres cas, ferme la modal
-                            showModal = false
-                        }
+                        // Si une chanson de la bibliothèque est en cours de lecture, ferme la modal
+                        showModal = false
+                    } else if audioManager.isPlaying && selectedTab != 2 {
+                        // Si la radio joue et qu'on n'est pas dans l'onglet bibliothèque, ouvre la modal
+                        showModal = true
+                    } else {
+                        // Dans tous les autres cas, ferme la modal
+                        showModal = false
+                    }
                 } label: {
                     Rectangle()
                         .fill(Color(UIColor.secondarySystemBackground))
@@ -97,7 +97,7 @@ struct CapsuleView: View {
                     
                 }
                 .buttonStyle(.plain)  // supprimer le contour gris qui est visible sur le portable
-
+                
                 
                 .sheet(isPresented: $showModal) {
                     ModalView(webRadio: webRadio, player: Self.player)
@@ -125,9 +125,9 @@ struct CapsuleView: View {
                         }
                         .buttonStyle(.plain) // Supprime le contour gris
                     }
-
                     
-
+                    
+                    
                     
                     
                     
@@ -155,8 +155,8 @@ struct CapsuleView: View {
                 // tester le code juste en haut sans le code d'en bas text(musicManager.currentSong?.title ?? .........
                 
                 Text(musicManager.currentSong?.title ?? audioManager.currentRadio?.title ?? "Aucune sélection")
-
-
+                
+                
                     .font(.subheadline)
                     .bold()
                     .foregroundColor(.primary)  // S'adapte dynamique claire/sombre

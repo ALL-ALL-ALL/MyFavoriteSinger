@@ -9,7 +9,7 @@ import SwiftUI
 import AVKit
 
 struct ContentView: View {
-
+    
     
     @StateObject private var viewModel = TopChartsViewModel()
     @StateObject private var spotifyViewModel = SpotifyViewModel()

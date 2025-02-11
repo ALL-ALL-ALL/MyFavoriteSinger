@@ -12,7 +12,7 @@ import MediaPlayer
 struct tabView: View {
     
     @State private var selectedTab = 0  // la lalala
-
+    
     @StateObject private var audioManager = AudioManager.shared
     let webRadio: WebRadio
     
@@ -30,9 +30,9 @@ struct tabView: View {
                             Label("Accueil", systemImage: "house")
                         }
                         .tag(0)  // lalalaalal
-
+                    
                         .toolbarBackground(Color.black, for: .tabBar)
-
+                    
                     
                     radioView()
                         .tabItem {
@@ -40,9 +40,9 @@ struct tabView: View {
                             Label("Radio", systemImage: "dot.radiowaves.left.and.right")
                         }
                         .tag(1)  // alalal
-
+                    
                         .toolbarBackground(Color.black, for: .tabBar)
-
+                    
                     
                     MusicLibraryView()
                         .tabItem {
@@ -50,12 +50,12 @@ struct tabView: View {
                             Label("Bibliothèque", systemImage: "music.house")
                         }
                         .tag(2)  // lalala
-
-                        .toolbarBackground(Color.black, for: .tabBar)
-
-
                     
-
+                        .toolbarBackground(Color.black, for: .tabBar)
+                    
+                    
+                    
+                    
                     
                 } // fin tabview
                 .toolbarBackground(.black, for: .tabBar)
@@ -68,30 +68,30 @@ struct tabView: View {
                         .offset(y: -44) 
                         .allowsHitTesting(false)
                 } // fin overlay 
-
                 
                 
                 
                 
                 
                 
-
-
                 
                 
-            
+                
+                
+                
+                
                 
                 .accentColor(Color.red)
                 
-
-
-            
                 
-                    //         CapsuleView pour le lecteur
-        
-        
+                
+                
+                
+                //         CapsuleView pour le lecteur
+                
+                
                 CapsuleView(selectedTab: .constant(0), webRadio: audioManager.currentRadio ?? WebRadio(id: "", title: "", description: nil, liveStream: nil, playerUrl: nil, image: nil))
-        
+                
                     .padding(.top, 605)
                 
                 

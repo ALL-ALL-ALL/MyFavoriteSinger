@@ -16,7 +16,7 @@ class MusicPlayerManager: ObservableObject {
     @Published var selectedSongs: [MPMediaItem] = []
     @Published var currentSong: MPMediaItem?
     @Published var isPlaying: Bool = false
-
+    
     
     let musicPlayer = MPMusicPlayerController.applicationMusicPlayer
     
@@ -59,14 +59,14 @@ class MusicPlayerManager: ObservableObject {
                     musicPlayer.nowPlayingItem = allSongs[index]
                 }
             }
-
+            
             musicPlayer.play()
             isPlaying = true
         } else {
             togglePlayPause()
         }
     }
-
+    
     
     
     
