@@ -11,7 +11,7 @@ import MediaPlayer
 
 struct tabView: View {
     
-    @State private var selectedTab = 0  // la lalala
+    @State private var selectedTab = 0
     
     @StateObject private var audioManager = AudioManager.shared
     let webRadio: WebRadio
@@ -29,7 +29,7 @@ struct tabView: View {
                             
                             Label("Accueil", systemImage: "house")
                         }
-                        .tag(0)  // lalalaalal
+                        .tag(0)
                     
                         .toolbarBackground(Color.black, for: .tabBar)
                     
@@ -39,7 +39,7 @@ struct tabView: View {
                             
                             Label("Radio", systemImage: "dot.radiowaves.left.and.right")
                         }
-                        .tag(1)  // alalal
+                        .tag(1)
                     
                         .toolbarBackground(Color.black, for: .tabBar)
                     
@@ -49,7 +49,7 @@ struct tabView: View {
                             
                             Label("Bibliothèque", systemImage: "music.house")
                         }
-                        .tag(2)  // lalala
+                        .tag(2) 
                     
                         .toolbarBackground(Color.black, for: .tabBar)
                     
