@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3B9D8B2B2C3A2EF90035BAE9"
-               BuildableName = "MyFavoriteSinger.app"
-               BlueprintName = "MyFavoriteSinger"
+               BuildableName = "RadioLink .app"
+               BlueprintName = "RadioLink "
                ReferencedContainer = "container:MyFavoriteSinger.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,8 +45,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B9D8B2B2C3A2EF90035BAE9"
-            BuildableName = "MyFavoriteSinger.app"
-            BlueprintName = "MyFavoriteSinger"
+            BuildableName = "RadioLink .app"
+            BlueprintName = "RadioLink "
             ReferencedContainer = "container:MyFavoriteSinger.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -62,8 +62,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B9D8B2B2C3A2EF90035BAE9"
-            BuildableName = "MyFavoriteSinger.app"
-            BlueprintName = "MyFavoriteSinger"
+            BuildableName = "RadioLink .app"
+            BlueprintName = "RadioLink "
             ReferencedContainer = "container:MyFavoriteSinger.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
